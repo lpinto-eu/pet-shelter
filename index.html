@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--================================================
+
+Hey stranger! I'm guessing that you're here to check up on my HTML and CSS markup. Let me assure you, I am just as meticulous about writing clean, semantic code as I am about my design work. I work tirelessly to ensure that my markup validates according to W3C standards and that my websites perform beautifully across all modern browsers. Go on, see for yourself!
+
+================================================-->
+
+<head>
+        <title>pravi</title>
+
+        <meta charset="utf-8">
+        <meta name="author" content="Luis Pinto">
+        <meta name="keywords" content="Associação de animais">
+        <meta name="description" content="Um sistema de gestão para associações animais.">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="favicon.png">
+
+
+
+        <!--
+            STYLESHEETS
+        -->
+        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Vast+Shadow' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="css/reset.css"> <!-- Bootstrap -->
+        <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Bootstrap -->
+        <link rel="stylesheet" href="css/style.css"> <!-- Custom style -->
+    </head>
+
+    <body>
+
+        <!-- =========================================================================================== Application -->
+        <script type="text/x-handlebars">
+            {{partial "header"}}
+
+            <div style="margin-top: 50px;">
+                {{outlet}}
+            </div>
+
+            {{partial "footer"}}
+        </script>
+
+        <!-- ================================================================================================ Header -->
+        <script type="text/x-handlebars" data-template-name='_header'>
+            <header id="header" class="navbar navbar-default navbar-fixed-top">
+                <nav class="container">
+                    <header class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img class="img" src="img/logo.png" style="height: 50px;"></a>
+                    </header>
+                    <nav class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>{{#linkTo 'index' activeClass="active"}}Home{{/linkTo}}</li>
+                            <li>{{#linkTo 'animals' activeClass="active"}}All{{/linkTo}}</li>
+                        </ul>
+                    </nav>
+                </nav>
+            </header>
+        </script>
+
+
+        <!-- ================================================================================================= Index -->
+        <script type = "text/x-handlebars" data-template-name="index">
+            <section id="home" class="container">
+                <img class="img" src="img/home.jpg">
+            </section>
+        </script>
+
+
+        <!-- =============================================================================================== Animals -->
+        <script type="text/x-handlebars" data-template-name="animals">
+            <section id="animals" class="container">
+                <h1>All Animals</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><a {{action pushSort 'name'}}>Name</a></th>
+                            <th><a {{action pushSort 'age'}}>Age</a></th>
+                        </tr>
+                    </thead>
+                    {{#each controller}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{age}}</td>
+                    </tr>
+                    {{else}}
+                        <tr>
+                        <td>You have no animals.</td>
+                    </tr>
+                    {{/each}}
+                </table>
+
+                {{#linkTo "animals.new"}}Add new animal{{/linkTo}}
+
+                {{outlet}}
+            </section>
+        </script>
+
+        <!-- new =================================================================================================== -->
+        <script type = "text/x-handlebars" data-template-name="animals/new">
+        <h3>Add new Animal</h3>
+
+        <form {{action "save" on="submit"}}>
+            <p>
+                {{view Ember.TextField valueBinding="name" placeholder="Fill in a name"}}
+            </p>
+            <p>
+                {{view Ember.TextField valueBinding="age" placeholder="ex: 12"}}
+            </p>
+            <p>
+                <button>Create Animal</button>
+            </p >
+        </form>
+    </script>
+
+        <!-- ================================================================================================ Footer -->
+        <script type = "text/x-handlebars" data-template-name="_footer">
+            <footer id="footer">
+                <div class="container">
+                    <a href="#" class="pull-right"><i class="glyphicon glyphicon-circle-arrow-up"></i></a>
+                    <p>&copy; 2013 Luís Pinto. <!-- &middot;
+                    <a href="#">Privacy</a>&middot;
+                    <a href="#">Terms</a>
+                    -->
+                    </p>
+                </div>
+            </footer>
+        </script>
+
+        <!-- =============================================================================================== Scripts -->
+        <script src="js/libs/jquery.min.js"></script>
+        <!-- ember -->
+        <script src="js/libs/handlebars.js"></script>
+        <script src="js/libs/ember.js"></script>
+        <script src="js/libs/ember-data.js"></script>
+        <script src="js/libs/localstorage_adapter.js"></script>
+        <!-- bootstrap -->
+        <script src="js/libs/bootstrap.min.js"></script>
+
+
+        <script src="js/app/app.js"></script>
+        <script src="js/app/router.js"></script>
+
+        <script src="js/app/controllers/animals.js"></script>
+        <script src="js/app/controllers/animals_new.js"></script>
+
+        <script src="js/app/models/store.js"></script>
+        <script src="js/app/models/animal.js"></script>
+    </body>
+
+
+</html>
