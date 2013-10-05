@@ -1,20 +1,62 @@
 body {
     /* Safari 4-5, Chrome 1-9 */
-  background: -webkit-gradient(linear, left top, right top, from(#9AC471), color-stop(0.10, #FFFFFF), color-stop(1, #FFFFFF ), color-stop(0.90, #FFFFFF), to(#9AC471));
+  /*background: -webkit-gradient(linear, left top, right top, from(#9AC471), color-stop(0.10, #FFFFFF), color-stop(1, #FFFFFF ), color-stop(0.90, #FFFFFF), to(#9AC471));
 
   /* Safari 5.1+, Chrome 10+ */
-  background: -webkit-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  /*background: -webkit-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 
   /* Firefox 3.6+ */
-  background: -moz-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  /*background: -moz-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 
   /* IE 10 */
-  background: -ms-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  /*background: -ms-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 
   /* Opera 11.10+ */
-  background: -o-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  /* ackground: -o-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);*/
 }
 
+.navbar-brand {
+    padding: 0;
+}
+
+
+#main {
+    margin-top: 50px;
+}
+
+#home {
+    text-align: center;
+}
+
+table {
+    margin: 30px;
+}
+
+td {
+    min-width: 100px;
+    padding: 10px 20px 0 0;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+}
+
+
+/***********************************************************************************************************************
+ *
+ * COLOURS
+ *
+ **********************************************************************************************************************/
+/*
 .navbar-brand {
     padding: 0;
 }
@@ -41,6 +83,7 @@ thead a {
 
 td {
     min-width: 100px;
+    padding: 10px 20px 0 0;
 }
 
 #footer {
@@ -61,3 +104,4 @@ td {
     font-size: 32px;
     color: #9AC471;
 }
+*/

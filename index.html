@@ -28,6 +28,7 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
 
         <link rel="stylesheet" href="css/reset.css"> <!-- Bootstrap -->
         <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Bootstrap -->
+        <link rel="stylesheet" href="css/theme.css"> <!-- Bootstrap -->
         <link rel="stylesheet" href="css/style.css"> <!-- Custom style -->
     </head>
 
@@ -69,7 +70,7 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
 
         <!-- ================================================================================================= Index -->
         <script type = "text/x-handlebars" data-template-name="index">
-            <section id="home">
+            <section id="home" class="row">
                 <img class="img" src="img/home.jpg">
             </section>
         </script>
@@ -77,30 +78,53 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
 
         <!-- =============================================================================================== Animals -->
         <script type="text/x-handlebars" data-template-name="animals">
-            <section id="animals">
-                <h1>All Animals</h1>
-                <table>
-                    <thead>
+            <section id="animals" class="row">
+                <div class="col-lg-7">
+                    <h1>All Animals</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><a {{action pushSort 'name'}}>Name</a></th>
+                                <th><a {{action pushSort 'age'}}>Age</a></th>
+                            </tr>
+                        </thead>
+                        {{#each controller}}
                         <tr>
-                            <th><a {{action pushSort 'name'}}>Name</a></th>
-                            <th><a {{action pushSort 'age'}}>Age</a></th>
+                            <td>{{#linkTo "animal" this}}{{name}}{{/linkTo}}</td>
+                            <td>{{age}}</td>
                         </tr>
-                    </thead>
-                    {{#each controller}}
-                    <tr>
-                        <td>{{name}}</td>
-                        <td>{{age}}</td>
-                    </tr>
-                    {{else}}
-                        <tr>
-                        <td>You have no animals.</td>
-                    </tr>
-                    {{/each}}
-                </table>
+                        {{else}}
+                            <tr>
+                            <td>You have no animals.</td>
+                        </tr>
+                        {{/each}}
+                    </table>
 
-                {{#linkTo "animals.new"}}Add new animal{{/linkTo}}
+                    <hr/>
+                    {{#linkTo "animals.new"}}Add new animal{{/linkTo}}
+                </div>
 
-                {{outlet}}
+                <div class="col-lg-5">
+                    {{outlet}}
+                </div>
+            </section>
+        </script>
+
+        <!-- ================================================================================================ Animal -->
+        <script type="text/x-handlebars" data-template-name="animal">
+            <section id="animal">
+                <h1>{{name}}</h1>
+
+                {{#if isEditing}}
+                    <p>{{view Ember.TextField valueBinding='name'}}</p>
+                    <p>{{view Ember.TextField valueBinding='age'}}</p>
+                    <button {{action 'doneEditing'}}>Done</button>
+
+                {{else}}
+                    <p><label {{bindAttr for="name"}}> {{name}}</label></p>
+                    <p><label {{bindAttr for="name"}}> {{age}}</label></p>
+                    <button {{action 'edit'}}>Edit</button>
+                {{/if}}
             </section>
         </script>
 
@@ -145,15 +169,21 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
         <!-- bootstrap -->
         <script src="js/libs/bootstrap.min.js"></script>
 
-
+        <!-- App -->
         <script src="js/app/app.js"></script>
         <script src="js/app/router.js"></script>
 
-        <script src="js/app/controllers/animals.js"></script>
-        <script src="js/app/controllers/animals_new.js"></script>
-
+        <!-- Models -->
         <script src="js/app/models/store.js"></script>
         <script src="js/app/models/animal.js"></script>
+
+        <!-- Controllers -->
+        <script src="js/app/controllers/animals.js"></script>
+        <script src="js/app/controllers/animals_new.js"></script>
+        <script src="js/app/controllers/animal.js"></script>
+
+        <!-- Routers -->
+        <script src="js/app/routers/animals.js"></script>
     </body>
 
 
