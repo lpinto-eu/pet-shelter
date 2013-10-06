@@ -1,107 +1,101 @@
 body {
     /* Safari 4-5, Chrome 1-9 */
-  /*background: -webkit-gradient(linear, left top, right top, from(#9AC471), color-stop(0.10, #FFFFFF), color-stop(1, #FFFFFF ), color-stop(0.90, #FFFFFF), to(#9AC471));
+  background: -webkit-gradient(linear, left top, right top, from(#9AC471), color-stop(0.10, #FFFFFF), color-stop(1, #FFFFFF ), color-stop(0.90, #FFFFFF), to(#9AC471));
 
   /* Safari 5.1+, Chrome 10+ */
-  /*background: -webkit-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  background: -webkit-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 
   /* Firefox 3.6+ */
-  /*background: -moz-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  background: -moz-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 
   /* IE 10 */
-  /*background: -ms-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
+  background: -ms-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 
   /* Opera 11.10+ */
-  /* ackground: -o-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);*/
+  background: -o-linear-gradient(left, #9AC471, #FFFFFF 10%, #FFFFFF, #FFFFFF 90%, #9AC471);
 }
 
 .navbar-brand {
     padding: 0;
 }
 
-
 #main {
     margin-top: 50px;
 }
 
 #home {
+    padding-top: 30px;
     text-align: center;
 }
 
-table {
+#animals-table {
     margin: 30px;
 }
 
-td {
+#animals-table th {
+    padding: 7px 30px 8px 10px;
+}
+
+#animals-table td {
     min-width: 100px;
-    padding: 10px 20px 0 0;
+    max-width: 300px;
+    padding: 7px 30px 2px 10px;
 }
 
 #footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 60px;
 }
 
 #footer > .container {
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
+#footer i {
+    margin: 0;
+    padding: 5px;
+}
 
 /***********************************************************************************************************************
  *
  * COLOURS
  *
  **********************************************************************************************************************/
-/*
-.navbar-brand {
-    padding: 0;
-}
 
 h1 {
     color: #9AC471;
 }
 
-#main {
-    margin-top: 50px;
-}
-
-#home {
-    text-align: center;
-}
-
-table {
-    margin: 30px;
+thead {
+    background-color: #9AC471;
 }
 
 thead a {
-    color: #8AB461;
+    color: #FFF;
 }
 
-td {
-    min-width: 100px;
-    padding: 10px 20px 0 0;
+#animals-table tbody tr:nth-child(even) {
+  background-color: #EEE;
+}
+
+#animals-table tbody tr:last-of-type {
+        border-bottom: 5px solid #9AC471;
+}
+
+.editing {
+    background-color: #9AC471;
 }
 
 #footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
     background-color: #f5f5f5;
-}
-
-#footer > .container {
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 10px;
+    background-color: #C6F3B6;
+    color: #888;
 }
 
 #footer i {
-    font-size: 32px;
+    font-size: 22px;
     color: #9AC471;
+    color: #4d4d4d;
 }
-*/
