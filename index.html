@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!--================================================
+    <!--================================================
 
-Hey stranger! I'm guessing that you're here to check up on my HTML and CSS markup. Let me assure you, I am just as meticulous about writing clean, semantic code as I am about my design work. I work tirelessly to ensure that my markup validates according to W3C standards and that my websites perform beautifully across all modern browsers. Go on, see for yourself!
+    Hey stranger! I'm guessing that you're here to check up on my HTML and CSS markup. Let me assure you, I am just as meticulous about writing clean, semantic code as I am about my design work. I work tirelessly to ensure that my markup validates according to W3C standards and that my websites perform beautifully across all modern browsers. Go on, see for yourself!
 
-================================================-->
+    ================================================-->
 
-<head>
-        <title>pravi</title>
+    <head>
+        <title>Animal Shelter</title>
 
         <meta charset="utf-8">
         <meta name="author" content="Luis Pinto">
@@ -26,11 +26,9 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
         <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Vast+Shadow' rel='stylesheet' type='text/css'>
 
-        <link rel="stylesheet" href="css/reset.css"> <!-- Bootstrap -->
-        <link rel="stylesheet" href="css/bootstrap.min.css"> <!-- Bootstrap -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/theme.css"> <!-- Custom style -->
-        <link rel="stylesheet" href="css/style.css"> <!-- Custom style -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
@@ -48,28 +46,27 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
 
         <!-- ================================================================================================ Header -->
         <script type="text/x-handlebars" data-template-name='_header'>
-        <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"><img class="img" src="img/logo.png" style="height: 50px;"></a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex8-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li>{{#linkTo 'index' activeClass="active"}}Home{{/linkTo}}</li>
-            <li>{{#linkTo 'animals' activeClass="active"}}Animals{{/linkTo}}</li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-    </div>
-  </nav>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Animal Shelter</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex8-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>{{#linkTo 'index' activeClass="active"}}Home{{/linkTo}}</li>
+                            <li>{{#linkTo 'animals' activeClass="active"}}Animals{{/linkTo}}</li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </nav>
         </script>
 
 
@@ -86,48 +83,89 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
         <!-- =============================================================================================== Animals -->
         <script type="text/x-handlebars" data-template-name="animals">
             <section id="animals" class="row">
-                <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">All Animals</h1>
-                        </div>
-                        <div class="panel-body">
-                            <table id="animals-table" class="table table-striped table-bordered table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th><a {{action pushSort 'name'}}><i class="icon-sort-by-alphabet"></i></a>&nbsp;Name</th>
-                                        <th><a {{action pushSort 'age'}}><i class="icon-sort-by-order"></i></a>&nbsp;Age</th>
-                                        <th><a {{action pushSort 'species'}}><i class="icon-sort-by-alphabet"></i></a>&nbsp;Species</th>
-                                        <th><a {{action pushSort 'breed'}}><i class="icon-sort-by-alphabet"></i></a>&nbsp;Breed</th>
-                                        <th><a {{action pushSort 'drugs'}}><i class="icon-sort-by-alphabet"></i></a>&nbsp;Drugs</th>
-                                        <th><a {{action pushSort 'cTime'}}><i class="icon-sort-by-attributes-alt"></i></a>&nbsp;Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each controller}}
-                                    <tr class="{{table-row}}" id="{{id}}">
-                                        <td>{{#linkTo "animal" this}}{{name}}{{/linkTo}}</td>
-                                        <td>{{age}}</td>
-                                        <td>{{species}}</td>
-                                        <td>{{breed}}</td>
-                                        <td>{{drugs}}</td>
-                                        <td id="date">{{date cTime}}</td>
-                                    </tr>
-                                    {{else}}
-                                        <tr>
-                                        <td>You have no animals.</td>
-                                    </tr>
-                                    {{/each}}
-                                <tbody>
-                            </table>
+                <div class="col-xs-11">
+                    <h1>All Animals</h1>
+                </div>
+                <div class="col-xs-1 icon-wrapper">
+                    {{#linkTo "animals.new"}}<i class="fa fa-plus-square"></i>{{/linkTo}}
+                </div>
 
-                            <hr/>
-                            {{#linkTo "animals.new"}}Add new animal{{/linkTo}}
-                        </div>
+                <div class="row">
+                    <div class="table-responsive">
+                    <!--  table-striped -->
+                    <table id="animals-table" class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a {{action pushSort 'name'}}>
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </a>
+                                    &nbsp;Name
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'age'}}>
+                                        <i class="fa fa-sort-numeric-asc"></i>
+                                    </a>
+                                    &nbsp;Age
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'species'}}>
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </a>
+                                    &nbsp;Species
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'breed'}}>
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </a>
+                                    &nbsp;Breed
+                                </th>
+                                <th colspan="2">
+                                    <a {{action pushSort 'cTime'}}>
+                                        <i class="fa fa-sort-amount-asc"></i>
+                                    </a>
+                                    &nbsp;Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each}}
+                                <tr {{bindAttr class="drugs:warning"}}>
+                                    <td class="animal-link">{{#linkTo "animal" this}}{{name}}{{/linkTo}}</td>
+                                    <td>{{age}}</td>
+                                    <td>{{species}}</td>
+                                    <td>{{breed}}</td>
+                                    <td>
+                                        {{#if isMale}}
+                                            <i class="fa fa-male alert-success"></i>
+                                        {{/if}}{{#if isFemale}}
+                                            <i class="fa fa-female alert-danger"></i>
+                                        {{/if}}
+                                        {{#if drugs}}
+
+                                            <abbr {{bindAttr title="drugs"}}>
+                                                <i class="fa fa-medkit"></i>
+                                            </abbr>
+                                        {{/if}}
+                                    </td>
+                                    <td class="timestamp text-right">
+                                        <abbr {{bindAttr title="recordDate"}}>
+                                                <i class="fa fa-clock-o">{{date cTime}}</i>
+                                            </div>
+                                        </abbr>
+                                    </td>
+                                </tr>
+                            {{else}}
+                                <tr>
+                                    <td>You have no animals.</td>
+                                </tr>
+                            {{/each}}
+                        <tbody>
+                    </table>
                     </div>
                 </div>
 
-                <div class="col-lg-4">
+                <div>
                     {{outlet}}
                 </div>
             </section>
@@ -136,106 +174,106 @@ Hey stranger! I'm guessing that you're here to check up on my HTML and CSS marku
         <!-- ================================================================================================ Animal -->
         <script type="text/x-handlebars" data-template-name="animal">
             <section id="animal" {{bindAttr class="isEditing:editing well"}}>
+                <h2>
+                    {{name}}&nbsp;
+                    <span class="badge">
+                        <abbr {{bindAttr title="recordDate"}}>
+                            {{date cTime}} <i class="fa fa-clock-o"></i>
+                        </abbr>
+                    </span>
+                </h2>
 
-                <article class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">{{name}}&nbsp;<span class="badge">{{date cTime}}</span></h2>
-                    </div>
-                    <div class="panel-body">
-
-                        {{#if isEditing}}
+                <article>
+                    {{#if isEditing}}
+                        <!-- UPDATE -->
                         <form class="form-horizontal">
                             <fieldset>
-                                <legend>
-                                    Edit
-                                </legend>
+                                <!-- <legend>Edit</legend> -->
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    {{view Ember.TextField valueBinding='name' class="form-control"}}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Name</span>
+                                        {{view Ember.TextField valueBinding='name' class="form-control"}}
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Age</label>
-                                    {{view Ember.TextField valueBinding='age' class="form-control"}}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Age</span>
+                                        {{view Ember.TextField valueBinding='age' class="form-control"}}
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Species</label>
-                                    {{view Ember.TextField valueBinding='species' class="form-control"}}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Species</span>
+                                        {{view Ember.TextField valueBinding='species' class="form-control"}}
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Breed</label>
-                                    {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Breed</span>
+                                        {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Drugs</label>
-                                    {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Drugs</span>
+                                        {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                    </div>
                                 </div>
                             </fieldset>
+                            <div class="text-right">
+                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Done</button>
+                                &nbsp;<a {{action toggleProperty "isEditing"}} style="cursor:pointer;">cancel</a>
+                            </div>
                         </form>
 
-                            <button class="btn btn-primary" {{action toggleProperty "isEditing"}}>Done</button>
+                    {{else}}
+                        <!-- DETAILS -->
+                        <dl class="dl-horizontal">
+                            <dt>Age:</dt>
+                            <dd>{{age}}</dd>
+
+                            <dt>Species:</dt>
+                            <dd>{{species}}</dd>
+
+                            <dt>Breed:</dt>
+                            <dd>{{breed}}</dd>
+
+                            <dt>Drugs:</dt>
+                            <dd>{{drugs}}</dd>
+                        </dl>
+                        <hr/>
+                        <div class="text-right">
+                            <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
                             &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
-
-                        {{else}}
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Age:</td>
-                                        <td>{{age}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Species:</td>
-                                        <td>{{species}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Breed:</td>
-                                        <td>{{breed}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Drugs:</td>
-                                        <td>{{drugs}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <button class="btn btn-primary" {{action toggleProperty "isEditing"}}>Edit</button>
-                        {{/if}}
-                    </div>
+                        </div>
+                    {{/if}}
                 </article>
             </section>
         </script>
 
         <!-- new =================================================================================================== -->
         <script type = "text/x-handlebars" data-template-name="animals/new">
-        <h3>Add new Animal</h3>
+            <h3>Add new Animal</h3>
 
-        <form {{action "save" on="submit"}}>
-            <p>
-                {{view Ember.TextField valueBinding="name" placeholder="Fill in a name"}}
-            </p>
-            <p>
-                {{view Ember.TextField valueBinding="age" placeholder="ex: 12"}}
-            </p>
-            <p>
-                <button>Create Animal</button>
-            </p >
-        </form>
-    </script>
+            <form {{action "save" on="submit"}}>
+                <p>
+                    {{view Ember.TextField valueBinding="name" placeholder="Fill in a name"}}
+                </p>
+                <p>
+                    {{view Ember.TextField valueBinding="age" placeholder="ex: 12"}}
+                </p>
+                <p>
+                    <button class="btn btn-success">Create Animal</button>
+                </p >
+            </form>
+        </script>
 
         <!-- ================================================================================================ Footer -->
         <script type = "text/x-handlebars" data-template-name="_footer">
             <footer id="footer" class="panel-default">
-                <div class="panel-heading">
-                    <div class="container">
-                        <a href="#header" class="pull-right"><i class=" icon-chevron-sign-up"></i></a>
-                        <p>&copy; 2013 Luís Pinto. <!-- &middot;
-                        <a href="#">Privacy</a>&middot;
-                        <a href="#">Terms</a>
-                        -->
-                        </p>
-                    </div>
-                </div>
+                &copy; 2013 Luís Pinto.
             </footer>
         </script>
 

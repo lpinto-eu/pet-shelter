@@ -1,55 +1,78 @@
-.navbar-brand {
-    padding: 0;
-}
-
-#wrap {
-    padding-bottom: 80px;
-}
-
-#main {
-    margin-top: 50px;
-}
-
-#home {
-    padding-top: 30px;
-    text-align: center;
-}
-
-#home img {
-    width: 100%;
-}
-
-#animals {
-    padding: 20px;
-}
-
-#animals-table th a {
-    color: inherit;
-}
-
-#animals-table td a {
-    /*color: #2c3e50;*/
-}
-
-#animals-table td, th {
-    max-width: 200px;
-    padding: 7px 20px 2px 5px;
-}
-
-#animals-table #date {
-    min-width: 130px;
-}
-
 /*
 #animals-table tbody tr:nth-child(even) {
   background-color: #EEE;
 }
 */
 
-#animal {
-    padding: 20px;
+body {
+    font-size: 14px;
 }
 
+table th {
+    line-height: 20px;
+    background: #EEE;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.input-group-addon {
+    min-width: 80px;
+}
+
+/* NAV
+*******************************************************************************/
+.navbar-default {
+    background: #0099AB;
+    box-shadow: 0 5px 3px -6px #4C4C4C;
+
+}
+
+.navbar li {
+    border-right: 1px solid #0A8E9E;
+    border-left: 1px solid #2CA8B7;
+}
+
+.navbar-default .navbar-nav li a,
+.navbar-default .navbar-brand {
+    color: #FFF;
+}
+
+
+.icon-wrapper {
+    padding-top: 25px;
+    font-size: 20px;
+}
+
+/* ANIMALS
+*******************************************************************************/
+.animal-link a {
+    line-height: 22px;
+    color: #000;
+    font-weight: bold;
+}
+
+.animal-link a:hover::after {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    content: "\f044";
+    margin: 0;
+    margin-left: 7px;
+}
+
+.timestamp {
+    font-size: 11px;
+    font-weight: normal;
+    line-height: normal;
+    text-align: right;
+}
+
+
+/* FOOTER
+*******************************************************************************/
 #footer {
     position: fixed;
     bottom: 0;

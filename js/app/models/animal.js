@@ -5,6 +5,20 @@ App.Animal = DS.Model.extend({
     breed: DS.attr('string'),
     drugs: DS.attr('string'),
     cTime: DS.attr('date'),
+    sex: DS.attr('string'),
+
+    recordDate: function () {
+        return moment(this.get("cTime")).format('MMMM Do YYYY, h:mm:ss a');
+    }.property("content.cTime"),
+
+    isMale: function () {
+        return this.get('sex') === 'M';
+    }.property('content.sex'),
+
+    isFemale: function () {
+        return this.get('sex') === 'F';
+    }.property('content.sex')
+
 });
 
 App.Animal.FIXTURES = [
@@ -15,7 +29,8 @@ App.Animal.FIXTURES = [
         species: "Cat",
         breed: "N.A.",
         drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('12-24-2012')
+        cTime: new Date('12-24-2012'),
+        sex: 'M'
     },
     {
         id: 2,
@@ -23,8 +38,8 @@ App.Animal.FIXTURES = [
         age: 2,
         species: "Cat",
         breed: "N.A.",
-        drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('12-24-2012')
+        cTime: new Date('12-24-2012'),
+        sex: 'M'
     },
     {
         id: 3,
@@ -32,8 +47,8 @@ App.Animal.FIXTURES = [
         age: 10,
         species: "Dog",
         breed: "N.A.",
-        drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('09-20-2013')
+        cTime: new Date('09-20-2013'),
+        sex: 'F'
     },
     {
         id: 4,
@@ -41,8 +56,8 @@ App.Animal.FIXTURES = [
         age: 20,
         species: "Dog",
         breed: "N.A.",
-        drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('09-20-2013')
+        cTime: new Date('09-20-2013'),
+        sex: 'M'
     },
     {
         id: 5,
@@ -50,8 +65,8 @@ App.Animal.FIXTURES = [
         age: 2,
         species: "Dog",
         breed: "N.A.",
-        drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('09-20-2013')
+        cTime: new Date('09-20-2013'),
+        sex: 'F'
     },
     {
         id: 6,
@@ -60,7 +75,8 @@ App.Animal.FIXTURES = [
         species: "Dog",
         breed: "N.A.",
         drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('09-20-2013')
+        cTime: new Date('09-20-2013'),
+        sex: 'M'
     },
     {
         id: 7,
@@ -69,7 +85,8 @@ App.Animal.FIXTURES = [
         species: "Dog",
         breed: "N.A.",
         drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('09-20-2013')
+        cTime: new Date('09-20-2013'),
+        sex: 'F'
     },
     {
         id: 8,
@@ -78,6 +95,7 @@ App.Animal.FIXTURES = [
         species: "Dog",
         breed: "N.A.",
         drugs: "Medicamento 1 x2/dia",
-        cTime: new Date('09-20-2013')
+        cTime: new Date('09-20-2013'),
+        sex: 'F'
     }
 ];
