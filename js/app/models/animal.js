@@ -6,18 +6,11 @@ App.Animal = DS.Model.extend({
     drugs: DS.attr('string'),
     cTime: DS.attr('date'),
     sex: DS.attr('string'),
+    sterilized: DS.attr('boolean'),
 
     recordDate: function () {
         return moment(this.get("cTime")).format('MMMM Do YYYY, h:mm:ss a');
     }.property("content.cTime"),
-
-    isMale: function () {
-        return this.get('sex') === 'M';
-    }.property('content.sex'),
-
-    isFemale: function () {
-        return this.get('sex') === 'F';
-    }.property('content.sex')
 
 });
 
@@ -30,7 +23,8 @@ App.Animal.FIXTURES = [
         breed: "N.A.",
         drugs: "Medicamento 1 x2/dia",
         cTime: new Date('12-24-2012'),
-        sex: 'M'
+        sex: 'M',
+        sterilized: true
     },
     {
         id: 2,

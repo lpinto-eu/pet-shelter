@@ -136,16 +136,16 @@
                                     <td>{{species}}</td>
                                     <td>{{breed}}</td>
                                     <td>
-                                        {{#if isMale}}
-                                            <i class="fa fa-male alert-success"></i>
-                                        {{/if}}{{#if isFemale}}
-                                            <i class="fa fa-female alert-danger"></i>
-                                        {{/if}}
+                                        {{view App.AnimalSexView
+                                            contentBinding="sex"}}
                                         {{#if drugs}}
 
-                                            <abbr {{bindAttr title="drugs"}}>
+                                            <abbr {{bindAttr title="drugs"}} class="text-warning">
                                                 <i class="fa fa-medkit"></i>
                                             </abbr>
+                                        {{/if}}
+                                        {{#if sterilized}}
+                                            <i class="fa fa-shield text-primary"></i>
                                         {{/if}}
                                     </td>
                                     <td class="timestamp text-right">
@@ -202,6 +202,101 @@
                                         {{view Ember.TextField valueBinding='age' class="form-control"}}
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Species</span>
+                                        {{view Ember.TextField valueBinding='species' class="form-control"}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Breed</span>
+                                        {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Drugs</span>
+                                        {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Sex</span>
+                                        {{view Ember.TextField valueBinding='sex' class="form-control"}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Sterilized</span>
+                                        {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="text-right">
+                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
+                                &nbsp;<a {{action toggleProperty "isEditing"}} style="cursor:pointer;">cancel</a>
+                            </div>
+                        </form>
+
+                    {{else}}
+                        <!-- DETAILS -->
+                        <dl class="dl-horizontal">
+                            <dt>Age:</dt>
+                            <dd>{{age}}</dd>
+
+                            <dt>Species:</dt>
+                            <dd>{{species}}</dd>
+
+                            <dt>Breed:</dt>
+                            <dd>{{breed}}</dd>
+
+                            <dt>Drugs:</dt>
+                            <dd>{{drugs}}</dd>
+
+                            {{#if isMale}}
+                                <dt>Sex:</dt>
+                                <dd><i class="fa fa-male text-success"></i></dd>
+                            {{/if}}
+                            {{#if isFemale}}
+                                <dt>Sex:</dt>
+                                <dd><i class="fa fa-female text-danger"></i></dd>
+                            {{/if}}
+                            {{#if sterilized}}
+                                <dt>Sterilized:</dt>
+                                <dd><i class="fa fa-shield text-primary"></i></dd>
+                            {{/if}}
+                        </dl>
+                        <hr/>
+                        <div class="text-right">
+                            <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
+                            &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
+                        </div>
+                    {{/if}}
+                </article>
+            </section>
+        </script>
+
+        <!-- new =================================================================================================== -->
+        <script type = "text/x-handlebars" data-template-name="animals/new">
+            <h3>Add new Animal</h3>
+
+            <form {{action "save" on="submit"}} class="form-horizontal">
+                            <fieldset>
+                                <!-- <legend>Edit</legend> -->
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Name</span>
+                                        {{view Ember.TextField valueBinding='name' class="form-control"}}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Age</span>
+                                        {{view Ember.TextField valueBinding='age' class="form-control"}}
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -221,60 +316,47 @@
                                         {{view Ember.TextField valueBinding='drugs' class="form-control"}}
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Sex</span>
+                                        {{view Ember.TextField valueBinding='sex' class="form-control" placeholder="'M' or 'F'"}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Sterilized</span>
+                                        {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                    </div>
+                                </div>
                             </fieldset>
+
                             <div class="text-right">
-                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Done</button>
-                                &nbsp;<a {{action toggleProperty "isEditing"}} style="cursor:pointer;">cancel</a>
+                                <button class="btn btn-success">Create</button>
+                                &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
                             </div>
                         </form>
-
-                    {{else}}
-                        <!-- DETAILS -->
-                        <dl class="dl-horizontal">
-                            <dt>Age:</dt>
-                            <dd>{{age}}</dd>
-
-                            <dt>Species:</dt>
-                            <dd>{{species}}</dd>
-
-                            <dt>Breed:</dt>
-                            <dd>{{breed}}</dd>
-
-                            <dt>Drugs:</dt>
-                            <dd>{{drugs}}</dd>
-                        </dl>
-                        <hr/>
-                        <div class="text-right">
-                            <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
-                            &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
-                        </div>
-                    {{/if}}
-                </article>
-            </section>
         </script>
 
-        <!-- new =================================================================================================== -->
-        <script type = "text/x-handlebars" data-template-name="animals/new">
-            <h3>Add new Animal</h3>
 
-            <form {{action "save" on="submit"}}>
-                <p>
-                    {{view Ember.TextField valueBinding="name" placeholder="Fill in a name"}}
-                </p>
-                <p>
-                    {{view Ember.TextField valueBinding="age" placeholder="ex: 12"}}
-                </p>
-                <p>
-                    <button class="btn btn-success">Create Animal</button>
-                </p >
-            </form>
-        </script>
 
         <!-- ================================================================================================ Footer -->
         <script type = "text/x-handlebars" data-template-name="_footer">
             <footer id="footer" class="panel-default">
-                &copy; 2013 Luís Pinto.
+                <div class="panel-heading">
+                    <div class="container">
+                        &copy; 2013 Luís Pinto.
+                    </div>
+                </div>
             </footer>
+        </script>
+
+        <script type = "text/x-handlebars" data-template-name="_footer2">
+            <div class="navbar navbar-default navbar-fixedbottom">
+                <div class="container">
+                    <p>&copy; 2013 Luís Pinto.</p>
+                    <a class="navbar-btn btn-danger btn pull-right">Subscribe</a>
+                </div>
+            </div>
         </script>
 
         <!-- =============================================================================================== Scripts -->
@@ -302,7 +384,7 @@
         <script src="js/app/controllers/animal.js"></script>
 
         <!-- Views -->
-        <script src="js/app/views/timeAgo.js"></script>
+        <script src="js/app/views/animalSex.js"></script>
 
         <!-- Routers -->
         <script src="js/app/routers/animals.js"></script>
