@@ -73,58 +73,51 @@
         <!-- ================================================================================================= Index -->
         <script type = "text/x-handlebars" data-template-name="index">
             <section id="home" class="jumbotron">
-                <article class="container">
-                    <h1>Animal Shelter</h1>
-                    <p>A open source solution for Animal Shelter managment.</p>
-                </article>
+                <h1>Animal Shelter</h1>
+                <p>A open source solution for Animal Shelter managment.</p>
             </section>
         </script>
 
         <!-- =============================================================================================== Animals -->
         <script type="text/x-handlebars" data-template-name="animals">
-            <section id="animals" class="row">
-                <div class="col-xs-11">
-                    <h1>All Animals</h1>
-                </div>
-                <div class="col-xs-1 icon-wrapper">
-                    {{#linkTo "animals.new"}}<i class="fa fa-plus-square"></i>{{/linkTo}}
-                </div>
+            <section id="animals" class="container">
+                <article class="row">
+                    <div class="col-xs-11">
+                        <h1>All Animals</h1>
+                    </div>
+                    <div class="col-xs-1 icon-wrapper">
+                        {{#linkTo "animals.new"}}<i class="fa fa-plus-square"></i>{{/linkTo}}
+                    </div>
+                </article>
 
-                <div class="row">
-                    <div class="table-responsive">
-                    <!--  table-striped -->
-                    <table id="animals-table" class="table table-bordered table-hover table-condensed">
+                <article class="row">
+                    <table id="animals-table" class="table table-bordered table-hover table-condensed"><!--  table-striped -->
                         <thead>
                             <tr>
-                                <th>
+                                <th style="width: 25%;">
                                     <a {{action pushSort 'name'}}>
                                         <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>
-                                    &nbsp;Name
+                                    </a>Name
                                 </th>
                                 <th>
                                     <a {{action pushSort 'age'}}>
                                         <i class="fa fa-sort-numeric-asc"></i>
-                                    </a>
-                                    &nbsp;Age
+                                    </a>Age
                                 </th>
                                 <th>
                                     <a {{action pushSort 'species'}}>
                                         <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>
-                                    &nbsp;Species
+                                    </a>Species
                                 </th>
                                 <th>
                                     <a {{action pushSort 'breed'}}>
                                         <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>
-                                    &nbsp;Breed
+                                    </a>Breed
                                 </th>
-                                <th colspan="2">
+                                <th>
                                     <a {{action pushSort 'cTime'}}>
                                         <i class="fa fa-sort-amount-asc"></i>
-                                    </a>
-                                    &nbsp;Description
+                                    </a>Description
                                 </th>
                             </tr>
                         </thead>
@@ -136,21 +129,17 @@
                                     <td>{{species}}</td>
                                     <td>{{breed}}</td>
                                     <td>
-                                        {{view App.AnimalSexView
-                                            contentBinding="sex"}}
+                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                         {{#if drugs}}
-
-                                            <abbr {{bindAttr title="drugs"}} class="text-warning">
+                                            <abbr {{bindAttr title="drugs"}} class="text-warning desc-item">
                                                 <i class="fa fa-medkit"></i>
                                             </abbr>
                                         {{/if}}
                                         {{#if sterilized}}
-                                            <i class="fa fa-shield text-primary"></i>
+                                            <i class="fa fa-shield text-success  desc-item"></i>
                                         {{/if}}
-                                    </td>
-                                    <td class="timestamp text-right">
-                                        <abbr {{bindAttr title="recordDate"}}>
-                                                <i class="fa fa-clock-o">{{date cTime}}</i>
+                                        <abbr class="timestamp pull-right" {{bindAttr title="recordDate"}}>
+                                            <i class="fa fa-clock-o desc-item"></i>{{date cTime}}
                                             </div>
                                         </abbr>
                                     </td>
@@ -162,12 +151,11 @@
                             {{/each}}
                         <tbody>
                     </table>
-                    </div>
-                </div>
+                </article>
 
-                <div>
+                <article>
                     {{outlet}}
-                </div>
+                </article>
             </section>
         </script>
 
@@ -254,17 +242,11 @@
                             <dt>Drugs:</dt>
                             <dd>{{drugs}}</dd>
 
-                            {{#if isMale}}
-                                <dt>Sex:</dt>
-                                <dd><i class="fa fa-male text-success"></i></dd>
-                            {{/if}}
-                            {{#if isFemale}}
-                                <dt>Sex:</dt>
-                                <dd><i class="fa fa-female text-danger"></i></dd>
-                            {{/if}}
+                            <dt>Sex:</dt>
+                            <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                             {{#if sterilized}}
                                 <dt>Sterilized:</dt>
-                                <dd><i class="fa fa-shield text-primary"></i></dd>
+                                <dd><i class="fa fa-shield text-success"></i></dd>
                             {{/if}}
                         </dl>
                         <hr/>
