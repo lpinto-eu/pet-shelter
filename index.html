@@ -33,20 +33,20 @@
 
     <body>
 
+
         <!-- =========================================================================================== Application -->
         <script type="text/x-handlebars">
-            <div id="wrap">
-                {{partial "header"}}
-                <div id="main" class="container">
-                    {{outlet}}
-                </div>
+            {{partial "header"}}
+            <div id="main" class="container">
+                {{outlet}}
             </div>
             {{partial footer}}
         </script>
 
+
         <!-- ================================================================================================ Header -->
         <script type="text/x-handlebars" data-template-name='_header'>
-            <nav class="navbar navbar-default" role="navigation">
+            <nav class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -74,48 +74,49 @@
         <script type = "text/x-handlebars" data-template-name="index">
             <section id="home" class="jumbotron">
                 <h1>Animal Shelter</h1>
-                <p>A open source solution for Animal Shelter managment.</p>
+                <p class="lead">A open source solution for Animal Shelter managment.</p>
             </section>
         </script>
+
 
         <!-- =============================================================================================== Animals -->
         <script type="text/x-handlebars" data-template-name="animals">
             <section id="animals" class="container">
                 <article class="row">
                     <div class="col-xs-11">
-                        <h1>All Animals</h1>
+                        <h1>Animals</h1>
                     </div>
                     <div class="col-xs-1 icon-wrapper">
-                        {{#linkTo "animals.new"}}<i class="fa fa-plus-square"></i>{{/linkTo}}
+                        {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
                     </div>
                 </article>
 
                 <article class="row">
-                    <table id="animals-table" class="table table-bordered table-hover table-condensed"><!--  table-striped -->
+                    <table id="animals-table" class="table table-bordered table-hover table-condensed"><!-- table-striped -->
                         <thead>
                             <tr>
                                 <th style="width: 25%;">
-                                    <a {{action pushSort 'name'}}>
+                                    <a {{action pushSort 'name'}} title="Sort by">
                                         <i class="fa fa-sort-alpha-asc"></i>
                                     </a>Name
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'age'}}>
+                                    <a {{action pushSort 'age'}} title="Sort by">
                                         <i class="fa fa-sort-numeric-asc"></i>
                                     </a>Age
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'species'}}>
+                                    <a {{action pushSort 'species'}} title="Sort by">
                                         <i class="fa fa-sort-alpha-asc"></i>
                                     </a>Species
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'breed'}}>
+                                    <a {{action pushSort 'breed'}} title="Sort by">
                                         <i class="fa fa-sort-alpha-asc"></i>
                                     </a>Breed
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'cTime'}}>
+                                    <a {{action pushSort 'cTime'}} title="Sort by">
                                         <i class="fa fa-sort-amount-asc"></i>
                                     </a>Description
                                 </th>
@@ -124,7 +125,7 @@
                         <tbody>
                             {{#each}}
                                 <tr {{bindAttr class="drugs:warning"}}>
-                                    <td class="animal-link">{{#linkTo "animal" this}}{{name}}{{/linkTo}}</td>
+                                    <td class="animal-link">{{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}</td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
                                     <td>{{breed}}</td>
@@ -158,6 +159,7 @@
                 </article>
             </section>
         </script>
+
 
         <!-- ================================================================================================ Animal -->
         <script type="text/x-handlebars" data-template-name="animal">
@@ -259,6 +261,7 @@
             </section>
         </script>
 
+
         <!-- new =================================================================================================== -->
         <script type = "text/x-handlebars" data-template-name="animals/new">
             <h3>Add new Animal</h3>
@@ -320,26 +323,15 @@
         </script>
 
 
-
         <!-- ================================================================================================ Footer -->
-        <script type = "text/x-handlebars" data-template-name="_footer">
-            <footer id="footer" class="panel-default">
-                <div class="panel-heading">
-                    <div class="container">
-                        &copy; 2013 Luís Pinto.
-                    </div>
+        <script type = "text/x-handlebars" data-template-name="_footer" >
+            <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <p class="navbar-text">&copy; 2013 Luís Pinto.</p>
                 </div>
             </footer>
         </script>
 
-        <script type = "text/x-handlebars" data-template-name="_footer2">
-            <div class="navbar navbar-default navbar-fixedbottom">
-                <div class="container">
-                    <p>&copy; 2013 Luís Pinto.</p>
-                    <a class="navbar-btn btn-danger btn pull-right">Subscribe</a>
-                </div>
-            </div>
-        </script>
 
         <!-- =============================================================================================== Scripts -->
         <script src="js/libs/jquery.min.js"></script>
@@ -371,6 +363,4 @@
         <!-- Routers -->
         <script src="js/app/routers/animals.js"></script>
     </body>
-
-
 </html>

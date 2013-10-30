@@ -1,11 +1,13 @@
-/*
-#animals-table tbody tr:nth-child(even) {
-  background-color: #EEE;
-}
-*/
+/*******************************************************************************
+ * Animal Shelter
+ *
+ * custom css
+ *
+ *******************************************************************************/
 
 body {
     font-size: 14px;
+    margin-bottom: 70px;
 }
 
 table th {
@@ -21,10 +23,13 @@ table th {
 
 /* NAV
 *******************************************************************************/
-.navbar-default {
-    background: #0099AB;
-    box-shadow: 0 5px 3px -6px #4C4C4C;
+.navbar {
+    border-color: #0099AB;
+    border-radius: 0;
+}
 
+.navbar-inverse {
+    background: #0099AB;
 }
 
 .navbar li {
@@ -32,8 +37,8 @@ table th {
     border-left: 1px solid #2CA8B7;
 }
 
-.navbar-default .navbar-nav li a,
-.navbar-default .navbar-brand {
+.navbar-inverse .navbar-nav li a,
+.navbar-inverse .navbar-brand {
     color: #FFF;
 }
 
@@ -74,22 +79,13 @@ table th {
     margin: 0 3px;
 }
 
+.fa-female {
+    color: #F36C7B;
+}
+
 
 /* FOOTER
 *******************************************************************************/
 #footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-#footer > .container {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-#footer i {
-    margin: 0;
-    padding: 5px;
-    font-size: 30px;
+    height: 50px;
 }
