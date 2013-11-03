@@ -1,6 +1,6 @@
 App.AnimalsRoute = Ember.Route.extend({
     model: function () {
-        return App.Animal.find();
+        return this.store.find("Animal");
     }
 });
 
