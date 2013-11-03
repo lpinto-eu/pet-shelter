@@ -6,6 +6,6 @@ App.AnimalsRoute = Ember.Route.extend({
 
 App.AnimalsNewRoute = Ember.Route.extend({
     model: function() {
-        return App.Animal.createRecord();
+        return this.store.createRecord("Animal");
     }
 });
