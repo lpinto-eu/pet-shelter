@@ -91,67 +91,38 @@
                     </div>
                 </article>
 
-                <article class="row">
-                    <table id="animals-table" class="table table-bordered table-hover table-condensed"><!-- table-striped -->
-                        <thead>
-                            <tr>
-                                <th style="width: 25%;">
-                                    <a {{action pushSort 'name'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>Name
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'age'}} title="Sort by">
-                                        <i class="fa fa-sort-numeric-asc"></i>
-                                    </a>Age
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'species'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>Species
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'breed'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>Breed
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'cTime'}} title="Sort by">
-                                        <i class="fa fa-sort-amount-asc"></i>
-                                    </a>Description
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each}}
-                                <tr {{bindAttr class="drugs:warning"}}>
-                                    <td class="animal-link">{{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}</td>
-                                    <td>{{age}}</td>
-                                    <td>{{species}}</td>
-                                    <td>{{breed}}</td>
-                                    <td>
-                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                        {{#if drugs}}
-                                            <abbr {{bindAttr title="drugs"}} class="text-warning desc-item">
-                                                <i class="fa fa-medkit"></i>
-                                            </abbr>
-                                        {{/if}}
-                                        {{#if sterilized}}
-                                            <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}
-                                        <abbr class="timestamp pull-right" {{bindAttr title="recordDate"}}>
-                                            <i class="fa fa-clock-o desc-item"></i>{{date cTime}}
-                                            </div>
-                                        </abbr>
-                                    </td>
-                                </tr>
-                            {{else}}
-                                <tr>
-                                    <td>You have no animals.</td>
-                                </tr>
-                            {{/each}}
-                        <tbody>
-                    </table>
+                <article>
+                    {{#each}}
+                    <div class="animals-list-item panel panel-info">
+                        <div class="panel-heading animal-link">
+                            {{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}
+                        </div>
+                        <div class="panel-body">
+                            <img src="img/dog.png" class="animal-img"/>
+                        </div>
+
+                        <div class="panel-footer">
+                            <p>
+                                {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                {{#if drugs}}
+                                    <abbr {{bindAttr title="drugs"}} class="text-warning desc-item">
+                                        <i class="fa fa-medkit"></i>
+                                    </abbr>
+                                {{/if}}
+
+                                {{#if sterilized}}
+                                    <i class="fa fa-shield text-success  desc-item"></i>
+                                {{/if}}
+
+                                <abbr class="timestamp" {{bindAttr title="recordDate"}}>
+                                    <i class="fa fa-clock-o desc-item"></i>
+                                </abbr>
+                            </p>
+                        </div>
+                    </div>
+                    {{else}}
+                            <h2>You have no animals.</h2>
+                    {{/each}}
                 </article>
 
                 <article>
@@ -224,7 +195,7 @@
                                 </div>
                             </fieldset>
                             <div class="text-right">
-                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
+                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Save</button>
                                 &nbsp;<a {{action toggleProperty "isEditing"}} style="cursor:pointer;">cancel</a>
                             </div>
                         </form>
