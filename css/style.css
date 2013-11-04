@@ -42,6 +42,15 @@ table th {
     color: #FFF;
 }
 
+.navbar-inverse .navbar-nav>.dropdown>a .caret {
+    border-top-color: #FFF;
+    border-bottom-color: #FFF;
+}
+
+.navbar-inverse .navbar-nav .dropdown-menu li a {
+    color: #999;
+}
+
 
 .icon-wrapper {
     padding-top: 25px;

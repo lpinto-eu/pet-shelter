@@ -58,11 +58,19 @@
                         </button>
                         <a class="navbar-brand" href="#">Animal Shelter</a>
                     </div>
+
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex8-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>{{#linkTo 'index' activeClass="active"}}Home{{/linkTo}}</li>
-                            <li>{{#linkTo 'animals' activeClass="active"}}Animals{{/linkTo}}</li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Animals <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                  <li>{{#linkTo 'animals' activeClass="active"}}Faces{{/linkTo}}</li>
+                                    <li>{{#linkTo 'animalsList' activeClass="active"}}List{{/linkTo}}</li>
+                                </ul>
+                            </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
@@ -72,9 +80,91 @@
 
         <!-- ================================================================================================= Index -->
         <script type = "text/x-handlebars" data-template-name="index">
-            <section id="home" class="jumbotron">
+            <section id="home" class="jumbotron text-center">
                 <h1>Animal Shelter</h1>
-                <p class="lead">A open source solution for Animal Shelter managment.</p>
+                <p class="lead">An open source solution for Animal Shelter managment.</p>
+            </section>
+        </script>
+
+
+        <!-- =========================================================================================== AnimalsList -->
+        <script type="text/x-handlebars" data-template-name="animalsList">
+            <section id="animals" class="container">
+                <article class="row">
+                    <div class="col-xs-11">
+                        <h1>Animals</h1>
+                    </div>
+                    <div class="col-xs-1 icon-wrapper">
+                        {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
+                    </div>
+                </article>
+
+                <article class="row">
+                    <table id="animals-table" class="table table-bordered table-hover table-condensed"><!-- table-striped -->
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">
+                                    <a {{action pushSort 'name'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </a>Name
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'age'}} title="Sort by">
+                                        <i class="fa fa-sort-numeric-asc"></i>
+                                    </a>Age
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'species'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </a>Species
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'breed'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </a>Breed
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'cTime'}} title="Sort by">
+                                        <i class="fa fa-sort-amount-asc"></i>
+                                    </a>Description
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each}}
+                                <tr {{bindAttr class="drugs:warning"}}>
+                                    <td class="animal-link">{{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}</td>
+                                    <td>{{age}}</td>
+                                    <td>{{species}}</td>
+                                    <td>{{breed}}</td>
+                                    <td>
+                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                        {{#if drugs}}
+                                            <abbr {{bindAttr title="drugs"}} class="text-warning desc-item">
+                                                <i class="fa fa-medkit"></i>
+                                            </abbr>
+                                        {{/if}}
+                                        {{#if sterilized}}
+                                            <i class="fa fa-shield text-success  desc-item"></i>
+                                        {{/if}}
+                                        <abbr class="timestamp pull-right" {{bindAttr title="recordDate"}}>
+                                            <i class="fa fa-clock-o desc-item"></i>{{date cTime}}
+                                            </div>
+                                        </abbr>
+                                    </td>
+                                </tr>
+                            {{else}}
+                                <tr>
+                                    <td>You have no animals.</td>
+                                </tr>
+                            {{/each}}
+                        <tbody>
+                    </table>
+                </article>
+
+                <article>
+                    {{outlet}}
+                </article>
             </section>
         </script>
 
