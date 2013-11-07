@@ -4,9 +4,9 @@ App.AnimalSexView = Ember.View.extend({
 
     'aa': function() {
         if (this.content === "F") {
-            return "fa fa-female text-danger";
+            return "ion-female text-danger";
         } else if (this.content === "M") {
-            return "fa fa-male text-primary";
+            return "ion-male text-primary";
         }
     }.property('content')
 });
