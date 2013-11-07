@@ -133,7 +133,7 @@
                         </thead>
                         <tbody>
                             {{#each}}
-                                <tr {{bindAttr class="drugs:warning"}}>
+                                <tr {{bind-attr class="drugs:warning"}}>
                                     <td class="animal-link">{{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}</td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
@@ -141,14 +141,14 @@
                                     <td>
                                         {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                         {{#if drugs}}
-                                            <abbr {{bindAttr title="drugs"}} class="text-warning desc-item">
+                                            <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
                                                 <i class="fa fa-medkit"></i>
                                             </abbr>
                                         {{/if}}
                                         {{#if sterilized}}
                                             <i class="fa fa-shield text-success  desc-item"></i>
                                         {{/if}}
-                                        <abbr class="timestamp pull-right" {{bindAttr title="recordDate"}}>
+                                        <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
                                             <i class="fa fa-clock-o desc-item"></i>{{date cTime}}
                                             </div>
                                         </abbr>
@@ -184,7 +184,7 @@
 
                 <article>
                     {{#each}}
-                    <div class="animals-list-item panel panel-info">
+                    <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
                         <div class="panel-heading animal-link">
                             {{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}
                         </div>
@@ -196,7 +196,7 @@
                             <p>
                                 {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                 {{#if drugs}}
-                                    <abbr {{bindAttr title="drugs"}} class="text-warning desc-item">
+                                    <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
                                         <i class="fa fa-medkit"></i>
                                     </abbr>
                                 {{/if}}
@@ -205,7 +205,7 @@
                                     <i class="fa fa-shield text-success  desc-item"></i>
                                 {{/if}}
 
-                                <abbr class="timestamp" {{bindAttr title="recordDate"}}>
+                                <abbr class="timestamp" {{bind-attr title="recordDate"}}>
                                     <i class="fa fa-clock-o desc-item"></i>
                                 </abbr>
                             </p>
@@ -225,11 +225,11 @@
 
         <!-- ================================================================================================ Animal -->
         <script type="text/x-handlebars" data-template-name="animal">
-            <section id="animal" {{bindAttr class="isEditing:editing well"}}>
+            <section id="animal" {{bind-attr class="isEditing:editing well"}}>
                 <h2>
                     {{name}}&nbsp;
                     <span class="badge">
-                        <abbr {{bindAttr title="recordDate"}}>
+                        <abbr {{bind-attr title="recordDate"}}>
                             {{date cTime}} <i class="fa fa-clock-o"></i>
                         </abbr>
                     </span>
