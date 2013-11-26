@@ -174,22 +174,27 @@
         <script type="text/x-handlebars" data-template-name="animals">
             <section id="animals" class="container">
                 <article class="row">
-                    <div class="col-xs-11">
+                    <div class="col-xs-10 col-sm-11">
                         <h1>Animals</h1>
                     </div>
-                    <div class="col-xs-1 icon-wrapper">
+                    <div class="col-xs-2 col-sm-1 icon-wrapper">
                         {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
                     </div>
                 </article>
 
-                <article>
+                <article class="row">
                     {{#each}}
+                    <div class="col-xs-6 col-sm-3 col-md-2">
                     <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
                         <div class="panel-heading animal-link">
                             {{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}
                         </div>
                         <div class="panel-body">
-                            <img src="img/dog.png" class="animal-img"/>
+                            {{#if foto}}
+                                {{view App.FotoPreview class="animal-img" srcBinding="foto"}}
+                            {{else}}
+                                <img src="img/dog.png" class="animal-img"/>
+                            {{/if}}
                         </div>
 
                         <div class="panel-footer">
@@ -211,12 +216,13 @@
                             </p>
                         </div>
                     </div>
+                    </div>
                     {{else}}
                             <h2>You have no animals.</h2>
                     {{/each}}
                 </article>
 
-                <article>
+                <article class="row">
                     {{outlet}}
                 </article>
             </section>
@@ -281,7 +287,18 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Sterilized</span>
+                                        <span class="form-control">
                                         {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Foto</span>
+                                        {{#view Ember.View contentBinding="foto"  class="form-control"}}
+                                            {{view App.FotoUp}}
+                                            {{view App.FotoPreview width="200" srcBinding="foto"}}
+                                        {{/view}}
                                     </div>
                                 </div>
                             </fieldset>
