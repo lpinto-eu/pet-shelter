@@ -184,39 +184,41 @@
 
                 <article class="row">
                     {{#each}}
-                    <div class="col-xs-6 col-sm-3 col-md-2">
-                    <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
-                        <div class="panel-heading animal-link">
-                            {{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}
-                        </div>
-                        <div class="panel-body">
-                            {{#if foto}}
-                                {{view App.FotoPreview class="animal-img" srcBinding="foto"}}
-                            {{else}}
-                                <img src="img/dog.png" class="animal-img"/>
-                            {{/if}}
-                        </div>
+                        {{#linkTo "animal" this title="Details / Edit"}}
+                            <div class="col-xs-6 col-sm-3 col-md-2">
+                                <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
+                                    <div class="panel-heading">
+                                        {{name}}
+                                    </div>
+                                    <div class="panel-body">
+                                        {{#if foto}}
+                                            {{view App.FotoPreview class="animal-img" srcBinding="foto"}}
+                                        {{else}}
+                                            <img src="img/dog.png" class="animal-img"/>
+                                        {{/if}}
+                                    </div>
 
-                        <div class="panel-footer">
-                            <p>
-                                {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                {{#if drugs}}
-                                    <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                        <i class="fa fa-medkit"></i>
-                                    </abbr>
-                                {{/if}}
+                                    <div class="panel-footer">
+                                        <p>
+                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{#if drugs}}
+                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                    <i class="fa fa-medkit"></i>
+                                                </abbr>
+                                            {{/if}}
 
-                                {{#if sterilized}}
-                                    <i class="fa fa-shield text-success  desc-item"></i>
-                                {{/if}}
+                                            {{#if sterilized}}
+                                                <i class="fa fa-shield text-success  desc-item"></i>
+                                            {{/if}}
 
-                                <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                    <i class="fa fa-clock-o desc-item"></i>
-                                </abbr>
-                            </p>
-                        </div>
-                    </div>
-                    </div>
+                                            <abbr class="timestamp" {{bind-attr title="recordDate"}}>
+                                                <i class="fa fa-clock-o desc-item"></i>
+                                            </abbr>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/linkTo}}
                     {{else}}
                             <h2>You have no animals.</h2>
                     {{/each}}
