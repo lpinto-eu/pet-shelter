@@ -281,7 +281,13 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Sex</span>
-                                        {{view Ember.TextField valueBinding='sex' class="form-control"}}
+                                        {{view Ember.Select
+                                            contentBinding="App.Sex"
+                                            optionValuePath="content.id"
+                                            optionLabelPath="content.name"
+                                            valueBinding="sex"
+                                            class="form-control dropdown-toggle"
+                                        }}
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -383,7 +389,13 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Sex</span>
-                                        {{view Ember.TextField valueBinding='sex' class="form-control" placeholder="'M' or 'F'"}}
+                                        {{view Ember.Select
+                                            contentBinding="App.Sex"
+                                            optionValuePath="content.id"
+                                            optionLabelPath="content.name"
+                                            valueBinding="sex"
+                                            class="form-control"
+                                        }}
                                     </div>
                                 </div>
                                 <div class="form-group">
