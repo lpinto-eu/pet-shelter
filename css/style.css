@@ -22,6 +22,10 @@ table th {
     min-width: 120px;
 }
 
+.disable-icon {
+    color: #BBB;
+}
+
 /* NAV
 *******************************************************************************/
 .navbar {
@@ -127,6 +131,17 @@ table th {
 
 .panel-footer p {
     margin: 0px;
+}
+
+/* ANIMALS
+*******************************************************************************/
+#details {
+}
+#details dt {
+    font-size: 1.1em;
+}
+#details dd {
+    font-size: 1em;
 }
 
 /* FOOTER

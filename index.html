@@ -234,16 +234,18 @@
         <!-- ================================================================================================ Animal -->
         <script type="text/x-handlebars" data-template-name="animal">
             <section id="animal" {{bind-attr class="isEditing:editing well"}}>
-                <h2>
-                    {{name}}&nbsp;
-                    <span class="badge">
-                        <abbr {{bind-attr title="recordDate"}}>
-                            {{date cTime}} <i class="fa fa-clock-o"></i>
-                        </abbr>
-                    </span>
-                </h2>
+                <article class="row">
+                    <h2>
+                        {{name}}&nbsp;
+                        <span class="badge">
+                            <abbr {{bind-attr title="recordDate"}}>
+                                {{date cTime}} <i class="fa fa-clock-o"></i>
+                            </abbr>
+                        </span>
+                    </h2>
+                </article>
 
-                <article>
+                <article class="row">
                     {{#if isEditing}}
                         <!-- UPDATE -->
                         <form class="form-horizontal">
@@ -331,39 +333,41 @@
 
                     {{else}}
                         <!-- DETAILS -->
-                        <dl class="dl-horizontal">
-                            <dt>Age:</dt>
-                            <dd>{{age}}</dd>
+                        <div id="details" class="row">
+                            <div class="col-xs-4">
+                                {{view App.FotoPreview width="200" srcBinding="foto"}}
+                            </div>
+                            <div class="col-xs-8">
+                                <dl class="dl-horizontal">
+                                    <dt>Age:</dt>
+                                    <dd>{{age}}</dd>
 
-                            <dt>Species:</dt>
-                            <dd>{{species}}</dd>
+                                    <dt>Species:</dt>
+                                    <dd>{{species}}</dd>
 
-                            <dt>Breed:</dt>
-                            <dd>{{breed}}</dd>
+                                    <dt>Breed:</dt>
+                                    <dd>{{breed}}</dd>
 
-                            <dt>Drugs:</dt>
-                            <dd>
-                                {{#if drugs}}
-                                    <i class="fa fa-medkit text-warning"></i> {{drugs}}
-                                {{/if}}
-                            </dd>
+                                    {{#if drugs}}
+                                        <dt>Drugs:</dt>
+                                        <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
+                                    {{/if}}
 
-                            <dt>Sex:</dt>
-                            <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
+                                    <dt>Sex:</dt>
+                                    <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
 
-                            <dt>Sterilized:</dt>
-                            <dd>
-                                {{#if sterilized}}
-                                    <i class="fa fa-shield text-success"></i>
-                                {{else}}
-                                    <i class="fa fa-shield"></i>
-                                {{/if}}
-                            </dd>
-                        </dl>
-                        <hr/>
-                        <div class="text-right">
-                            <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
-                            &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
+                                    <dt>Sterilized:</dt>
+                                    <dd><i {{bind-attr class="sterilized:text-success:disable-icon :fa  :fa-shield"}}></i></dd>
+                                </dl>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr/>
+                            <div class="text-right">
+                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
+                                &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
+                            </div>
                         </div>
                     {{/if}}
                 </article>
