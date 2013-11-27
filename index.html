@@ -92,75 +92,75 @@
         <script type="text/x-handlebars" data-template-name="animalsList">
             <section id="animals" class="container">
                 <article class="row">
-                    <div class="col-xs-11">
+                    <div class="col-xs-10 col-sm-11">
                         <h1>Animals</h1>
                     </div>
-                    <div class="col-xs-1 icon-wrapper">
-                        {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
+                    <div class="col-xs-2 col-sm-1 icon-wrapper">
+                        {{#linkTo "animals.new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
                     </div>
                 </article>
 
                 <article class="row">
-                    <table id="animals-table" class="table table-bordered table-hover table-condensed"><!-- table-striped -->
-                        <thead>
-                            <tr>
-                                <th style="width: 25%;">
-                                    <a {{action pushSort 'name'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>Name
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'age'}} title="Sort by">
-                                        <i class="fa fa-sort-numeric-asc"></i>
-                                    </a>Age
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'species'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>Species
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'breed'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </a>Breed
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'cTime'}} title="Sort by">
-                                        <i class="fa fa-sort-amount-asc"></i>
-                                    </a>Description
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each}}
-                                <tr {{bind-attr class="drugs:warning"}}>
-                                    <td class="animal-link">{{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}</td>
-                                    <td>{{age}}</td>
-                                    <td>{{species}}</td>
-                                    <td>{{breed}}</td>
-                                    <td>
-                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                        {{#if drugs}}
-                                            <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                <i class="fa fa-medkit"></i>
-                                            </abbr>
-                                        {{/if}}
-                                        {{#if sterilized}}
-                                            <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}
-                                        <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
-                                            <i class="fa fa-clock-o desc-item"></i>{{date cTime}}
-                                            </div>
-                                        </abbr>
-                                    </td>
-                                </tr>
-                            {{else}}
+                        <table id="animals-table" class="table table-bordered table-hover table-condensed"><!-- table-striped -->
+                            <thead>
                                 <tr>
-                                    <td>You have no animals.</td>
+                                    <th style="width: 25%;">
+                                        <a {{action pushSort 'name'}} title="Sort by">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </a>Name
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'age'}} title="Sort by">
+                                            <i class="fa fa-sort-numeric-asc"></i>
+                                        </a>Age
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'species'}} title="Sort by">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </a>Species
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'breed'}} title="Sort by">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </a>Breed
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'cTime'}} title="Sort by">
+                                            <i class="fa fa-sort-amount-asc"></i>
+                                        </a>Description
+                                    </th>
                                 </tr>
-                            {{/each}}
-                        <tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {{#each}}
+                                    <tr {{bind-attr class="drugs:warning"}}>
+                                        <td class="animal-link">{{#linkTo "animal" this title="Details / Edit"}}{{name}}{{/linkTo}}</td>
+                                        <td>{{age}}</td>
+                                        <td>{{species}}</td>
+                                        <td>{{breed}}</td>
+                                        <td>
+                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{#if drugs}}
+                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                    <i class="fa fa-medkit"></i>
+                                                </abbr>
+                                            {{/if}}
+                                            {{#if sterilized}}
+                                                <i class="fa fa-shield text-success  desc-item"></i>
+                                            {{/if}}
+                                            <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
+                                                <i class="fa fa-clock-o desc-item"></i>{{date cTime}}
+                                                </div>
+                                            </abbr>
+                                        </td>
+                                    </tr>
+                                {{else}}
+                                    <tr>
+                                        <td>You have no animals.</td>
+                                    </tr>
+                                {{/each}}
+                            <tbody>
+                        </table>
                 </article>
 
                 <article>
