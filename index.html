@@ -47,7 +47,7 @@
 
         <!-- ================================================================================================ Header -->
         <script type="text/x-handlebars" data-template-name='_header'>
-            <nav class="navbar navbar-inverse" role="navigation">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -274,13 +274,20 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Drugs</span>
+                                        <span class="input-group-addon">
+                                            Drugs
+                                            <i class="fa fa-medkit text-warning"></i>
+                                        </span>
                                         {{view Ember.TextField valueBinding='drugs' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Sex</span>
+                                        <span class="input-group-addon">
+                                            Sex
+                                            <i class="ion-female text-danger"></i>
+                                            <i class="ion-male text-primary"></i>
+                                        </span>
                                         {{view Ember.Select
                                             contentBinding="App.Sex"
                                             optionValuePath="content.id"
@@ -292,15 +299,21 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Sterilized</span>
+                                        <span class="input-group-addon">
+                                            Sterilized
+                                            <i class="fa fa-shield text-success"></i>
+                                        </span>
                                         <span class="form-control">
-                                        {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                            {{view Ember.Checkbox checkedBinding="sterilized"}}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Foto</span>
+                                        <span class="input-group-addon">
+                                            Image
+                                            <i class="fa fa-picture-o"></i>
+                                        </span>
                                         {{#view Ember.View contentBinding="foto"  class="form-control"}}
                                             {{view App.FotoUp}}
                                             {{view App.FotoPreview width="200" srcBinding="foto"}}
@@ -327,14 +340,23 @@
                             <dd>{{breed}}</dd>
 
                             <dt>Drugs:</dt>
-                            <dd>{{drugs}}</dd>
+                            <dd>
+                                {{#if drugs}}
+                                    <i class="fa fa-medkit text-warning"></i> {{drugs}}
+                                {{/if}}
+                            </dd>
 
                             <dt>Sex:</dt>
                             <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
-                            {{#if sterilized}}
-                                <dt>Sterilized:</dt>
-                                <dd><i class="fa fa-shield text-success"></i></dd>
-                            {{/if}}
+
+                            <dt>Sterilized:</dt>
+                            <dd>
+                                {{#if sterilized}}
+                                    <i class="fa fa-shield text-success"></i>
+                                {{else}}
+                                    <i class="fa fa-shield"></i>
+                                {{/if}}
+                            </dd>
                         </dl>
                         <hr/>
                         <div class="text-right">
@@ -382,13 +404,20 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Drugs</span>
+                                        <span class="input-group-addon">
+                                            Drugs
+                                            <i class="fa fa-medkit text-warning"></i>
+                                        </span>
                                         {{view Ember.TextField valueBinding='drugs' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Sex</span>
+                                        <span class="input-group-addon">
+                                            Sex
+                                            <i class="ion-female text-danger"></i>
+                                            <i class="ion-male text-primary"></i>
+                                        </span>
                                         {{view Ember.Select
                                             contentBinding="App.Sex"
                                             optionValuePath="content.id"
@@ -400,11 +429,28 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Sterilized</span>
-                                        {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                        <span class="input-group-addon">
+                                            Sterilized
+                                            <i class="fa fa-shield text-success"></i>
+                                        </span>
+                                        <span class="form-control">
+                                            {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                        </span>
                                     </div>
                                 </div>
                             </fieldset>
+                            <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            Image
+                                            <i class="fa fa-picture-o"></i>
+                                        </span>
+                                        {{#view Ember.View contentBinding="foto"  class="form-control"}}
+                                            {{view App.FotoUp}}
+                                            {{view App.FotoPreview width="200" srcBinding="foto"}}
+                                        {{/view}}
+                                    </div>
+                                </div>
 
                             <div class="text-right">
                                 <button class="btn btn-success">Create</button>
