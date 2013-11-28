@@ -18,16 +18,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="favicon.png">
 
-
-
-        <!--
-            STYLESHEETS
-        -->
-        <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Vast+Shadow' rel='stylesheet' type='text/css'>
-
+        <!-- STYLESHEETS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
     </head>
@@ -38,16 +31,15 @@
         <!-- =========================================================================================== Application -->
         <script type="text/x-handlebars">
             {{partial "header"}}
-            <div id="main" class="container">
+            <div class="container">
                 {{outlet}}
             </div>
-            {{partial footer}}
         </script>
 
 
         <!-- ================================================================================================ Header -->
         <script type="text/x-handlebars" data-template-name='_header'>
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <nav class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -90,18 +82,19 @@
 
         <!-- =========================================================================================== AnimalsList -->
         <script type="text/x-handlebars" data-template-name="animalsList">
-            <section id="animals" class="container">
+            <section id="animals">
                 <article class="row">
-                    <div class="col-xs-10 col-sm-11">
-                        <h1>Animals</h1>
-                    </div>
-                    <div class="col-xs-2 col-sm-1 icon-wrapper">
-                        {{#linkTo "animals.new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
+                    {{outlet}}
+                </article>
+
+                <article class="row">
+                    <div class="col-xs-12">
+                        <h1>Animals {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square pull-right"></i>{{/linkTo}}</h1>
                     </div>
                 </article>
 
                 <article class="row">
-                        <table id="animals-table" class="table table-bordered table-hover table-condensed"><!-- table-striped -->
+                        <table class="table table-bordered table-hover table-condensed">
                             <thead>
                                 <tr>
                                     <th style="width: 25%;">
@@ -162,10 +155,6 @@
                             <tbody>
                         </table>
                 </article>
-
-                <article>
-                    {{outlet}}
-                </article>
             </section>
         </script>
 
@@ -174,11 +163,12 @@
         <script type="text/x-handlebars" data-template-name="animals">
             <section id="animals" class="container">
                 <article class="row">
-                    <div class="col-xs-10 col-sm-11">
-                        <h1>Animals</h1>
-                    </div>
-                    <div class="col-xs-2 col-sm-1 icon-wrapper">
-                        {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square fa-lg"></i>{{/linkTo}}
+                    {{outlet}}
+                </article>
+
+                <article class="row">
+                    <div class="col-xs-12">
+                        <h1>Animals {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square pull-right"></i>{{/linkTo}}</h1>
                     </div>
                 </article>
 
@@ -192,7 +182,7 @@
                                     </div>
                                     <div class="panel-body">
                                         {{#if foto}}
-                                            {{view App.FotoPreview class="animal-img" srcBinding="foto"}}
+                                            <img {{bind-attr src="foto"}} class="animal-img"/>
                                         {{else}}
                                             <img src="img/dog.png" class="animal-img"/>
                                         {{/if}}
@@ -222,10 +212,6 @@
                     {{else}}
                             <h2>You have no animals.</h2>
                     {{/each}}
-                </article>
-
-                <article class="row">
-                    {{outlet}}
                 </article>
             </section>
         </script>
@@ -320,7 +306,11 @@
                                         </span>
                                         {{#view Ember.View contentBinding="foto"  class="form-control"}}
                                             {{view App.FotoUp}}
-                                            {{view App.FotoPreview width="200" srcBinding="foto"}}
+                                            {{#if foto}}
+                                                <img {{bind-attr src="foto"}} class="animal-preview"/>
+                                            {{else}}
+                                                <img src="img/dog.png" class="animal-preview"/>
+                                            {{/if}}
                                         {{/view}}
                                     </div>
                                 </div>
@@ -335,7 +325,11 @@
                         <!-- DETAILS -->
                         <div id="details" class="row">
                             <div class="col-xs-4">
-                                {{view App.FotoPreview width="200" srcBinding="foto"}}
+                                {{#if foto}}
+                                    <img {{bind-attr src="foto"}} class="animal-img"/>
+                                {{else}}
+                                    <img src="img/dog.png" class="animal-img"/>
+                                {{/if}}
                             </div>
                             <div class="col-xs-8">
                                 <dl class="dl-horizontal">
@@ -357,7 +351,7 @@
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
 
                                     <dt>Sterilized:</dt>
-                                    <dd><i {{bind-attr class="sterilized:text-success:disable-icon :fa  :fa-shield"}}></i></dd>
+                                    <dd><i {{bind-attr class="sterilized::disable :text-success :fa  :fa-shield"}}></i></dd>
                                 </dl>
                             </div>
                         </div>
@@ -453,7 +447,11 @@
                                         </span>
                                         {{#view Ember.View contentBinding="foto"  class="form-control"}}
                                             {{view App.FotoUp}}
-                                            {{view App.FotoPreview width="200" srcBinding="foto"}}
+                                            {{#if foto}}
+                                                <img {{bind-attr src="foto"}} class="animal-preview"/>
+                                            {{else}}
+                                                <img src="img/dog.png" class="animal-preview"/>
+                                            {{/if}}
                                         {{/view}}
                                     </div>
                                 </div>
@@ -466,14 +464,6 @@
         </script>
 
 
-        <!-- ================================================================================================ Footer -->
-        <script type = "text/x-handlebars" data-template-name="_footer" >
-            <footer id="footer" class="navbar navbar-default navbar-fixed-bottom">
-                <div class="container">
-                    <p class="navbar-text">&copy; 2013 Luís Pinto.</p>
-                </div>
-            </footer>
-        </script>
 
 
         <!-- =============================================================================================== Scripts -->
