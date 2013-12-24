@@ -1,3 +1,9 @@
+App.IndexRoute = Ember.Route.extend({
+    model: function () {
+        return this.store.find("Animal");
+    }
+});
+
 App.AnimalsRoute = Ember.Route.extend({
     model: function () {
         return this.store.find("Animal");
