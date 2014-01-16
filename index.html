@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <!--================================================
-
-    Hey stranger! I'm guessing that you're here to check up on my HTML and CSS markup. Let me assure you, I am just as meticulous about writing clean, semantic code as I am about my design work. I work tirelessly to ensure that my markup validates according to W3C standards and that my websites perform beautifully across all modern browsers. Go on, see for yourself!
-
-    ================================================-->
-
     <head>
         <title>Animal Shelter</title>
 
@@ -25,12 +19,15 @@
         <link rel="stylesheet" href="css/ionicons.min.css">
     </head>
 
+
+
     <body>
 
 
         <!-- =========================================================================================== Application -->
         <script type="text/x-handlebars">
             {{partial "header"}}
+
             <div class="container">
                 {{outlet}}
             </div>
@@ -71,13 +68,22 @@
         </script>
 
 
-        <!-- ================================================================================================= Index -->
+        <!-- ========================================================================================== Landing page -->
         <script type = "text/x-handlebars" data-template-name="index">
             <section id="home" class="jumbotron text-center">
                 <h1>Animal Shelter</h1>
                 <p class="lead">An open source solution for Animal Shelter managment.</p>
-                {{donut-chart data=sex}}
-                {{donut-chart data=age}}
+            </section>
+
+            <section>
+                <div class="row">
+                    <div class="container">
+                        <article class="col-xs-12">
+                            {{donut-chart data=sex}}
+                            {{donut-chart data=age}}
+                        </article>
+                    </div>
+                </div>
             </section>
         </script>
 
@@ -87,45 +93,48 @@
 
         <!-- =========================================================================================== AnimalsList -->
         <script type="text/x-handlebars" data-template-name="animalsList">
-            <section id="animals">
-                <article class="row">
+            <section id="animals" class="container">
+
+                <div class="row">
                     {{outlet}}
-                </article>
+                </div>
 
-                <article class="row">
-                    <div class="col-xs-12">
+                <div class="row">
+                    <article class="col-xs-12">
                         <h1>Animals {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square pull-right"></i>{{/linkTo}}</h1>
-                    </div>
-                </article>
 
-                <article class="row">
                         <table class="table table-bordered table-hover table-condensed">
                             <thead>
                                 <tr>
                                     <th style="width: 25%;">
                                         <a {{action pushSort 'name'}} title="Sort by">
                                             <i class="fa fa-sort-alpha-asc"></i>
-                                        </a>Name
+                                        </a>
+                                        Name
                                     </th>
                                     <th>
                                         <a {{action pushSort 'age'}} title="Sort by">
                                             <i class="fa fa-sort-numeric-asc"></i>
-                                        </a>Age
+                                        </a>
+                                        Age
                                     </th>
                                     <th>
                                         <a {{action pushSort 'species'}} title="Sort by">
                                             <i class="fa fa-sort-alpha-asc"></i>
-                                        </a>Species
+                                        </a>
+                                        Species
                                     </th>
                                     <th>
                                         <a {{action pushSort 'breed'}} title="Sort by">
                                             <i class="fa fa-sort-alpha-asc"></i>
-                                        </a>Breed
+                                        </a>
+                                        Breed
                                     </th>
                                     <th>
                                         <a {{action pushSort 'cTime'}} title="Sort by">
                                             <i class="fa fa-sort-amount-asc"></i>
-                                        </a>Description
+                                        </a>
+                                        Description
                                     </th>
                                 </tr>
                             </thead>
@@ -159,7 +168,8 @@
                                 {{/each}}
                             <tbody>
                         </table>
-                </article>
+                    </article>
+                </div>
             </section>
         </script>
 
@@ -167,57 +177,58 @@
         <!-- =============================================================================================== Animals -->
         <script type="text/x-handlebars" data-template-name="animals">
             <section id="animals" class="container">
-                <article class="row">
+
+                <div class="row">
                     {{outlet}}
-                </article>
+                </div>
 
-                <article class="row">
-                    <div class="col-xs-12">
-                        <h1>Animals {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square pull-right"></i>{{/linkTo}}</h1>
-                    </div>
-                </article>
+                <div class="row">
+                    <article>
+                        <h1 class="col-xs-12">Animals {{#linkTo "animals.new" title="Add new"}}<i class="fa fa-plus-square pull-right"></i>{{/linkTo}}</h1>
 
-                <article class="row">
-                    {{#each}}
-                        {{#linkTo "animal" this title="Details / Edit"}}
-                            <div class="col-xs-6 col-sm-3 col-md-2">
-                                <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
-                                    <div class="panel-heading">
-                                        {{name}}
+                        <div>
+                            {{#each}}
+                                {{#linkTo "animal" this title="Details / Edit"}}
+                                    <div class="col-xs-6 col-sm-3 col-md-2">
+                                        <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
+                                            <div class="panel-heading">
+                                                {{name}}
+                                            </div>
+                                            <div class="panel-body">
+                                                {{#if foto}}
+                                                    <img {{bind-attr src="foto"}} class="animal-img"/>
+                                                {{else}}
+                                                    <img src="img/dog.png" class="animal-img"/>
+                                                {{/if}}
+                                            </div>
+
+                                            <div class="panel-footer">
+                                                <p>
+                                                    {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                                    {{#if drugs}}
+                                                        <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                            <i class="fa fa-medkit"></i>
+                                                        </abbr>
+                                                    {{/if}}
+
+                                                    {{#if sterilized}}
+                                                        <i class="fa fa-shield text-success  desc-item"></i>
+                                                    {{/if}}
+
+                                                    <abbr class="timestamp" {{bind-attr title="recordDate"}}>
+                                                        <i class="fa fa-clock-o desc-item"></i>
+                                                    </abbr>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="panel-body">
-                                        {{#if foto}}
-                                            <img {{bind-attr src="foto"}} class="animal-img"/>
-                                        {{else}}
-                                            <img src="img/dog.png" class="animal-img"/>
-                                        {{/if}}
-                                    </div>
-
-                                    <div class="panel-footer">
-                                        <p>
-                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                            {{#if drugs}}
-                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                    <i class="fa fa-medkit"></i>
-                                                </abbr>
-                                            {{/if}}
-
-                                            {{#if sterilized}}
-                                                <i class="fa fa-shield text-success  desc-item"></i>
-                                            {{/if}}
-
-                                            <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                <i class="fa fa-clock-o desc-item"></i>
-                                            </abbr>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        {{/linkTo}}
-                    {{else}}
-                            <h2>You have no animals.</h2>
-                    {{/each}}
-                </article>
+                                {{/linkTo}}
+                            {{else}}
+                                    <h2>You have no animals.</h2>
+                            {{/each}}
+                        </div>
+                    </article>
+                </div>
             </section>
         </script>
 
@@ -376,96 +387,99 @@
 
         <!-- new =================================================================================================== -->
         <script type = "text/x-handlebars" data-template-name="animals/new">
-            <h3>Add new Animal</h3>
+            <article class ="col-xs-12">
+                <h3>Add new Animal</h3>
 
-            <form {{action "save" on="submit"}} class="form-horizontal">
-                            <fieldset>
-                                <!-- <legend>Edit</legend> -->
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Name</span>
-                                        {{view Ember.TextField valueBinding='name' class="form-control"}}
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Age</span>
-                                        {{view Ember.TextField valueBinding='age' class="form-control"}}
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Species</span>
-                                        {{view Ember.TextField valueBinding='species' class="form-control"}}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Breed</span>
-                                        {{view Ember.TextField valueBinding='breed' class="form-control"}}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Drugs
-                                            <i class="fa fa-medkit text-warning"></i>
-                                        </span>
-                                        {{view Ember.TextField valueBinding='drugs' class="form-control"}}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Sex
-                                            <i class="ion-female text-danger"></i>
-                                            <i class="ion-male text-primary"></i>
-                                        </span>
-                                        {{view Ember.Select
-                                            contentBinding="App.Sex"
-                                            optionValuePath="content.id"
-                                            optionLabelPath="content.name"
-                                            valueBinding="sex"
-                                            class="form-control"
-                                        }}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Sterilized
-                                            <i class="fa fa-shield text-success"></i>
-                                        </span>
-                                        <span class="form-control">
-                                            {{view Ember.Checkbox checkedBinding="sterilized"}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Image
-                                            <i class="fa fa-picture-o"></i>
-                                        </span>
-                                        {{#view Ember.View contentBinding="foto"  class="form-control"}}
-                                            {{view App.FotoUp}}
-                                            {{#if foto}}
-                                                <img {{bind-attr src="foto"}} class="animal-preview"/>
-                                            {{else}}
-                                                <img src="img/dog.png" class="animal-preview"/>
-                                            {{/if}}
-                                        {{/view}}
-                                    </div>
-                                </div>
-
-                            <div class="text-right">
-                                <button class="btn btn-success">Create</button>
-                                &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
+                <form {{action "save" on="submit"}} class="form-horizontal">
+                    <fieldset>
+                        <!-- <legend>Edit</legend> -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Name</span>
+                                {{view Ember.TextField valueBinding='name' class="form-control"}}
                             </div>
-                        </form>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Age</span>
+                                {{view Ember.TextField valueBinding='age' class="form-control"}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Species</span>
+                                {{view Ember.TextField valueBinding='species' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Breed</span>
+                                {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Drugs
+                                    <i class="fa fa-medkit text-warning"></i>
+                                </span>
+                                {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Sex
+                                    <i class="ion-female text-danger"></i>
+                                    <i class="ion-male text-primary"></i>
+                                </span>
+                                {{view Ember.Select
+                                    contentBinding="App.Sex"
+                                    optionValuePath="content.id"
+                                    optionLabelPath="content.name"
+                                    valueBinding="sex"
+                                    class="form-control"
+                                }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Sterilized
+                                    <i class="fa fa-shield text-success"></i>
+                                </span>
+                                <span class="form-control">
+                                    {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Image
+                                    <i class="fa fa-picture-o"></i>
+                                </span>
+                                {{#view Ember.View contentBinding="foto"  class="form-control"}}
+                                    {{view App.FotoUp}}
+                                    {{#if foto}}
+                                        <img {{bind-attr src="foto"}} class="animal-preview"/>
+                                    {{else}}
+                                        <img src="img/dog.png" class="animal-preview"/>
+                                    {{/if}}
+                                {{/view}}
+                            </div>
+                        </div>
+
+                    <div class="pull-right">
+                        <button class="btn btn-success">Create</button>
+                        &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
+                    </div>
+                </form>
+            <article>
         </script>
 
 
@@ -485,10 +499,12 @@
         <!-- App -->
         <script src="js/app/app.js"></script>
         <script src="js/app/router.js"></script>
+        <script src="js/app/handlebars-helpers.js"></script>
 
         <!-- Models -->
         <script src="js/app/models/store.js"></script>
         <script src="js/app/models/animal.js"></script>
+        <script src="js/app/models/sex.js"></script>
 
         <!-- Controllers -->
         <script src="js/app/controllers/index.js"></script>
@@ -497,7 +513,11 @@
         <script src="js/app/controllers/animal.js"></script>
 
         <!-- Views -->
-        <script src="js/app/views/animalSex.js"></script>
+        <script src="js/app/views/sex.js"></script>
+        <script src="js/app/views/imagepicker.js"></script>
+
+        <!-- Components -->
+        <script src="js/app/components/donutchart.js"></script>
 
         <!-- Routers -->
         <script src="js/app/routers/animals.js"></script>
