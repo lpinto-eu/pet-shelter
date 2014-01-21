@@ -3,7 +3,7 @@ App.DonutChartComponent = Ember.Component.extend({
 
   didInsertElement: function(){
     var chartData = this.get('data');
-    var width = 150;
+    var width = 175;
     var height = 150;
     var radius = Math.min(width, height) / 2;
 

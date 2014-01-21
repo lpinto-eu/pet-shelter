@@ -21,11 +21,11 @@ App.IndexController = Ember.ArrayController.extend({
         });
 
         var under5 = this.filter(function(animal) {
-            return animal.get('age') < 5;
+            return animal.get('age') < 5 && animal.get('age') >= 1;
         });
 
         var under10 = this.filter(function(animal) {
-            return animal.get('age') < 10;
+            return animal.get('age') < 10 && animal.get('age') >= 5;
         });
 
         var over10 = this.filter(function(animal) {
@@ -34,8 +34,8 @@ App.IndexController = Ember.ArrayController.extend({
 
         return [
                 {key: '<1', value: under1.length},
-                {key: '1-5', value: under5.length},
-                {key: '5-10', value: under10.length},
+                {key: '1-4', value: under5.length},
+                {key: '5-9', value: under10.length},
                 {key: '>10', value: over10.length}
                 ];
     }.property('@each.age'),
