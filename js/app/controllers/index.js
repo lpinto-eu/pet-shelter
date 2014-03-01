@@ -16,27 +16,26 @@ App.IndexController = Ember.ArrayController.extend({
     }.property('@each.sex'),
 
     age: function() {
-        var under1 = this.filter(function(animal) {
-            return animal.get('age') < 1;
-        });
-
-        var under5 = this.filter(function(animal) {
-            return animal.get('age') < 5 && animal.get('age') >= 1;
-        });
-
-        var under10 = this.filter(function(animal) {
-            return animal.get('age') < 10 && animal.get('age') >= 5;
-        });
-
-        var over10 = this.filter(function(animal) {
-            return animal.get('age') >= 10;
-        });
-
-        return [
-                {key: '<1', value: under1.length},
-                {key: '1-4', value: under5.length},
-                {key: '5-9', value: under10.length},
-                {key: '>10', value: over10.length}
-                ];
+		var data = [
+					{key: '<1', value: 0},
+                    {key: '1-4', value: 0},
+                    {key: '5-9', value: 0},
+                    {key: '>10', value: 0},
+					];
+		return this.reduce(function(buckets, animal) {
+			var a = animal.get('age');
+			if (a < 1) {
+				buckets[0].value++;
+			} else if (a < 5) {
+				buckets[1].value++;
+			} else if (a < 10) {
+				buckets[2].value++;
+			} else {
+				buckets[3].value++;
+			}
+			return buckets;
+		}, data);
     }.property('@each.age'),
+
+
 });
