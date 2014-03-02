@@ -37,5 +37,20 @@ App.IndexController = Ember.ArrayController.extend({
 		}, data);
     }.property('@each.age'),
 
-
+	cTimeMonth: function() {
+		var data = new Array();
+		this.map(function(animal) {
+			return animal.get('cTime').getMonth();
+		}).reduce(function(data, month) {
+			data[month] = data[month] ? data[month] + 1 : 1;
+			return data;
+		}, data);
+		for (var i = 0; i < 12; ++i) {
+			if (!data[i]) {
+				data[i] = 0;
+			}
+		}
+		return data;
+	}.property('@each.cTimeMonth'),
 });
+
