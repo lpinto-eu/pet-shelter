@@ -1,4 +1,4 @@
-App.HistogramGraphComponent = Ember.Component.extend({
+App.BarGraphComponent = Ember.Component.extend({
 	tagName: 'svg',
 
 	didInsertElement: function(){
