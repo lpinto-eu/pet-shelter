@@ -50,16 +50,19 @@ body {
 }
 
  .dash-1 svg {
-     min-width:  480px;
+    min-width:  480px;
+    height: 240px;
  }
 
 .dash-2 {
+    width: 240px;
     height: 240px;
     display:  inline-block;
 }
 
  .dash-2 svg {
-
+    width: 240px;
+    height: 240px;
  }
 
 /* Animals list
