@@ -3,14 +3,14 @@ App.DonutChartComponent = Ember.Component.extend({
 
   didInsertElement: function(){
     var chartData = this.get('data');
-    var width = 200;
-    var height = 200;
+    var width = 140;
+    var height = 140;
     var radius = (Math.min(width, height) / 2) - 10;
 
     var color2 = d3.scale.ordinal()
     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-    var arc = d3.svg.arc().outerRadius(radius).innerRadius(radius-30);
+    var arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - 30);
     var pie = d3.layout.pie().sort(null).value(function(d) { return d.value; });
 
     var id = this.$().attr('id');

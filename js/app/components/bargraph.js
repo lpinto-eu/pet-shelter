@@ -5,9 +5,9 @@ App.BarGraphComponent = Ember.Component.extend({
         var chartData = this.get('data');
 
         //var margin = {top: 5, right: 6, bottom: 6, left: 7};
-        var margin = {top: 20, right: 6, bottom: 20, left: 40};
-        var width = 400 - margin.left - margin.right;
-        var height = 200 - margin.top - margin.bottom;
+        var margin = {top: 20, right: 6, bottom: 20, left: 20};
+        var width = 290 - margin.left - margin.right;
+        var height = 140 - margin.top - margin.bottom;
 
         var x = d3.scale.ordinal()
         .domain(d3.range(1, 13))
