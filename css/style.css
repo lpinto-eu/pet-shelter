@@ -113,3 +113,24 @@ body {
 .animal-preview {
     height: 100px;
 }
+
+/* Histogram settings
+*******************************************************************************/
+.bar {
+  fill: #98abc5;
+}
+.bar:hover {
+/*  fill: #A52A2A;*/
+  fill: #6b486b;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

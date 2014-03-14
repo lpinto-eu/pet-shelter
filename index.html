@@ -81,14 +81,15 @@
                         <article class="col-xs-12">
                             {{donut-chart data=sex}}
                             {{donut-chart data=age}}
+                            {{bar-graph data=cTimeMonth}}
                         </article>
                     </div>
                 </div>
             </section>
         </script>
 
-        <script type="text/x-handlebars" id="components/donut-chart">
-  </script>
+		<script type="text/x-handlebars" id="components/donut-chart"></script>
+		<script type="text/x-handlebars" id="components/bar-graph"></script>
 
 
         <!-- =========================================================================================== AnimalsList -->
@@ -518,6 +519,7 @@
 
         <!-- Components -->
         <script src="js/app/components/donutchart.js"></script>
+        <script src="js/app/components/bargraph.js"></script>
 
         <!-- Routers -->
         <script src="js/app/routers/animals.js"></script>
