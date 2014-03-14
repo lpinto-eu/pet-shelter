@@ -6,7 +6,9 @@
  *******************************************************************************/
 
 /*******************************************************************************
+ *
  * HTML
+ *
 *******************************************************************************/
 body {
     font-size: 14px;
@@ -17,22 +19,17 @@ body {
     min-width: 120px;
 }
 
-/*******************************************************************************
- * BOOTSTRAP
-*******************************************************************************/
-
 
 /*******************************************************************************
+ *
  * PAGE
+ *
 *******************************************************************************/
 .disabled {
     opacity:0.3;
 }
 
-/* NAV
-*******************************************************************************/
-
-/* ANIMALS list
+/* Animals list
 *******************************************************************************/
 .timestamp {
     font-size: 11px;
@@ -41,15 +38,13 @@ body {
     text-align: right;
 }
 
-/* ANIMALS list
-*******************************************************************************/
-.animal-link a {
+.Animal-link a {
     line-height: 22px;
     color: #000;
     font-weight: bold;
 }
 
-.animal-link a:hover::after {
+.Animal-link a:hover::after {
     display: inline-block;
     font-family: FontAwesome;
     font-style: normal;
@@ -65,7 +60,7 @@ body {
     margin: 0 0.2em;
 }
 
-/* ANIMALS faces
+/* Animals faces
 *******************************************************************************/
 .icon-wrapper {
     padding-top: 25px;
@@ -88,7 +83,7 @@ body {
     text-align: center;
 }
 
-.animal-img {
+.Animal-img {
     max-width: 100%;
     max-height: 100%;
     vertical-align: middle;
@@ -98,7 +93,7 @@ body {
     margin: 0px;
 }
 
-/* ANIMAL details
+/* Animal details
 *******************************************************************************/
 #details dt {
     font-size: 1.1em;
@@ -108,29 +103,33 @@ body {
     font-size: 1em;
 }
 
-/* ANIMAL edit
+/* Animal edit
 *******************************************************************************/
-.animal-preview {
+.Animal-preview {
     height: 100px;
 }
 
-/* Histogram settings
+/*******************************************************************************
+ *
+ * COMPONENTS
+ *
+*******************************************************************************/
+
+/* Histogram
 *******************************************************************************/
 .bar {
-  fill: #98abc5;
+    fill: #98ABC5;
 }
 .bar:hover {
-/*  fill: #A52A2A;*/
-  fill: #6b486b;
+    fill: #6B486B;
 }
 
 .axis text {
-  font: 10px sans-serif;
+    font: 10px sans-serif;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
