@@ -43,6 +43,25 @@ body {
     height:  50px;
 }
 
+/* Dashboard
+*/
+#dashboard .well {
+    margin-bottom:  0;
+}
+
+ .dash-1 svg {
+     min-width:  480px;
+ }
+
+.dash-2 {
+    height: 240px;
+    display:  inline-block;
+}
+
+ .dash-2 svg {
+
+ }
+
 /* Animals list
 *******************************************************************************/
 .timestamp {

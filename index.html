@@ -75,14 +75,24 @@
                 <p class="lead">An open source solution for Animal Shelter managment.</p>
             </section>
 
-            <section>
+            <section id="dashboard">
                 <div class="row">
-                    <div class="container">
-                        <article class="col-xs-12">
-                            {{donut-chart data=sex}}
-                            {{donut-chart data=age}}
-                            {{bar-graph data=cTimeMonth}}
-                        </article>
+                    <div class="container text-center">
+
+                        <section class="col-xs-12">
+                            <article class="dash-1">
+                                {{bar-graph data=cTimeMonth  class="well"}}
+                            </article>
+                        </section>
+
+                        <section class="col-xs-12">
+                            <article class="dash-2">
+                                {{donut-chart data=sex class="well"}}
+                            </article>
+                            <article class="dash-2">
+                                {{donut-chart data=age class="well"}}
+                            </article>
+                        </section>
                     </div>
                 </div>
             </section>

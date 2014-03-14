@@ -3,8 +3,8 @@ App.DonutChartComponent = Ember.Component.extend({
 
   didInsertElement: function(){
     var chartData = this.get('data');
-    var width = 175;
-    var height = 150;
+    var width = 200;
+    var height = 200;
     var radius = Math.min(width, height) / 2;
 
     var color2 = d3.scale.ordinal()

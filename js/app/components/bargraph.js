@@ -1,13 +1,13 @@
 App.BarGraphComponent = Ember.Component.extend({
-	tagName: 'svg',
+    tagName: 'svg',
 
-	didInsertElement: function(){
-		var chartData = this.get('data');
+    didInsertElement: function(){
+        var chartData = this.get('data');
 
         //var margin = {top: 5, right: 6, bottom: 6, left: 7};
-        var margin = {top: 20, right: 6, bottom: 20, left: 20};
-		var width = 175 - margin.left - margin.right;
-		var height = 150 - margin.top - margin.bottom;
+        var margin = {top: 20, right: 6, bottom: 20, left: 40};
+        var width = 400 - margin.left - margin.right;
+        var height = 200 - margin.top - margin.bottom;
 
         var x = d3.scale.ordinal()
         .domain(d3.range(1, 13))
@@ -58,10 +58,10 @@ App.BarGraphComponent = Ember.Component.extend({
         .attr("width", x.rangeBand());
 
         chartAndAxis.append("text")
-        .attr("x", (width / 2))             
-        .attr("y", 0 - 0.2 * margin.top)             
-        .attr("text-anchor", "middle")  
-        .style("font-size", "12px") 
+        .attr("x", (width / 2))
+        .attr("y", 0 - 0.2 * margin.top)
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
         .text("Admissions by month");
-	}
+    }
 });
