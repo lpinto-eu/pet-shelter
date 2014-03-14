@@ -263,92 +263,94 @@
                 <article class="row">
                     {{#if isEditing}}
                         <!-- UPDATE -->
-                        <form class="form-horizontal">
-                            <fieldset>
-                                <!-- <legend>Edit</legend> -->
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Name</span>
-                                        {{view Ember.TextField valueBinding='name' class="form-control"}}
+                        <div   class="col-md-12">
+                            <form>
+                                <fieldset>
+                                    <!-- <legend>Edit</legend> -->
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Name</span>
+                                            {{view Ember.TextField valueBinding='name' class="form-control"}}
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Age</span>
-                                        {{view Ember.TextField valueBinding='age' class="form-control"}}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Age</span>
+                                            {{view Ember.TextField valueBinding='age' class="form-control"}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Species</span>
-                                        {{view Ember.TextField valueBinding='species' class="form-control"}}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Species</span>
+                                            {{view Ember.TextField valueBinding='species' class="form-control"}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Breed</span>
-                                        {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Breed</span>
+                                            {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Drugs
-                                            <i class="fa fa-medkit text-warning"></i>
-                                        </span>
-                                        {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                Drugs
+                                                <i class="fa fa-medkit text-warning"></i>
+                                            </span>
+                                            {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Sex
-                                            <i class="ion-female text-danger"></i>
-                                            <i class="ion-male text-primary"></i>
-                                        </span>
-                                        {{view Ember.Select
-                                            contentBinding="App.Sex"
-                                            optionValuePath="content.id"
-                                            optionLabelPath="content.name"
-                                            valueBinding="sex"
-                                            class="form-control dropdown-toggle"
-                                        }}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                Sex
+                                                <i class="ion-female text-danger"></i>
+                                                <i class="ion-male text-primary"></i>
+                                            </span>
+                                            {{view Ember.Select
+                                                contentBinding="App.Sex"
+                                                optionValuePath="content.id"
+                                                optionLabelPath="content.name"
+                                                valueBinding="sex"
+                                                class="form-control dropdown-toggle"
+                                            }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Sterilized
-                                            <i class="fa fa-shield text-success"></i>
-                                        </span>
-                                        <span class="form-control">
-                                            {{view Ember.Checkbox checkedBinding="sterilized"}}
-                                        </span>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                Sterilized
+                                                <i class="fa fa-shield text-success"></i>
+                                            </span>
+                                            <span class="form-control">
+                                                {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Image
-                                            <i class="fa fa-picture-o"></i>
-                                        </span>
-                                        {{#view Ember.View contentBinding="foto"  class="form-control"}}
-                                            {{view App.FotoUp}}
-                                            {{#if foto}}
-                                                <img {{bind-attr src="foto"}} class="animal-preview"/>
-                                            {{else}}
-                                                <img src="img/dog.png" class="animal-preview"/>
-                                            {{/if}}
-                                        {{/view}}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                Image
+                                                <i class="fa fa-picture-o"></i>
+                                            </span>
+                                            {{#view Ember.View contentBinding="foto"  class="form-control"}}
+                                                {{#if foto}}
+                                                    <img {{bind-attr src="foto"}} class="animal-preview"/>
+                                                {{else}}
+                                                    <img src="img/dog.png" class="animal-preview"/>
+                                                {{/if}}
+                                                {{view App.FotoUp id="image-button"}}
+                                            {{/view}}
+                                        </div>
                                     </div>
+                                </fieldset>
+                                <div class="text-right">
+                                    <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Save</button>
+                                    &nbsp;<a {{action toggleProperty "isEditing"}} style="cursor:pointer;">cancel</a>
                                 </div>
-                            </fieldset>
-                            <div class="text-right">
-                                <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Save</button>
-                                &nbsp;<a {{action toggleProperty "isEditing"}} style="cursor:pointer;">cancel</a>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
 
                     {{else}}
                         <!-- DETAILS -->
