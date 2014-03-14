@@ -29,6 +29,20 @@ body {
     opacity:0.3;
 }
 
+/* Nav
+*******************************************************************************/
+.navbar .container .navbar-brand {
+    margin-left:  0;
+}
+
+.navbar-brand {
+    padding:  0;
+}
+
+.navbar-brand img {
+    height:  50px;
+}
+
 /* Animals list
 *******************************************************************************/
 .timestamp {
