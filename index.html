@@ -248,14 +248,16 @@
         <script type="text/x-handlebars" data-template-name="animal">
             <section id="animal" {{bind-attr class="isEditing:editing well"}}>
                 <article class="row">
-                    <h2>
-                        {{name}}&nbsp;
-                        <span class="badge">
-                            <abbr {{bind-attr title="recordDate"}}>
-                                {{date cTime}} <i class="fa fa-clock-o"></i>
-                            </abbr>
-                        </span>
-                    </h2>
+                    <div class="col-xs-12">
+                        <h2>
+                            {{name}}&nbsp;
+                            <span class="badge">
+                                <abbr {{bind-attr title="recordDate"}}>
+                                    {{date cTime}} <i class="fa fa-clock-o"></i>
+                                </abbr>
+                            </span>
+                        </h2>
+                    </div>
                 </article>
 
                 <article class="row">
@@ -350,15 +352,15 @@
 
                     {{else}}
                         <!-- DETAILS -->
-                        <div id="details" class="row">
-                            <div class="col-xs-4">
+                        <div id="details">
+                            <div class="col-md-4">
                                 {{#if foto}}
                                     <img {{bind-attr src="foto"}} class="animal-img"/>
                                 {{else}}
                                     <img src="img/dog.png" class="animal-img"/>
                                 {{/if}}
                             </div>
-                            <div class="col-xs-8">
+                            <div class="col-md-8">
                                 <dl class="dl-horizontal">
                                     <dt>Age:</dt>
                                     <dd>{{age}}</dd>
@@ -381,11 +383,8 @@
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
                                 </dl>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <hr/>
-                            <div class="text-right">
+                             <hr/>
+                            <div class=" col-md-12 text-right">
                                 <button class="btn btn-success" {{action toggleProperty "isEditing"}}>Edit</button>
                                 &nbsp;{{#linkTo 'animals' activeClass="active"}}cancel{{/linkTo}}
                             </div>
