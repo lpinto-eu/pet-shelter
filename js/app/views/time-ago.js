@@ -4,7 +4,7 @@ App.TimeagoView = Ember.View.extend({
     attributeBindings: ['title'],
     title: null,
 
-    didInsertElement: function () {
+    didInsertElement: function() {
         this.$().timeago();
     }
-})
+});

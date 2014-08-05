@@ -4,7 +4,6 @@ App.BarGraphComponent = Ember.Component.extend({
     didInsertElement: function(){
         var chartData = this.get('data');
 
-        //var margin = {top: 5, right: 6, bottom: 6, left: 7};
         var margin = {top: 20, right: 6, bottom: 20, left: 20};
         var width = 290 - margin.left - margin.right;
         var height = 140 - margin.top - margin.bottom;
@@ -34,7 +33,7 @@ App.BarGraphComponent = Ember.Component.extend({
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         var chart = chartAndAxis
-        .append("g")
+        .append("g");
 
         chart.append("g")
         .attr("class", "x axis")

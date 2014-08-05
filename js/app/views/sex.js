@@ -1,8 +1,8 @@
 App.AnimalSexView = Ember.View.extend({
     tagName: "i",
-    classNameBindings: ['aa'],
+    classNameBindings: ['sex-icon'],
 
-    'aa': function() {
+    'sex-icon': function() {
         if (this.content === "F") {
             return "ion-female text-danger";
         } else if (this.content === "M") {

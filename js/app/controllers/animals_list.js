@@ -1,4 +1,4 @@
-App.AnimalsIndexListController = Ember.ArrayController.extend({
+App.AnimalsController = Ember.ArrayController.extend({
 
     sortProperties: ['name'],
 
