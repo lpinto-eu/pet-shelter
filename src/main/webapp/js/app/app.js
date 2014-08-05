@@ -8,7 +8,7 @@ App.ApplicationStore = DS.Store.extend();
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
     host: 'http://localhost:8080',
-    namespace: 'petshelter-webapp/api'
+    namespace: 'petshelter/api'
 });
 
 App.ApplicationSerializer = DS.RESTSerializer.extend({
