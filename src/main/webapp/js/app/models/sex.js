@@ -1,6 +1,5 @@
 App.Sex = [
     {
-        id : "",
         name: "Select one..."
     },
     {
