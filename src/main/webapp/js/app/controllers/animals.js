@@ -1,12 +1,14 @@
-App.AnimalsIndexListController = Ember.ArrayController.extend({
+App.AnimalsIndexController = Ember.ArrayController.extend({
 
     sortProperties: ['name'],
 
-    pushSort: function(attribute) {
-        if (this.get("sortProperties.firstObject") === attribute) {
-            this.toggleProperty("sortAscending");
-        } else {
-            this.set("sortProperties", [attribute]);
+    actions: {
+        pushSort: function(attribute) {
+            if (this.get("sortProperties.firstObject") === attribute) {
+                this.toggleProperty("sortAscending");
+            } else {
+                this.set("sortProperties", [attribute]);
+            }
         }
     }
 });
