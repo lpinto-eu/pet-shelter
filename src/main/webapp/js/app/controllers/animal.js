@@ -1,4 +1,4 @@
-App.AnimalController = Ember.ObjectController.extend({
+App.AnimalsAnimalController = Ember.ObjectController.extend({
     isEditing: false,
 
     isMale: function () {
@@ -22,28 +22,27 @@ App.AnimalController = Ember.ObjectController.extend({
             if (this.get('content.isDirty') && confirm('Unsaved changes will be lost.')) {
                 this.get('model').rollback();
             }
-            this.set('isEditing', false);
-            this.transitionToRoute('animal');
+            this.toggleProperty("isEditing");
         },
         
         update: function() {
             if (this.get('content.isDirty')) {
                 var self = this;
                 this.get('model').save()
-                        .then(function() {
-                            self.transitionToRoute('animals');
-                        });
+                    .then(function() {
+                        self.transitionToRoute('animals');
+                        self.toggleProperty("isEditing");
+                    });
             } else {
                 this.transitionToRoute('animals');
+                this.toggleProperty("isEditing");
             }
-            this.toggleProperty("isEditing");
         },
         
         remove: function() {
             if (confirm('Delete: ' + this.get('name') + '?')) {
                 var animal = this.get('model');
                 animal.deleteRecord();
-
                 var self = this;
                 animal.save()
                     .then(function() {
