@@ -2,8 +2,8 @@ App.Router.map(function() {
     this.resource('animals', function() {
         this.route('list'),
         this.route('new');
+        this.route("animal", {path: ":animal_id"});
     });
-    this.resource("animal", {path: "animals/:animal_id"});
 });
 
 App.IndexRoute = Ember.Route.extend({
