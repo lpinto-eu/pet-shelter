@@ -31,6 +31,10 @@ body {
 
 /* Nav
 *******************************************************************************/
+.navbar-inverse .navbar-nav>li>a {
+color: #BBB;
+}
+
 .navbar .container .navbar-brand {
     margin-left:  0;
 }
@@ -52,6 +56,17 @@ body {
 #dashboard .well {
     margin-bottom:  0;
     padding:  4px;
+}
+
+@media (min-width: 768px) {
+    .dash-1,
+    .dash-2 {
+        margin: 3px;
+    }
+}
+
+.dash-1 {
+    display:  inline-block;
 }
 
  .dash-1 svg {
@@ -83,6 +98,14 @@ body {
     font-weight: normal;
     line-height: normal;
     text-align: right;
+}
+
+a {
+    cursor: pointer;
+}
+
+#animals td {
+    cursor: pointer;
 }
 
 .animal-link a {

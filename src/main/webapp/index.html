@@ -87,20 +87,7 @@
                     </div>
                 </div>-->
                 <div class="row text-center">
-                    <section class="col-sm-6">
-                        <article class="dash-1">
-                            {{bar-graph data=cTimeMonth  class="well"}}
-                        </article>
-                    </section>
-
-                    <section class="col-sm-6">
-                        <article class="dash-2">
-                            {{donut-chart data=sex class="well"}}
-                        </article>
-                        <article class="dash-2">
-                            {{donut-chart data=age class="well"}}
-                        </article>
-                    </section>
+                        <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
                 </div>
             </section>
         </script>
@@ -112,7 +99,7 @@
         <script type="text/x-handlebars" data-template-name="animals">
             <section id="animals-header" class="row">
                 <div class="well">
-                    <h1>Animais</h1>
+                    <h1>Animals</h1>
                     <div id="links" class="pull-right">
                         <h3>{{#link-to 'animals' activeClass="active"}}Faces{{/link-to}}
                         <span> | <span>
@@ -136,7 +123,7 @@
 
                     <div>
                         {{#each}}
-                            {{#link-to "animal" this title="Details / Edit"}}
+                            {{#link-to "animals.animal" this title="Details / Edit"}}
                                 <div class="col-xs-6 col-sm-3 col-md-2">
                                     <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
                                         <div class="panel-heading">
@@ -192,47 +179,40 @@
                         {{/link-to}}
                     </h2>
 
-                    <table class="table table-bordered table-hover table-condensed">
+                    <table class="table table-bordered table-hover table-condensed table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 25%;">
+                                <th style="width: 35%;">
                                     <a {{action pushSort 'name'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
+                                        <i class="fa fa-sort-alpha-asc"></i> Name
                                     </a>
-                                    Name
                                 </th>
                                 <th>
                                     <a {{action pushSort 'age'}} title="Sort by">
-                                        <i class="fa fa-sort-numeric-asc"></i>
+                                        <i class="fa fa-sort-numeric-asc"></i> Age
                                     </a>
-                                    Age
                                 </th>
                                 <th>
                                     <a {{action pushSort 'species'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
+                                        <i class="fa fa-sort-alpha-asc"></i> Species
                                     </a>
-                                    Species
                                 </th>
                                 <th>
                                     <a {{action pushSort 'breed'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i>
+                                        <i class="fa fa-sort-alpha-asc"></i> Breed
                                     </a>
-                                    Breed
                                 </th>
                                 <th>
                                     <a {{action pushSort 'created'}} title="Sort by">
-                                        <i class="fa fa-sort-amount-asc"></i>
+                                        <i class="fa fa-sort-amount-asc"></i> Register date
                                     </a>
-                                    Description
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each}}
-                                <tr {{bind-attr class="drugs:warning"}}>
-                                    <td class="animal-link">
-                                        {{#link-to "animal" this title="Details / Edit"}}{{name}}{{/link-to}}\n\
-                                    </td>
+                            {{#each class="animal-link"}}
+                                {{#link-to "animals.animal" id tagName="tr"}}
+                                    <td>{{name}}</td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
                                     <td>{{breed}}</td>
@@ -251,7 +231,7 @@
                                             </div>
                                         </abbr>
                                     </td>
-                                </tr>
+                                {{/link-to}}
                             {{else}}
                                 <tr>
                                     <td>You have no animals.</td>
@@ -275,14 +255,14 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Name</span>
-                                {{view Ember.TextField valueBinding='name' class="form-control"}}
+                                {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Age</span>
-                                {{view Ember.TextField valueBinding='age' class="form-control"}}
+                                {{view Ember.TextField type="number" valueBinding='age' class="form-control"}}
                             </div>
                         </div>
 
@@ -311,7 +291,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     Sex
-                                    <i class="ion-female text-danger"></i>
+                                    <i class="ion-female text-warning"></i>
                                     <i class="ion-male text-primary"></i>
                                 </span>
                                 {{view Ember.Select
@@ -362,7 +342,7 @@
 
 
         <!-- ================================================================================================ Animal -->
-        <script type="text/x-handlebars" data-template-name="animal">
+        <script type="text/x-handlebars" data-template-name="animals/animal">
             <section id="animal" {{bind-attr class="isEditing:editing well"}}>
                 <article class="row">
                     <div class="col-xs-12">
@@ -381,13 +361,13 @@
                     {{#if isEditing}}
                         <!-- UPDATE -->
                         <div   class="col-md-12">
-                            <form>
+                            <form class="form-horizontal" role="form">
                                 <fieldset>
                                     <!-- <legend>Edit</legend> -->
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">Name</span>
-                                            {{view Ember.TextField valueBinding='name' class="form-control"}}
+                                            {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
                                         </div>
                                     </div>
 
@@ -422,7 +402,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 Sex
-                                                <i class="ion-female text-danger"></i>
+                                                <i class="ion-female text-warning"></i>
                                                 <i class="ion-male text-primary"></i>
                                             </span>
                                             {{view Ember.Select
