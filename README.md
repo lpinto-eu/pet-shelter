@@ -1,6 +1,6 @@
-animal-shelter
+Pet Shelter
 ==============
-Information System to help animal shelter managment.
+An open source solution for Animal Shelter managment.
 
 Technologies
 ==============
@@ -8,3 +8,4 @@ Technologies
  * CSS 3
  * Bootstrap 3.0
  * Ember.js
+ * Java EE7
