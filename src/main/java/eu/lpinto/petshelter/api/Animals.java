@@ -3,24 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package eu.lpinto.petshelter.api;
 
 import eu.lpinto.petshelter.entities.Animal;
+import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.AnimalFacade;
+import eu.lpinto.petshelter.facades.UserFacade;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -32,14 +39,23 @@ public class Animals {
 
     @EJB
     private AnimalFacade animalsFacade;
+    @EJB
+    private UserFacade userFacade;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Animal> findAll() {
-        try{
-            return animalsFacade.findAll();
-        } catch(RuntimeException ex) {
-            throw ex;
+    public List<Animal> findAll(@HeaderParam("userID") final Integer userID) {
+        try {
+            /* get User */
+            User user = userFacade.find(userID);
+            
+            /* retrieve animals */
+            return animalsFacade.findAllByOrg(user.getOrganizationId());
+        }
+        catch (RuntimeException ex) {
+            System.out.println(ex.getLocalizedMessage());
+            // TODO return http code!!
+            return new ArrayList<>(0);
         }
     }
 
@@ -49,18 +65,31 @@ public class Animals {
     public Animal retrieve(@PathParam("id") final int id) {
         return animalsFacade.find(id);
     }
-    
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Animal create(Animal animal) {
-        try{
+        try {
             animal.setCreated(new GregorianCalendar());
             animal.setUpdated(new GregorianCalendar());
             animalsFacade.create(animal);
             return animal;
-        } catch(RuntimeException ex) {
+        }
+        catch (RuntimeException ex) {
             throw ex;
+        }
+    }
+
+    @POST
+    @Path("load")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void load(List<Animal> animals) {
+        for (Animal animal : animals) {
+            animal.setCreated(new GregorianCalendar());
+            animal.setUpdated(new GregorianCalendar());
+            animal.setOrganizationId(3);
+            animalsFacade.create(animal);
         }
     }
 

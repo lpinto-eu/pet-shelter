@@ -4,7 +4,7 @@ App.AnimalsNewController = Ember.ObjectController.extend({
             var self = this;
             this.get('model').save()
                 .then(function() {
-                    self.transitionToRoute('animal', self.get("id"));
+                    self.transitionToRoute('animals.animal', self.get("id"));
             });
         },
         cancel: function() {

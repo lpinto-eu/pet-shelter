@@ -1,3 +1,5 @@
+package eu.lpinto.petshelter.api.filters;
+
 ///*
 // * TrafficLogger.java
 // * Created on Dec 11, 2013, 5:55:55 PM

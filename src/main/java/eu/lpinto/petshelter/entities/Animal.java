@@ -1,6 +1,6 @@
 /**
  * Animal.java
- * Created on 02-Aug-2014, 21:41:54
+ * Created on 12-Aug-2014, 21:15:03
  *
  * petshelter-webapp
  * petshelter-webapp
@@ -34,8 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Luís Pinto -  mail@lpinto.eu
  */
 @Entity
-@Table(name = "animal")
 @XmlRootElement
+@Table(name = "animal")
 @NamedQueries({
     @NamedQuery(name = "Animal.findAll", query = "SELECT a FROM Animal a"),
     @NamedQuery(name = "Animal.findById", query = "SELECT a FROM Animal a WHERE a.id = :id"),
@@ -47,7 +47,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Animal.findByBreed", query = "SELECT a FROM Animal a WHERE a.breed = :breed"),
     @NamedQuery(name = "Animal.findByDrugs", query = "SELECT a FROM Animal a WHERE a.drugs = :drugs"),
     @NamedQuery(name = "Animal.findBySex", query = "SELECT a FROM Animal a WHERE a.sex = :sex"),
-    @NamedQuery(name = "Animal.findBySterilized", query = "SELECT a FROM Animal a WHERE a.sterilized = :sterilized")})
+    @NamedQuery(name = "Animal.findBySterilized", query = "SELECT a FROM Animal a WHERE a.sterilized = :sterilized"),
+    @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organizationId = :organizationId")})
 public class Animal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -88,6 +89,10 @@ public class Animal implements Serializable {
     @Size(max = 65535)
     @Column(name = "picture")
     private String picture;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "organization_id")
+    private int organizationId;
 
     public Animal() {
     }
@@ -96,10 +101,11 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, Calendar created, Calendar updated) {
+    public Animal(Integer id, Calendar created, Calendar updated, int organizationId) {
         this.id = id;
         this.created = created;
         this.updated = updated;
+        this.organizationId = organizationId;
     }
 
     public Integer getId() {
@@ -190,6 +196,14 @@ public class Animal implements Serializable {
         this.picture = picture;
     }
 
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -212,7 +226,7 @@ public class Animal implements Serializable {
 
     @Override
     public String toString() {
-        return "eu.lpinto.petshelter.Animal[ id=" + id + " ]";
+        return "eu.lpinto.petshelter.entities.Animal[ id=" + id + " ]";
     }
 
 }

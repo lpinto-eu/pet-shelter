@@ -26,6 +26,10 @@ public class ApplicationConfig extends Application {
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(eu.lpinto.petshelter.api.Animals.class);
+        resources.add(eu.lpinto.petshelter.api.Sessions.class);
+        resources.add(eu.lpinto.petshelter.api.Users.class);
+        resources.add(eu.lpinto.petshelter.api.filters.AccessTokenValidation.class);
+        resources.add(eu.lpinto.petshelter.api.filters.TrafficLogger.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ClassNotFoundExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.ConversionExceptionMapper.class);
         resources.add(org.eclipse.persistence.jpa.rs.exceptions.DatabaseExceptionMapper.class);
