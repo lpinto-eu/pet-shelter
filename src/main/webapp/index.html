@@ -207,7 +207,14 @@
                         <tbody>
                             {{#each class="animal-link"}}
                                 {{#link-to "animals.animal" id tagName="tr"}}
-                                    <td>{{name}}</td>
+                                    <td>
+                                        {{#if picture}}
+                                            <img {{bind-attr src="picture"}} class="animal-img" style="height:19px"/>
+                                        {{else}}
+                                            <img src="img/dog.png" class="animal-img" style="height:19px"/>
+                                        {{/if}}
+                                        {{name}}
+                                    </td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
                                     <td>{{breed}}</td>
