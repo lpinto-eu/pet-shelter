@@ -42,6 +42,10 @@ public class AccessTokenValidation implements ContainerRequestFilter, ContainerR
             return;
         }
         
+        if(absolutePath.toString().endsWith("api/users") && "POST".equals(method)) {
+            return;
+        }
+        
         String bearerToken = requestContext.getHeaderString("Authorization");
         if (bearerToken == null) {
             requestContext.abortWith(Response

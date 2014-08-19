@@ -1,4 +1,4 @@
-App.IndexController = Ember.ArrayController.extend({
+App.AnimalsController = Ember.ArrayController.extend({
     sex: function() {
         var males = this.filter(function(animal) {
             return animal.get('sex') === "M";
@@ -50,6 +50,15 @@ App.IndexController = Ember.ArrayController.extend({
             }
         }
         return data;
-    }.property('@each.cTimeMonth')
-});
+    }.property('@each.cTimeMonth'),
 
+    actions: {
+        pushSort: function(attribute) {
+            if (this.get("sortProperties.firstObject") === attribute) {
+                this.toggleProperty("sortAscending");
+            } else {
+                this.set("sortProperties", [attribute]);
+            }
+        }
+    }
+});

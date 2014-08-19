@@ -1,3 +1,6 @@
+// https://github.com/WebCloud/EmberJS-Auth-Example/tree/master/app
+//http://webcloud.github.io/blog/2014/04/07/emberjs-authentication-the-right-way-javascript-version/
+
 App.UsersSignupController = Ember.Controller.extend({
   // requires the sessions controller
   needs: ['sessions'],
@@ -7,16 +10,11 @@ App.UsersSignupController = Ember.Controller.extend({
     createUser: function() {
       // get the data from the form
       var data = this.getProperties(
-                    'firstName',
-                    'lastName',
+                    'name',
                     'email',
-                    'username',
-                    'password',
-                    'password_confirmation'
+                    'password'
                   );
       
-      // compile the firstName & lastName into a single name property
-      data.name = "#{data.firstName} #{data.lastName}";
 
       // get the model passed from the UserSignupRoute
       user = this.get('model');
@@ -34,17 +32,16 @@ App.UsersSignupController = Ember.Controller.extend({
         self.setProperties({
           name:                  null,
           email:                 null,
-          username:              null,
-          password:              null,
-          password_confirmation: null});
+          password:              null});
 
 
         // get the sessions controller object, defined on line 3
         // and set the properties to proceed to the login action
-        sessionsController = this.get('controllers.sessions'),
+        sessionsController = self.get('controllers.sessions'),
         sessionsController.setProperties({
-          username_or_email: data.username,
-          password:          data.password});
+          name: data.name,
+          username_or_email: data.email,
+          password: data.password});
 
         // remove the record from the localstorage to avoid duplication on the users list
         // as it will come from the api

@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Animal.findByDrugs", query = "SELECT a FROM Animal a WHERE a.drugs = :drugs"),
     @NamedQuery(name = "Animal.findBySex", query = "SELECT a FROM Animal a WHERE a.sex = :sex"),
     @NamedQuery(name = "Animal.findBySterilized", query = "SELECT a FROM Animal a WHERE a.sterilized = :sterilized"),
-    @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organizationId = :organizationId")})
+    @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organization = :organization")})
 public class Animal implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -92,7 +92,7 @@ public class Animal implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "organization_id")
-    private int organizationId;
+    private int organization;
 
     public Animal() {
     }
@@ -101,11 +101,11 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, Calendar created, Calendar updated, int organizationId) {
+    public Animal(Integer id, Calendar created, Calendar updated, int organization) {
         this.id = id;
         this.created = created;
         this.updated = updated;
-        this.organizationId = organizationId;
+        this.organization = organization;
     }
 
     public Integer getId() {
@@ -196,12 +196,12 @@ public class Animal implements Serializable {
         this.picture = picture;
     }
 
-    public int getOrganizationId() {
-        return organizationId;
+    public int getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationId(int organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganization(int organization) {
+        this.organization = organization;
     }
 
     @Override

@@ -52,6 +52,9 @@ public class Users {
         try {
             user.setCreated(new GregorianCalendar());
             user.setUpdated(new GregorianCalendar());
+            if (user.getOrganizationId() == 0) {
+                user.setOrganizationId(1);
+            }
             usersFacade.create(user);
             return user;
         }

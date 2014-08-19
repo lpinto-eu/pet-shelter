@@ -12,7 +12,6 @@ import eu.lpinto.petshelter.facades.UserFacade;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ws.rs.Consumes;
@@ -24,10 +23,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -73,6 +69,9 @@ public class Animals {
         try {
             animal.setCreated(new GregorianCalendar());
             animal.setUpdated(new GregorianCalendar());
+            if(animal.getOrganization() == 0) {
+                animal.setOrganization(1);
+            }
             animalsFacade.create(animal);
             return animal;
         }
@@ -88,7 +87,6 @@ public class Animals {
         for (Animal animal : animals) {
             animal.setCreated(new GregorianCalendar());
             animal.setUpdated(new GregorianCalendar());
-            animal.setOrganizationId(3);
             animalsFacade.create(animal);
         }
     }

@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>Animal Shelter</title>
+        <title>Pet Shelter</title>
 
         <meta charset="utf-8">
         <meta name="author" content="Luis Pinto">
@@ -49,7 +49,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><img src="img/logo.png" class="animal-img"/></a>
+                        <a class="navbar-brand" href="#"><img src="img/logo.png" alt="logo" class="animal-img"/></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -60,16 +60,27 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Animals <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li>{{#link-to 'animals' activeClass="active"}}Faces{{/link-to}}</li>
                                     <li>{{#link-to 'animals.list' activeClass="active"}}List{{/link-to}}</li>
+                                    <li>{{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}</li>
                                 </ul>
                             </li>
-                    
+
                             <li><a {{action 'logout'}}>logout</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
             </nav>
+        </script>
+        
+        <!-- ================================================================================================= Index -->
+        <script type="text/x-handlebars" data-template-name='index'>
+            <section id="home" class="jumbotron text-center">
+                <h1><img src="img/logo.png" width="100px"> Pet Shelter</h1>
+                <p class="lead">An open source solution for Animal Shelter managment.</p>
+                <hr/>
+                {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
+                {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
+            </section>
         </script>
         
         
@@ -81,9 +92,15 @@
                 <div class="well">
                     <h1>Animals</h1>
                     <div id="links" class="pull-right">
-                        <h3>{{#link-to 'animals' activeClass="active"}}Faces{{/link-to}}
-                        <span> | <span>
-                        {{#link-to 'animals.list' activeClass="active"}}List{{/link-to}}</h3>
+                        <h3>
+                            {{#link-to 'animals.list' activeClass="active"}}List{{/link-to}}
+                            <span> | <span>
+                            {{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}
+                            <span> | <span>
+                            {{#link-to "animals.new"  activeClass="active" title="Add new"}}
+                                <i class="fa fa-plus-square"></i>
+                            {{/link-to}}
+                        </h3>
                     </div>
                 </div>
             </section>
@@ -91,14 +108,7 @@
         </script>
         
         <!-- ============================================================================================= Dashboard -->
-        <script type = "text/x-handlebars" data-template-name="index/dashboard">
-            <section id="home" class="jumbotron text-center">
-                <h1>Animal Shelter</h1>
-                <p class="lead">An open source solution for Animal Shelter managment.</p>
-                <hr/>
-                {{#link-to 'animals' class="btn btn-primary"}}Click to see the Animals{{/link-to}}
-            </section>
-
+        <script type = "text/x-handlebars" data-template-name="animals/index">
             <section id="dashboard">
                 <!-- <div class="row">
                     <div class="col-xs-12">
@@ -112,74 +122,58 @@
         </script>
         
         <!-- ========================================================================================= Animals Faces -->
-        <script type="text/x-handlebars" data-template-name="animals/index">
+        <script type="text/x-handlebars" data-template-name="animals/list">
             <section id="animals" class="row">
                 <article>
-                    <h2 class="col-xs-12">
-                        Faces
-                        {{#link-to "animals.new" title="Add new" class="pull-right"}}
-                            <i class="fa fa-plus-square"></i>
-                        {{/link-to}}
-                    </h2>
+                    {{#each}}
+                        {{#link-to "animals.animal" this title="Details / Edit"}}
+                            <div class="col-xs-6 col-sm-3 col-md-2">
+                                <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
+                                    <div class="panel-heading">
 
-                    <div>
-                        {{#each}}
-                            {{#link-to "animals.animal" this title="Details / Edit"}}
-                                <div class="col-xs-6 col-sm-3 col-md-2">
-                                    <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
-                                        <div class="panel-heading">
+                                    </div>
+                                    <div class="panel-body">
+                                        {{#if picture}}
+                                            <img {{bind-attr src="picture"}} class="animal-img"/>
+                                        {{else}}
+                                            <img src="img/dog.png" class="animal-img"/>
+                                        {{/if}}
+                                    </div>
 
-                                        </div>
-                                        <div class="panel-body">
-                                            {{#if picture}}
-                                                <img {{bind-attr src="picture"}} class="animal-img"/>
-                                            {{else}}
-                                                <img src="img/dog.png" class="animal-img"/>
-                                            {{/if}}
-                                        </div>
-
-                                        <div class="panel-footer">
-                                            <p>{{name}}</p>
-                                            <p>
-                                                {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                                {{#if drugs}}
-                                                    <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                        <i class="fa fa-medkit"></i>
-                                                    </abbr>
-                                                {{/if}}
-
-                                                {{#if sterilized}}
-                                                    <i class="fa fa-shield text-success  desc-item"></i>
-                                                {{/if}}
-
-                                                <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                    <i class="fa fa-clock-o desc-item"></i>
+                                    <div class="panel-footer">
+                                        <p>{{name}}</p>
+                                        <p>
+                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{#if drugs}}
+                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                    <i class="fa fa-medkit"></i>
                                                 </abbr>
-                                            </p>
-                                        </div>
+                                            {{/if}}
+
+                                            {{#if sterilized}}
+                                                <i class="fa fa-shield text-success  desc-item"></i>
+                                            {{/if}}
+
+                                            <abbr class="timestamp" {{bind-attr title="recordDate"}}>
+                                                <i class="fa fa-clock-o desc-item"></i>
+                                            </abbr>
+                                        </p>
                                     </div>
                                 </div>
-                            {{/link-to}}
-                        {{else}}
-                                <h2>You have no animals.</h2>
-                        {{/each}}
-                    </div>
+                            </div>
+                        {{/link-to}}
+                    {{else}}
+                            <h2>You have no animals.</h2>
+                    {{/each}}
                 </article>
             </section>
         </script>
         
 
-        <!-- ========================================================================================== Animals List -->
-        <script type="text/x-handlebars" data-template-name="animals/list">
+        <!-- ========================================================================================= Animals Table -->
+        <script type="text/x-handlebars" data-template-name="animals/table">
             <section id="animals" class="row">
                 <article class="col-xs-12">
-                    <h2>
-                        List
-                        {{#link-to "animals.new" title="Add new" class="pull-right"}}
-                            <i class="fa fa-plus-square"></i>
-                        {{/link-to}}
-                    </h2>
-
                     <table class="table table-bordered table-hover table-condensed table-striped">
                         <thead>
                             <tr>
@@ -315,30 +309,27 @@
                                 </span>
                             </div>
                         </div>
-                    </fieldset>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                Image <i class="fa fa-picture-o"></i>
-                            </span>
-                            {{#view Ember.View contentBinding="picture"  class="form-control image-picker"}}
-                                {{#if picture}}
-                                    <img {{bind-attr src="picture"}} class="animal-preview"/>
-                                {{else}}
-                                    <img src="img/dog.png" class="animal-preview"/>
-                                {{/if}}
-                                {{view App.FotoUp}}
-                            {{/view}}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
+                                {{#view Ember.View contentBinding="picture"  class="form-control image-picker"}}
+                                    {{#if picture}}
+                                        <img {{bind-attr src="picture"}} class="animal-preview"/>
+                                    {{else}}
+                                        <img src="img/dog.png" class="animal-preview"/>
+                                    {{/if}}
+                                    {{view App.FotoUp}}
+                                {{/view}}
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
 
                     <div class="pull-right">
                         <input type="submit" value="Create" class="btn btn-success">
                         &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
                     </div>
                 </form>
-            <article>
+            </article>
         </script>
 
 
@@ -510,56 +501,26 @@
         
         
         <script type="text/x-handlebars" data-template-name='users/signup'>
-            <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2>Register</h2>
-            </div>
-
-            <div class="panel-body" style="overflow: auto;height: auto;">
-              <form class="form-horizontal" {{action "createUser" on="submit"}}>
-                <div class="row">
-                  <div class="col-xs-12">
-                  <label>Name</label>
-                  </div>
-                  <div class="col-xs-6">
-                    {{input type="text" value=firstName class="form-control" placeholder="First name"}}
-                  </div>
-                  <div class="col-xs-6">
-                    {{input type="text" value=lastName class="form-control" placeholder="Last name"}}
-                  </div>
+            <section id="signup" class="row text-center">
+                <div class=" col-sm-6 col-sm-offset-3">
+                    <div class="jumbotron">
+                        <form class="form-horizontal" {{action "createUser" on="submit"}}>
+                          <div class="form-group">
+                            {{input value=name type="text" class="form-control input-lg" id="name" placeholder="name"}}
+                          </div>
+                          <div class="form-group">
+                            {{input value=email type="text" class="form-control input-lg" id="email" placeholder="email"}}
+                          </div>
+                          <div class="form-group">
+                            {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password"}}
+                          </div>
+                          {{#link-to 'sessions'}}login{{/link-to}}
+                          or
+                          <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </form>
+                    </div>
                 </div>
-                <div {{bind-attr class=":form-group :controls errors.email:error"}}>
-                  <label>Email Address</label>
-                  {{input type="email" value=email class="form-control" placeholder="exempe@email.com"}}
-                  <small class="below">{{errors.email}}</small>
-                </div>
-
-                <div {{bind-attr class=":form-group :controls errors.username:error"}}>
-                  <label>Username</label>
-                  {{input type="text" value=username class="form-control" placeholder="Desired Username"}}
-                  <small class="below">{{errors.username}}</small>
-                </div>
-
-                <div {{bind-attr class=":form-group :controls errors.password:error"}}>
-                  <label>Password</label>
-                  {{input type="password" value=password class="form-control" placeholder="Password"}}
-                  <small class="below">{{errors.password}}</small>
-                </div>
-
-                <div {{bind-attr class=":form-group :controls errors.password_confirmation:error"}}>
-                  <label>Confirm Password</label>
-                  {{input type="password" value=password_confirmation class="form-control" placeholder="Repeat your password"}}
-                  <small class="below">{{errors.password_confirmation}}</small>
-                </div>
-
-                <div class="form-group input-group date">
-                  <input type="text" class="form-control" placeholder="Choose a date"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-          </div>
+            </section>
         </script>
         
         <script type="text/x-handlebars" data-template-name='users/user'>
@@ -589,34 +550,34 @@
         </script>
         
         <script type="text/x-handlebars" data-template-name='sessions'>
-            <div class="jumbotron">
-                <form class="form-horizontal" {{action "loginUser" on="submit"}}>
-                  <div class="form-group">
-                    {{input value=username_or_email type="text" class="form-control input-lg" id="username" placeholder="Enter username"}}
-                  </div>
-                  <div class="form-group">
-                    {{input value=password type="password" class="form-control input-lg" id="password" placeholder="Password"}}
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-lg">Login</button>
-                </form>
-              </div>
-        </script>
-        
-        
-        <script type="text/x-handlebars" data-template-name='index'>
-            <section id="home" class="jumbotron text-center">
-                <h1><img src="img/logo.png" width="100px"> Animal Shelter</h1>
-                <p class="lead">An open source solution for Animal Shelter managment.</p>
-                <hr/>
-                {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
-                {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
+            <section id="login" class="row text-center">
+                <div class=" col-sm-6 col-sm-offset-3">
+                    <div class="jumbotron">
+                        <form class="form-horizontal" {{action "loginUser" on="submit"}}>
+                          <div class="form-group">
+                            {{input value=username_or_email type="text" class="form-control input-lg" id="username" placeholder="email"}}
+                          </div>
+                          <div class="form-group">
+                            {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password"}}
+                          </div>
+                          <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                          or 
+                          {{#link-to 'users.signup'}}create an account{{/link-to}}
+                        </form>
+                    </div>
+                </div>
             </section>
         </script>
         
         
         
-
-
+        
+        
+        
+        
+        
+        
+        
         <!-- ======================================================================================================= -->
         <!--                                                                                              Components -->
         <!-- ======================================================================================================= -->
@@ -642,7 +603,6 @@
         <!-- App -->
         <script src="js/app/app.js"></script>
         <script src="js/app/handlebars-helpers.js"></script>
-        <script src="js/app/router.js"></script>
 
         <!-- Models -->
         <script src="js/app/models/animal.js"></script>
@@ -651,17 +611,18 @@
 
         <!-- Controllers -->
         <script src="js/app/controllers/animals/animal.js"></script>
-        <script src="js/app/controllers/animals/index.js"></script>
-        <script src="js/app/controllers/animals/list.js"></script>
+        <script src="js/app/controllers/animals/animals.js"></script>
         <script src="js/app/controllers/animals/new.js"></script>
-        <!-- <script src="js/app/controllers/index.js"></script> -->
         <script src="js/app/controllers/sessions.js"></script>
         <script src="js/app/controllers/users/signup.js"></script>
 
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
-
+        
+        <!-- Routes -->
+        <script src="js/app/routes/router.js"></script>
+        <script src="js/app/routes/animals.js"></script>
         <!-- Components -->
         <script src="js/app/components/donutchart.js"></script>
         <script src="js/app/components/bargraph.js"></script>

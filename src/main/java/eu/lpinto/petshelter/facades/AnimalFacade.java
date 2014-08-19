@@ -39,7 +39,7 @@ public class AnimalFacade extends AbstractFacade<Animal> {
         result = new ArrayList<>(animals.size());
 
         for (Animal animal : animals) {
-            if (animal.getOrganizationId() == orgID) {
+            if (animal.getOrganization() == orgID) {
                 result.add(animal);
             }
         }

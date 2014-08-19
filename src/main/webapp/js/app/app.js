@@ -12,7 +12,12 @@ App.ApplicationAdapter = DS.RESTAdapter.extend({
     namespace: 'petshelter/api'
 });
 
-App.ApplicationSerializer = DS.RESTSerializer.extend({
+
+App.AnimalSerializer = DS.RESTSerializer.extend({
+    /* add root element on incoming json */
+    normalizePayload: function(payload) {
+        return {animal: payload};
+    },
     /* remove root element from outgoing json */
     serializeIntoHash: function(hash, type, record, options) {
         Ember.merge(record.get("data"), this.serialize(record, options));
@@ -20,17 +25,15 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
     }
 });
 
-App.AnimalSerializer = DS.RESTSerializer.extend({
-    /* add root element on incoming json */
-    normalizePayload: function(payload) {
-        return {animal: payload};
-    }
-});
-
 App.SessionSerializer = DS.RESTSerializer.extend({
     /* add root element on incoming json */
     normalizePayload: function(payload) {
         return {api_key: payload};
+    },
+    /* remove root element from outgoing json */
+    serializeIntoHash: function(hash, type, record, options) {
+        Ember.merge(record.get("data"), this.serialize(record, options));
+        Ember.merge(hash, record.get("data"));
     }
 });
 
@@ -38,6 +41,11 @@ App.UserSerializer = DS.RESTSerializer.extend({
     /* add root element on incoming json */
     normalizePayload: function(payload) {
         return {user: payload};
+    },
+    /* remove root element from outgoing json */
+    serializeIntoHash: function(hash, type, record, options) {
+        Ember.merge(record.get("data"), this.serialize(record, options));
+        Ember.merge(hash, record.get("data"));
     }
 });
 
@@ -46,10 +54,7 @@ App.UserSerializer = DS.RESTSerializer.extend({
 /* ************************************************************************************ */
 App.User = DS.Model.extend({
   name:                  DS.attr('string'),
-  email:                 DS.attr('string'),
-  username:              DS.attr('string'),
   password:              DS.attr('string'),
-  password_confirmation: DS.attr('string'),
   apiKeys:               DS.hasMany('apiKey'),
   errors:                {}
 });

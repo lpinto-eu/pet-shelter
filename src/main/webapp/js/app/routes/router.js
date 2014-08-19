@@ -10,6 +10,7 @@ App.Router.map(function() {
 
     this.resource('animals', function() {
         this.route('list'),
+        this.route('table'),
         this.route('new');
         this.route("animal", {path: ":animal_id"});
     });
@@ -68,30 +69,6 @@ App.AuthenticatedRoute = Ember.Route.extend({
             console.log('unknown problem');
           }
         }
-    }
-});
-
-//App.IndexRoute = Ember.Route.extend({
-//    model: function() {
-//        return this.store.find("Animal");
-//    }
-//});
-
-App.AnimalsIndexRoute =  App.AuthenticatedRoute.extend({
-    model: function() {
-        return this.store.find("Animal");
-    }
-});
-
-App.AnimalsListRoute = App.AuthenticatedRoute.extend({
-    model: function() {
-        return this.store.find('Animal');
-    }
-});
-
-App.AnimalsNewRoute = App.AuthenticatedRoute.extend({
-    model: function(params) {
-        return this.store.createRecord('Animal', params);
     }
 });
 
