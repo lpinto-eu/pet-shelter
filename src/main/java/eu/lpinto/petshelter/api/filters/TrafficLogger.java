@@ -9,7 +9,9 @@
  */
 package eu.lpinto.petshelter.api.filters;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +49,7 @@ public class TrafficLogger implements ContainerRequestFilter, ContainerResponseF
         log(responseContext);
     }
 
-    /*
-     * LOG
-     */
-    private void log(final ContainerRequestContext requestContext) {
+    private void log(final ContainerRequestContext requestContext) throws IOException {
         SecurityContext securityContext = requestContext.getSecurityContext();
         String authentication = securityContext.getAuthenticationScheme();
         Principal userPrincipal = securityContext.getUserPrincipal();
@@ -59,14 +58,17 @@ public class TrafficLogger implements ContainerRequestFilter, ContainerResponseF
         List<Object> matchedResources = uriInfo.getMatchedResources();
         //...
 
-        String log = "\nHeaders";
-
+        System.out.println("----------------------------------------------------------");
+        System.out.println(method + " " + uriInfo.getAbsolutePath());
+        
+        System.out.println("---");
+        String headers = "Headers";
         for(Map.Entry<String, List<String>> elem : requestContext.getHeaders().entrySet()) {
-            log += ("\n\t" + elem.getKey() + " : " + elem.getValue());
+            headers += ("\n\t" + elem.getKey() + " : " + elem.getValue());
         }
-
-        System.out.println(log);
-//        LOGGER.info(log);
+        System.out.println(headers);
+        
+        System.out.println("----------------------------------------------------------");
 
     }
 

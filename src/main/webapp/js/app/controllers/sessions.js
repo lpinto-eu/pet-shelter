@@ -25,7 +25,7 @@ App.SessionsController = Ember.ArrayController.extend({
     // reset the controller properties and the ajax header
     reset: function() {
       this.setProperties({
-        username_or_email: null,
+        email:             null,
         password:          null,
         token:             null,
         currentUser:       null
@@ -58,11 +58,11 @@ App.SessionsController = Ember.ArrayController.extend({
 
             // get the properties sent from the form and if there is any attemptedTransition set
             var attemptedTrans = this.get('attemptedTransition');
-            var data =           this.getProperties('username_or_email', 'password');
+            var data =           this.getProperties('email', 'password');
 
             // clear the form fields
             this.setProperties({
-              username_or_email: null,
+              email:             null,
               password:          null
             });
 
@@ -108,9 +108,13 @@ App.SessionsController = Ember.ArrayController.extend({
                 });
                 
                 }, function(error) {
+                    console.log(error.responseText);
+                    
                     if (error.status === 401) {
-                      // if there is a authentication error the user is informed of it to try again
                       alert("wrong user or password, please try again");
+                    
+                    } else {
+                        alert("Cannot login, please try again later.");
                     }
                 });
         }

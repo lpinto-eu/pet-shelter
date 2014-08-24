@@ -34,10 +34,6 @@ public class AccessTokenValidation implements ContainerRequestFilter, ContainerR
         URI absolutePath = requestContext.getUriInfo().getAbsolutePath();
         String method = requestContext.getRequest().getMethod();
         
-        System.out.println("----------------------------------------------------------");
-        System.out.println("URL: " + absolutePath);
-        System.out.println("----------------------------------------------------------");
-        
         if(absolutePath.toString().endsWith("api/session") && "POST".equals(method)) {
             return;
         }

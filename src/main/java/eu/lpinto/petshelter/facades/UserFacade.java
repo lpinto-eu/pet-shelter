@@ -37,6 +37,14 @@ public class UserFacade extends AbstractFacade<User> {
             return null;
         }
     }
+    
+    public User findByEmail(final String email) {
+        try {
+        return (User) em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
 
     @Override
     protected EntityManager getEntityManager() {

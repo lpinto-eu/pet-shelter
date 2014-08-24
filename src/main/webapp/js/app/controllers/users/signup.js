@@ -40,7 +40,7 @@ App.UsersSignupController = Ember.Controller.extend({
         sessionsController = self.get('controllers.sessions'),
         sessionsController.setProperties({
           name: data.name,
-          username_or_email: data.email,
+          email: data.email,
           password: data.password});
 
         // remove the record from the localstorage to avoid duplication on the users list
@@ -51,6 +51,9 @@ App.UsersSignupController = Ember.Controller.extend({
         sessionsController.send('loginUser');
         
       }, function(error) {
+            alert("Cannot create user. Please try again later.");
+            console.log(error.responseText);
+          
             // if the api request returns a HTTP status 422 create an errors object to return to the user
             if (error.status === 422) {
               errs = JSON.parse(error.responseText);

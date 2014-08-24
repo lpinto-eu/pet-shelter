@@ -9,6 +9,7 @@
  */
 package eu.lpinto.petshelter.api;
 
+import eu.lpinto.petshelter.api.util.Digest;
 import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.UserFacade;
 import javax.ejb.EJB;
@@ -33,29 +34,36 @@ public class Sessions {
     private UserFacade userFacade;
 
     @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@FormParam("username_or_email") String userName, @FormParam("password") String password) {
-//        if ("pravi".equals(user) && "pravi2015".equals(password)) {
-//            return "{\"api_key\": {\"access_token\": \"1\",\"user_id\": 1}}";
-//        } else {
-//            return "{\"api_key\": {\"access_token\": \"2\",\"user_id\": 2}}";
-//        }
-        User user = userFacade.findByName(userName);
-
-        if (user != null) {
-            String accessToken = String.valueOf(System.currentTimeMillis()) + user.getId();
-
-            String result = "{\"api_key\":{"
-                            + "\"access_token\": \"" + accessToken + "\","
-                            + "\"user_id\": " + user.getId() + "}}";
-
-            MemSession.DB.put(accessToken, user.getId());
-
-            return Response.ok(result).build();
-
-        } else {
-            return Response.status(401).build();
+    public Response login(@FormParam("email") String email, @FormParam("password") String password) {
+        if (email == null || email.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Missing email.").build();
         }
+
+        if (password == null || password.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Missing password.").build();
+        }
+
+        User user = userFacade.findByEmail(email);
+
+        if (user == null) {
+            System.out.println("Unnown access token.");
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Unnown user.").build();
+
+        }
+
+        if (!user.getPassword().equals(Digest.getSHA(password))) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid password.").build();
+        }
+
+        String accessToken = String.valueOf(System.currentTimeMillis()) + user.getId();
+
+        String result = "{\"api_key\":{"
+                        + "\"access_token\": \"" + accessToken + "\","
+                        + "\"user_id\": " + user.getId() + "}}";
+
+        MemSession.DB.put(accessToken, user.getId());
+
+        return Response.ok(result).build();
     }
 }
