@@ -13,6 +13,10 @@ Technologies
 
 How to use
 ==============
+Mysql
+---------------
+Create a new database
+
 Ember
 ---------------
  * Customize your db connection in the ApplicationAdapter (src/main/webapp/js/app/app.js)
