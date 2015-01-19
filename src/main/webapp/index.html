@@ -16,6 +16,7 @@
         <!-- STYLESHEETS -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/theme.css">
         <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -71,19 +72,25 @@
                 </div>
             </nav>
         </script>
-        
+
         <!-- ================================================================================================= Index -->
         <script type="text/x-handlebars" data-template-name='index'>
             <section id="home" class="jumbotron text-center">
-                <h1><img src="img/logo.png" width="100px"> Pet Shelter</h1>
+                <h1>Pet Shelter</h1>
                 <p class="lead">An open source solution for Animal Shelter managment.</p>
                 <hr/>
                 {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
                 {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
             </section>
+            <section class="row">
+                <article class="col-md-6 well">
+                    <p>You can create an accounnt and access a test shelter</p>
+                    <p>If you want to join a specific shelter contact <a href="mailto:mail@lpinto.eu">mail@lpinto.eu</a></p>
+                </article>
+            </section>
         </script>
-        
-        
+
+
         <!-- ======================================================================================================= -->
         <!--                                                                                                 Animals -->
         <!-- ======================================================================================================= -->
@@ -106,7 +113,7 @@
             </section>
             {{outlet}}
         </script>
-        
+
         <!-- ============================================================================================= Dashboard -->
         <script type = "text/x-handlebars" data-template-name="animals/index">
             <section id="dashboard">
@@ -116,11 +123,11 @@
                     </div>
                 </div>-->
                 <div class="row text-center">
-                        <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
+                    <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
                 </div>
             </section>
         </script>
-        
+
         <!-- ========================================================================================= Animals Faces -->
         <script type="text/x-handlebars" data-template-name="animals/list">
             <section id="animals" class="row">
@@ -168,7 +175,7 @@
                 </article>
             </section>
         </script>
-        
+
 
         <!-- ========================================================================================= Animals Table -->
         <script type="text/x-handlebars" data-template-name="animals/table">
@@ -244,8 +251,8 @@
                 </article>
             </section>
         </script>
-        
-        
+
+
         <!-- =========================================================================================== Animals New -->
         <script type = "text/x-handlebars" data-template-name="animals/new">
             <article class ="col-xs-12">
@@ -494,8 +501,8 @@
                 </article>
             </section>
         </script>
-        
-        
+
+
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Users -->
         <!-- ======================================================================================================= -->
@@ -521,7 +528,7 @@
                 </div>
             </section>
         </script>
-        
+
         <script type="text/x-handlebars" data-template-name='users/user'>
             <div class="panel panel-default">
             <div class="panel-heading">
@@ -535,7 +542,7 @@
             </div>
           </div>
         </script>
-        
+
         <!-- ======================================================================================================= -->
         <!--                                                                                                Sessions -->
         <!-- ======================================================================================================= -->
@@ -551,15 +558,15 @@
                             {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password"}}
                           </div>
                           <button type="submit" class="btn btn-primary btn-lg">Login</button>
-                          or 
+                          or
                           {{#link-to 'users.signup'}}create an account{{/link-to}}
                         </form>
                     </div>
                 </div>
             </section>
         </script>
-        
-        
+
+
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Other -->
         <!-- ======================================================================================================= -->
@@ -568,16 +575,16 @@
                 <div class="panel-body">some error happened!</div>
               </div>
         </script>
-        
+
         <script type="text/x-handlebars" data-template-name='loading'>
             <div class="well">
                 loading...
               </div>
         </script>
-        
-        
-        
-        
+
+
+
+
         <!-- ======================================================================================================= -->
         <!--                                                                                              Components -->
         <!-- ======================================================================================================= -->
@@ -593,13 +600,13 @@
         <script src="js/libs/moment.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        
+
         <!-- ember -->
         <script src="js/libs/handlebars-1.1.2.js"></script>
         <script src="js/libs/ember-1.6.1.js"></script>
         <script src="js/libs/ember-data-1.0.0-b8.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
-        
+
         <!-- App -->
         <script src="js/app/app.js"></script>
         <script src="js/app/handlebars-helpers.js"></script>
@@ -620,20 +627,20 @@
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
-        
+
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>
         <script src="js/app/adapters/application.js"></script>
-        
+
         <!-- Adapters -->
         <script src="js/app/serializers/animal.js"></script>
         <script src="js/app/serializers/session.js"></script>
         <script src="js/app/serializers/user.js"></script>
-        
+
         <!-- Routes -->
         <script src="js/app/routes/router.js"></script>
         <script src="js/app/routes/animals.js"></script>
-        
+
         <!-- Components -->
         <script src="js/app/components/donutchart.js"></script>
         <script src="js/app/components/bargraph.js"></script>

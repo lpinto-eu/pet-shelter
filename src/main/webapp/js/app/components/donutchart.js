@@ -8,7 +8,7 @@ App.DonutChartComponent = Ember.Component.extend({
     var radius = (Math.min(width, height) / 2) - 10;
 
     var color2 = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    .range(["#00b4ff", "#ff8153", "#4acab4", "#b2d767", "#ffea88", "#878bb6"]);
 
     var arc = d3.svg.arc().outerRadius(radius).innerRadius(radius - 30);
     var pie = d3.layout.pie().sort(null).value(function(d) { return d.value; });
