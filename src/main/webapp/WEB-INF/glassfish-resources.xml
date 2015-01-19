@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-connection-pool validation-table-name="ps_user"
+                          driver-classname="com.mysql.jdbc.Driver"
+                          datasource-classname="com.mysql.jdbc.Driver"
+                          name="petshelterPool"
+                          res-type="java.sql.Driver">
+        <property name="serverName" value="0.0.0.0"/>
+        <property name="portNumber" value="3306"/>
+        <property name="databaseName" value="X"/>
+        <property name="user" value="X"/>
+        <property name="password" value="X"/>
+        <property name="URL" value="jdbc:mysql://0.0.0.0:3306/X"/>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+    </jdbc-connection-pool>
+    <jdbc-resource enabled="true" jndi-name="java:app/jdbc/petshelter" object-type="user" pool-name="petshelterPool"/>
+</resources>
