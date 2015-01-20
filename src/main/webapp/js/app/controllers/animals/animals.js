@@ -1,10 +1,10 @@
 App.AnimalsController = Ember.ArrayController.extend({
-    sex: function() {
-        var males = this.filter(function(animal) {
+    sex: function () {
+        var males = this.filter(function (animal) {
             return animal.get('sex') === "M";
         });
 
-        var females = this.filter(function(animal) {
+        var females = this.filter(function (animal) {
             return animal.get('sex') === "F";
         });
 
@@ -13,15 +13,15 @@ App.AnimalsController = Ember.ArrayController.extend({
             {key: 'Female', value: females.length}
         ];
     }.property('@each.sex'),
-    
-    age: function() {
+
+    age: function () {
         var data = [
             {key: '<1', value: 0},
             {key: '1-4', value: 0},
             {key: '5-9', value: 0},
             {key: '>10', value: 0}
         ];
-        return this.reduce(function(buckets, animal) {
+        return this.reduce(function (buckets, animal) {
             var a = animal.get('age');
             if (a < 1) {
                 buckets[0].value++;
@@ -35,12 +35,13 @@ App.AnimalsController = Ember.ArrayController.extend({
             return buckets;
         }, data);
     }.property('@each.age'),
-    
-    cTimeMonth: function() {
+
+    cTimeMonth: function () {
         var data = new Array();
-        this.map(function(animal) {
-            return animal.get('created').getMonth();
-        }).reduce(function(data, month) {
+        this.map(function (animal) {
+            if(animal.get('created'))
+                return animal.get('created').getMonth();
+        }).reduce(function (data, month) {
             data[month] = data[month] ? data[month] + 1 : 1;
             return data;
         }, data);
@@ -50,10 +51,10 @@ App.AnimalsController = Ember.ArrayController.extend({
             }
         }
         return data;
-    }.property('@each.cTimeMonth'),
+    }.property('@each.created'),
 
     actions: {
-        pushSort: function(attribute) {
+        pushSort: function (attribute) {
             if (this.get("sortProperties.firstObject") === attribute) {
                 this.toggleProperty("sortAscending");
             } else {
