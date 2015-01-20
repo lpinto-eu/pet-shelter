@@ -24,12 +24,10 @@
 
 
     <body>
-
-
         <!-- ======================================================================================================= -->
         <!--                                                                                             Application -->
         <!-- ======================================================================================================= -->
-        <script type="text/x-handlebars">
+        <script type="text/html">
             {{partial "header"}}
 
             <div class="container">
@@ -39,7 +37,7 @@
 
 
         <!-- ================================================================================================ Header -->
-        <script type="text/x-handlebars" data-template-name='_header'>
+        <script type="text/html" data-template-name='_header'>
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
@@ -73,7 +71,7 @@
         </script>
 
         <!-- ================================================================================================= Index -->
-        <script type="text/x-handlebars" data-template-name='index'>
+        <script type="text/html" data-template-name='index'>
             <section id="home" class="jumbotron text-center">
                 <h1>Pet Shelter</h1>
                 <p class="lead">An open source solution for Animal Shelter managment.</p>
@@ -93,7 +91,7 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                                 Animals -->
         <!-- ======================================================================================================= -->
-        <script type="text/x-handlebars" data-template-name="animals">
+        <script type="text/html" data-template-name="animals">
             <section id="animals-header" class="row">
                 <div class="well">
                     <h1>Animals</h1>
@@ -112,7 +110,7 @@
         </script>
 
         <!-- ============================================================================================= Dashboard -->
-        <script type = "text/x-handlebars" data-template-name="animals/index">
+        <script type = "text/html" data-template-name="animals/index">
             <section id="dashboard">
                 <!-- <div class="row">
                     <div class="col-xs-12">
@@ -126,7 +124,7 @@
         </script>
 
         <!-- ========================================================================================= Animals Faces -->
-        <script type="text/x-handlebars" data-template-name="animals/list">
+        <script type="text/html" data-template-name="animals/list">
             <section id="animals" class="row">
                 <article>
                     {{#each}}
@@ -173,7 +171,7 @@
 
 
         <!-- ========================================================================================= Animals Table -->
-        <script type="text/x-handlebars" data-template-name="animals/table">
+        <script type="text/html" data-template-name="animals/table">
             <section id="animals" class="row">
                 <article class="col-xs-12">
                     <table class="table table-bordered table-hover table-condensed table-striped">
@@ -248,7 +246,7 @@
 
 
         <!-- =========================================================================================== Animals New -->
-        <script type = "text/x-handlebars" data-template-name="animals/new">
+        <script type = "text/html" data-template-name="animals/new">
             <article class ="col-xs-12">
                 <h3>Add new Animal</h3>
                 <form {{action "save" on="submit"}} class="form-horizontal">
@@ -329,7 +327,7 @@
 
 
         <!-- ================================================================================================ Animal -->
-        <script type="text/x-handlebars" data-template-name="animals/animal">
+        <script type="text/html" data-template-name="animals/animal">
             <section id="animal" {{bind-attr class="isEditing:editing well"}}>
                 <article class="row">
                     <div class="col-xs-12">
@@ -476,7 +474,7 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Users -->
         <!-- ======================================================================================================= -->
-        <script type="text/x-handlebars" data-template-name='users/signup'>
+        <script type="text/html" data-template-name='users/signup'>
             <section id="signup" class="row text-center">
                 <div class=" col-sm-6 col-sm-offset-3">
                     <div class="jumbotron">
@@ -498,7 +496,7 @@
             </section>
         </script>
 
-        <script type="text/x-handlebars" data-template-name='users/user'>
+        <script type="text/html" data-template-name='users/user'>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>Data for the user {{name}}</h3>
@@ -515,7 +513,7 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                                Sessions -->
         <!-- ======================================================================================================= -->
-        <script type="text/x-handlebars" data-template-name='sessions'>
+        <script type="text/html" data-template-name='sessions'>
             <section id="login" class="row text-center">
                 <div class=" col-sm-6 col-sm-offset-3">
                     <div class="jumbotron">
@@ -539,13 +537,13 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Other -->
         <!-- ======================================================================================================= -->
-        <script type="text/x-handlebars" data-template-name='error'>
+        <script type="text/html" data-template-name='error'>
             <div class="panel panel-danger">
                 <div class="panel-body">some error happened!</div>
             </div>
         </script>
 
-        <script type="text/x-handlebars" data-template-name='loading'>
+        <script type="text/html" data-template-name='loading'>
             <div class="well">
                 loading...
             </div>
@@ -557,14 +555,15 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                              Components -->
         <!-- ======================================================================================================= -->
-        <script type="text/x-handlebars" data-template-name="components/donut-chart"></script>
-        <script type="text/x-handlebars" data-template-name="components/bar-graph"></script>
+        <script type="text/html" data-template-name="components/donut-chart"></script>
+        <script type="text/html" data-template-name="components/bar-graph"></script>
 
 
         <!-- ======================================================================================================= -->
         <!--                                                                                                 Imports -->
         <!-- ======================================================================================================= -->
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script>jQuery('script[type="text/html"]').attr('type', 'text/html');</script>
         <script src="js/libs/jquery.cookie.js"></script>
         <script src="js/libs/moment.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.min.js"></script>
