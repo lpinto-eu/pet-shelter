@@ -23,7 +23,11 @@ App.ApplicationRoute = Ember.Route.extend({
       // get the sessions controller instance and reset it to then transition to the sessions route
       this.controllerFor('sessions').reset();
       this.transitionTo('sessions');
-    }
+    },
+    error: function(reason, transition) {
+        alert(reason.status);
+        console.log(reason.status + " - " + reason);
+        }
   }
 });
 
@@ -32,7 +36,7 @@ App.SessionsRoute = Ember.Route.extend({
       setupController: function(controller, context) {
         controller.reset();
       },
-      
+
       beforeModel: function(transition) {
         // before proceeding any further, verify if the token property is not empty
         // if it is, transition to the secret route
@@ -57,7 +61,7 @@ App.AuthenticatedRoute = Ember.Route.extend({
         this.controllerFor('sessions').set('attemptedTransition', transition);
         return this.transitionTo('sessions');
     },
-    
+
     actions: {
         // recover from any error that may happen during the transition to this route
         error: function(reason, transition) {
@@ -88,12 +92,11 @@ App.UsersSignupRoute = Ember.Route.extend({
 });
 
 
-//App.LoadingRoute = Ember.Route.extend({
-//    beforeModel: function(params) {
-//        Ember.$('.navbar-header').hide();
-//    },
-//    afterModel: function(params) {
-//        Ember.$('.navbar-header').show();
-//    }
-//});
-    
+App.LoadingRoute = Ember.Route.extend({
+    beforeModel: function(params) {
+        Ember.$('.navbar-header').hide();
+    },
+    afterModel: function(params) {
+        Ember.$('.navbar-header').show();
+    }
+});
