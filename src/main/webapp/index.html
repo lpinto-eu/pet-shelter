@@ -55,7 +55,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex8-collapse">
-                        <span> last update: 20 jan 16.30h</span>
+                        <span> last update: 20 jan 17.25h</span>
                         <ul class="nav navbar-nav navbar-right">
                             <li>{{#link-to 'animals' activeClass="active"}}Home{{/link-to}}</li>
                             <li class="dropdown">
@@ -143,20 +143,22 @@
                                         {{/if}}
                                     </div>
                                     <div class="panel-footer">
-                                        <p>{{name}}</p>
                                         <p>
-                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                            {{#if drugs}}
-                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                <i class="fa fa-medkit"></i>
+                                            <span>{{name}}</span>
+                                            <span class="pull-right">
+                                                {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                                {{#if drugs}}
+                                                    <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                    <i class="fa fa-medkit"></i>
+                                                    </abbr>
+                                                {{/if}}
+                                                {{#if sterilized}}
+                                                    <i class="fa fa-shield text-success  desc-item"></i>
+                                                {{/if}}
+                                                <abbr class="timestamp" {{bind-attr title="recordDate"}}>
+                                                    <i class="fa fa-clock-o desc-item"></i>
                                                 </abbr>
-                                            {{/if}}
-                                            {{#if sterilized}}
-                                                <i class="fa fa-shield text-success  desc-item"></i>
-                                            {{/if}}
-                                            <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                <i class="fa fa-clock-o desc-item"></i>
-                                            </abbr>
+                                            </span>
                                         </p>
                                     </div>
                                 </div>
