@@ -39,11 +39,10 @@ public class Animals {
         try {
             /* get User */
             User user = userFacade.find(userID);
-            
+
             /* retrieve animals */
             return animalsFacade.findAllByOrg(user.getOrganizationId());
-        }
-        catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
             // TODO return http code!!
             return new ArrayList<>(0);
@@ -60,17 +59,17 @@ public class Animals {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal create(Animal animal) {
+    public Animal create(@HeaderParam("userID") final Integer userID, Animal animal) {
+        User user = userFacade.find(userID);
         try {
             animal.setCreated(new GregorianCalendar());
             animal.setUpdated(new GregorianCalendar());
-            if(animal.getOrganization() == 0) {
-                animal.setOrganization(1);
+            if (animal.getOrganization() == 0) {
+                animal.setOrganization(user.getOrganizationId());
             }
             animalsFacade.create(animal);
             return animal;
-        }
-        catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             throw ex;
         }
     }
