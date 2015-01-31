@@ -19,10 +19,11 @@ Create a new database
 
 Ember
 ---------------
- * Customize your db connection in the ApplicationAdapter (src/main/webapp/js/app/application.js)
+ * Customize your REST api url in ApplicationAdapter (src/main/webapp/js/app/application.js)
 
 java
 ---------------
 * Just compile the project to get the war file.
-* If you are using glassfish you don't need to create the jdbc connection.
+* You have to configura a jdbc connection named jdbc/petshelter
+** If you are using glassfish just configure glassfish-resources.xml (src\main\webapp\WEB-INF\glassfish-resources.xml)
 * Upload the war file to your application server.
