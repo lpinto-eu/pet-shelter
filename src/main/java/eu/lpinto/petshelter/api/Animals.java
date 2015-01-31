@@ -4,6 +4,7 @@ import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.AnimalFacade;
 import eu.lpinto.petshelter.facades.UserFacade;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -98,5 +100,14 @@ public class Animals {
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") final int id) {
         animalsFacade.remove(animalsFacade.find(id));
+    }
+    
+      
+    @GET
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response export() {
+        byte[] b = animalsFacade.export().getBytes(Charset.forName("UTF-8"));
+        
+        return Response.ok(b).header("Content-Disposition", "attachment; filename=Animais.csv").build();
     }
 }
