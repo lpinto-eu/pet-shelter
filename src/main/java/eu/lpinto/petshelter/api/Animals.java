@@ -1,9 +1,11 @@
 package eu.lpinto.petshelter.api;
 
+import eu.lpinto.petshelter.api.dts.AnimalDTS;
 import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.AnimalFacade;
 import eu.lpinto.petshelter.facades.UserFacade;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -19,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -47,6 +50,19 @@ public class Animals {
             // TODO return http code!!
             return new ArrayList<>(0);
         }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response export(@HeaderParam("userID") final Integer userID) {
+        /* get User */
+        User user = userFacade.find(userID);
+
+        /* retrieve animals and build file */
+        String content = AnimalDTS.SINGLETON.tranform(animalsFacade.findAllByOrg(user.getOrganizationId()));
+        byte[] b = content.getBytes(Charset.forName("UTF-8"));
+
+        return Response.ok(b).header("Content-Disposition", "attachment; filename=Animals.csv").build();
     }
 
     @GET

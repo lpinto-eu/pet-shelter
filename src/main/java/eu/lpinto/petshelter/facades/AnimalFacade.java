@@ -51,5 +51,4 @@ public class AnimalFacade extends AbstractFacade<Animal> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
 }
