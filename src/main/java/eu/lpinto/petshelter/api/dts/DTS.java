@@ -2,7 +2,7 @@ package eu.lpinto.petshelter.api.dts;
 
 /**
  *
- * @author yrs
+ * @author mostardinha - pedro.mostardinha@gmail.com
  */
 public interface DTS<I, O> {
     
