@@ -1,5 +1,6 @@
 package eu.lpinto.petshelter.api;
 
+import eu.lpinto.petshelter.api.dts.AnimalDTS;
 import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.AnimalFacade;
@@ -52,6 +53,19 @@ public class Animals {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response export(@HeaderParam("userID") final Integer userID) {
+        /* get User */
+        User user = userFacade.find(userID);
+
+        /* retrieve animals and build file */
+        String content = AnimalDTS.SINGLETON.tranform(animalsFacade.findAllByOrg(user.getOrganizationId()));
+        byte[] b = content.getBytes(Charset.forName("UTF-8"));
+
+        return Response.ok(b).header("Content-Disposition", "attachment; filename=Animals.csv").build();
+    }
+
+    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Animal retrieve(@PathParam("id") final int id) {
@@ -100,14 +114,5 @@ public class Animals {
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") final int id) {
         animalsFacade.remove(animalsFacade.find(id));
-    }
-    
-      
-    @GET
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response export() {
-        byte[] b = animalsFacade.export().getBytes(Charset.forName("UTF-8"));
-        
-        return Response.ok(b).header("Content-Disposition", "attachment; filename=Animais.csv").build();
     }
 }
