@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  *
- * @author yrs
+ * @author mostardinha - pedro.mostardinha@gmail.com
  */
-public enum AnimalDTS implements DTS<Animal, String> {
+public enum AnimalsDTS implements DTS<Animal, String> {
 
     SINGLETON;
 

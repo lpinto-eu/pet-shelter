@@ -1,6 +1,6 @@
 package eu.lpinto.petshelter.api;
 
-import eu.lpinto.petshelter.api.dts.AnimalDTS;
+import eu.lpinto.petshelter.api.dts.AnimalsDTS;
 import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.AnimalFacade;
@@ -59,7 +59,7 @@ public class Animals {
         User user = userFacade.find(userID);
 
         /* retrieve animals and build file */
-        String content = AnimalDTS.SINGLETON.tranform(animalsFacade.findAllByOrg(user.getOrganizationId()));
+        String content = AnimalsDTS.SINGLETON.tranform(animalsFacade.findAllByOrg(user.getOrganizationId()));
         byte[] b = content.getBytes(Charset.forName("UTF-8"));
 
         return Response.ok(b).header("Content-Disposition", "attachment; filename=Animals.csv").build();
