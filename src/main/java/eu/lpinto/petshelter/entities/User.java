@@ -61,7 +61,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(min = 3, max = 50, message = "Invalid name")
+    @Size(min = 2, max = 50, message = "Invalid name")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
