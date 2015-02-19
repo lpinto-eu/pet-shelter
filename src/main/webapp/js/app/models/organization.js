@@ -1,5 +1,4 @@
 App.Organization = DS.Model.extend({
-    id: DS.attr(),
     created: DS.attr('isodate'),
     updated: DS.attr('isodate'),
     name: DS.attr('string'),

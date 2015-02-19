@@ -486,9 +486,9 @@
                     <h1>Organizations</h1>
                     <div id="links" class="pull-right">
                         <h3>
-                            {{#link-to 'organization.table' activeClass="active"}}Table{{/link-to}}
+                            {{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}
                             <span> | <span>
-                            {{#link-to "organization.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
+                            {{#link-to "organizations.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
                         </h3>
                     </div>
                 </div>
@@ -511,12 +511,12 @@
                                 </th>
                                 <th>
                                     <a {{action pushSort 'created'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Created
+                                    <i class="fa fa-sort-amount-asc"></i> Created
                                     </a>
                                 </th>
                                  <th>
                                     <a {{action pushSort 'updated'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Updated
+                                    <i class="fa fa-sort-amount-asc"></i> Updated
                                     </a>
                                 </th>
                             </tr>
@@ -600,11 +600,29 @@
                                 </div>
                             </form>
                         </div>
-                  {{/if}}
+                  {{else}}
+                        <!-- DETAILS -->
+                        <div id="details">                         
+                            <div class="col-md-8">
+                                <dl class="dl-horizontal">
+                                    <dt>Creation:</dt>
+                                    <dd>{{created}}</dd>
+                                    <dt>Last update:</dt>
+                                    <dd>{{updated}}</dd>
+                                </dl>
+                            </div>
+                            <hr/>
+                            <div class=" col-md-12 text-right">
+                                <button class="btn btn-success" {{action toggleProp}}>Edit</button>
+                                <!-- &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a> -->
+                                &nbsp;{{#link-to 'animals' activeClass="active"}}back{{/link-to}}
+                            </div>
+                        </div>
+                    {{/if}}
                 </article>
                 </section>
         </script>
-        
+
         
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Users -->
