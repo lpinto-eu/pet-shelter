@@ -63,6 +63,12 @@
                                     <li>{{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}</li>
                                 </ul>
                             </li>
+                            <li class="dropdown">
+                                <a href="organizations" class="dropdown-toggle" data-toggle="dropdown">Organizations <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>{{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}</li>
+                                </ul>
+                            </li>
                             <li><a {{action 'logout'}}>logout</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -74,7 +80,7 @@
         <script type="text/html" data-template-name='index'>
             <section id="home" class="jumbotron text-center">
                 <h1>Pet Shelter</h1>
-                <p class="lead">An open source solution for Animal Shelter managment.</p>
+                <p class="lead">An open source solution for Animal Shelter management.</p>
                 <hr/>
                 {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
                 {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
@@ -469,8 +475,155 @@
                 </article>
                 </section>
         </script>
+        
+        
+        <!-- ======================================================================================================= -->
+        <!--                                                                                                 Organizations -->
+        <!-- ======================================================================================================= -->
+        <script type="text/html" data-template-name="organizations">
+            <section id="organizations-header" class="row">
+                <div class="well">
+                    <h1>Organizations</h1>
+                    <div id="links" class="pull-right">
+                        <h3>
+                            {{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}
+                            <span> | <span>
+                            {{#link-to "organizations.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
+                        </h3>
+                    </div>
+                </div>
+            </section>
+            {{outlet}}
+        </script>
 
 
+        <!-- ========================================================================================= Organizations Table -->
+        <script type="text/html" data-template-name="organizations/table">
+            <section id="organizations" class="row">
+                <article class="col-xs-12">
+                    <table class="table table-bordered table-hover table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%;">
+                                    <a {{action pushSort 'name'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Name
+                                    </a>
+                                </th>
+                                <th>
+                                    <a {{action pushSort 'created'}} title="Sort by">
+                                    <i class="fa fa-sort-amount-asc"></i> Created
+                                    </a>
+                                </th>
+                                 <th>
+                                    <a {{action pushSort 'updated'}} title="Sort by">
+                                    <i class="fa fa-sort-amount-asc"></i> Updated
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each class="organization-link"}}
+                                {{#link-to "organizations.organization" id tagName="tr"}}
+                                    <td>{{name}}</td>
+                                    <td>{{created}}</td>
+                                    <td>{{updated}}</td>
+                                {{/link-to}}
+                            {{else}}
+                                <tr>
+                                    <td>You have no organizations.</td>
+                                </tr>
+                            {{/each}}
+                        <tbody>
+                    </table>
+                </article>
+            </section>
+        </script>
+
+
+        <!-- =========================================================================================== Organizations New -->
+        <script type = "text/html" data-template-name="organizations/new">
+            <article class ="col-xs-12">
+                <h3>Add new Organization</h3>
+                <form {{action "save" on="submit"}} class="form-horizontal">
+                    <fieldset>
+                        <!-- <legend>Edit</legend> -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Name</span>
+                                {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="pull-right">
+                        <input type="submit" value="Create" class="btn btn-success">
+                        &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                    </div>
+                </form>
+            </article>
+        </script>
+
+
+        <!-- ================================================================================================ Organization -->
+        <script type="text/html" data-template-name="organizations/organization">
+            <section id="organization" {{bind-attr class="isEditing:editing well"}}>
+                <article class="row">
+                    <div class="col-xs-12">
+                        <h2>
+                            {{name}}&nbsp;
+                            <span class="badge">
+                                <abbr {{bind-attr title="recordDate"}}>
+                                    {{date created}} <i class="fa fa-clock-o"></i>
+                                </abbr>
+                            </span>
+                        </h2>
+                    </div>
+                </article>
+                <article class="row">
+                    {{#if isEditing}}
+                        <!-- UPDATE -->
+                        <div   class="col-md-12">
+                            <form class="form-horizontal" role="form">
+                                <fieldset>
+                                    <!-- <legend>Edit</legend> -->
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Name</span>
+                                            {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="text-right">
+                                    <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
+                                    &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
+                                    <!-- &nbsp;<a {{action toggleProp}} style="cursor:pointer;">cancel</a> -->
+                                    &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                  {{else}}
+                        <!-- DETAILS -->
+                        <div id="details">                         
+                            <div class="col-md-8">
+                                <dl class="dl-horizontal">
+                                    <dt>Creation:</dt>
+                                    <dd>{{created}}</dd>
+                                    <dt>Last update:</dt>
+                                    <dd>{{updated}}</dd>
+                                </dl>
+                            </div>
+                            <hr/>
+                            <div class=" col-md-12 text-right">
+                                <button class="btn btn-success" {{action toggleProp}}>Edit</button>
+                                <!-- &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a> -->
+                                &nbsp;{{#link-to 'animals' activeClass="active"}}back{{/link-to}}
+                            </div>
+                        </div>
+                    {{/if}}
+                </article>
+                </section>
+        </script>
+
+        
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Users -->
         <!-- ======================================================================================================= -->
@@ -582,6 +735,7 @@
 
         <!-- Models -->
         <script src="js/app/models/animal.js"></script>
+        <script src="js/app/models/organization.js"></script>
         <script src="js/app/models/iso-date.js"></script>
         <script src="js/app/models/sex.js"></script>
         <script src="js/app/models/user.js"></script>
@@ -590,6 +744,9 @@
         <script src="js/app/controllers/animals/animal.js"></script>
         <script src="js/app/controllers/animals/animals.js"></script>
         <script src="js/app/controllers/animals/new.js"></script>
+        <script src="js/app/controllers/organizations/organization.js"></script>
+        <script src="js/app/controllers/organizations/organizations.js"></script>
+        <script src="js/app/controllers/organizations/new.js"></script>
         <script src="js/app/controllers/sessions.js"></script>
         <script src="js/app/controllers/users/signup.js"></script>
 
@@ -603,12 +760,14 @@
 
         <!-- Adapters -->
         <script src="js/app/serializers/animal.js"></script>
+        <script src="js/app/serializers/organization.js"></script>
         <script src="js/app/serializers/session.js"></script>
         <script src="js/app/serializers/user.js"></script>
 
         <!-- Routes -->
         <script src="js/app/routes/router.js"></script>
         <script src="js/app/routes/animals.js"></script>
+        <script src="js/app/routes/organizations.js"></script>
 
         <!-- Components -->
         <script src="js/app/components/donutchart.js"></script>

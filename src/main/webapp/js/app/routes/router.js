@@ -14,6 +14,12 @@ App.Router.map(function() {
         this.route('new');
         this.route("animal", {path: ":animal_id"});
     });
+    
+      this.resource('organizations', function() {
+        this.route('table'),
+        this.route('new');
+        this.route("organization", {path: ":organization_id"});
+    });
 });
 
 App.ApplicationRoute = Ember.Route.extend({
