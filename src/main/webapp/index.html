@@ -63,11 +63,9 @@
                                     <li>{{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}</li>
                                 </ul>
                             </li>
-                            <li>{{#link-to 'organizations' activeClass="active"}}Home{{/link-to}}</li>
                             <li class="dropdown">
                                 <a href="organizations" class="dropdown-toggle" data-toggle="dropdown">Organizations <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li>{{#link-to 'organizations.list' activeClass="active"}}List{{/link-to}}</li>
                                     <li>{{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}</li>
                                 </ul>
                             </li>
@@ -82,7 +80,7 @@
         <script type="text/html" data-template-name='index'>
             <section id="home" class="jumbotron text-center">
                 <h1>Pet Shelter</h1>
-                <p class="lead">An open source solution for Animal Shelter managment.</p>
+                <p class="lead">An open source solution for Animal Shelter management.</p>
                 <hr/>
                 {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
                 {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
@@ -488,8 +486,6 @@
                     <h1>Organizations</h1>
                     <div id="links" class="pull-right">
                         <h3>
-                            {{#link-to 'organizations.list' activeClass="active"}}List{{/link-to}}
-                            <span> | <span>
                             {{#link-to 'organization.table' activeClass="active"}}Table{{/link-to}}
                             <span> | <span>
                             {{#link-to "organization.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
@@ -500,19 +496,6 @@
             {{outlet}}
         </script>
 
-        <!-- ============================================================================================= Dashboard -->
-        <script type = "text/html" data-template-name="organizations/index">
-            <section id="dashboard">
-                <!-- <div class="row">
-                    <div class="col-xs-12">
-                        <h1>Shelter Dashboard</h1>
-                    </div>
-                </div>-->
-                <div class="row text-center">
-                    <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
-                </div>
-            </section>
-        </script>
 
         <!-- ========================================================================================= Organizations Table -->
         <script type="text/html" data-template-name="organizations/table">
