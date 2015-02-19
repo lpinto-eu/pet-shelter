@@ -34,17 +34,18 @@ public class Animals {
     @EJB
     private AnimalFacade animalsFacade;
     @EJB
-    private UserFacade userFacade;
+    private UserFacade usersFacade;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Animal> findAll(@HeaderParam("userID") final Integer userID) {
         try {
             /* get User */
-            User user = userFacade.find(userID);
+            User user = usersFacade.find(userID);
 
-            /* retrieve animals */
+            /* Find Animals */
             return animalsFacade.findAllByOrg(user.getOrganizationId());
+
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
             // TODO return http code!!
@@ -56,10 +57,10 @@ public class Animals {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response export(@HeaderParam("userID") final Integer userID) {
         /* get User */
-        User user = userFacade.find(userID);
+        User user = usersFacade.find(userID);
 
         /* retrieve animals and build file */
-        String content = AnimalsDTS.SINGLETON.tranform(animalsFacade.findAllByOrg(user.getOrganizationId()));
+        String content = AnimalsDTS.SINGLETON.transform(animalsFacade.findAllByOrg(user.getOrganizationId()));
         byte[] b = content.getBytes(Charset.forName("UTF-8"));
 
         return Response.ok(b).header("Content-Disposition", "attachment; filename=Animals.csv").build();
@@ -76,7 +77,7 @@ public class Animals {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Animal create(@HeaderParam("userID") final Integer userID, Animal animal) {
-        User user = userFacade.find(userID);
+        User user = usersFacade.find(userID);
         try {
             animal.setCreated(new GregorianCalendar());
             animal.setUpdated(new GregorianCalendar());

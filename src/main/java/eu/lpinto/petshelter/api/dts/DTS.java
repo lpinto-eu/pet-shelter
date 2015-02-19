@@ -6,5 +6,5 @@ package eu.lpinto.petshelter.api.dts;
  */
 public interface DTS<I, O> {
     
-    O tranform(I in);
+    O transform(I in);
 }
