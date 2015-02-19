@@ -18,11 +18,11 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
                 var self = this;
                 this.get('model').save()
                     .then(function() {
-                        self.transitionToRoute('animals');
+                        self.transitionToRoute('organzations');
                         self.toggleProperty("isEditing");
                     });
             } else {
-                this.transitionToRoute('animals');
+                this.transitionToRoute('organizations');
                 this.toggleProperty("isEditing");
             }
         },
@@ -35,7 +35,7 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
                 animal.save()
                     .then(function() {
                         self.toggleProperty("isEditing");
-                        self.transitionToRoute('animals');
+                        self.transitionToRoute('organizations.table');
                     });
             }
         }

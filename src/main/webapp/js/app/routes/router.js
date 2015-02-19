@@ -16,7 +16,6 @@ App.Router.map(function() {
     });
     
       this.resource('organizations', function() {
-        this.route('list'),
         this.route('table'),
         this.route('new');
         this.route("organization", {path: ":organization_id"});
