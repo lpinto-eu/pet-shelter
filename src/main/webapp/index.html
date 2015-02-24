@@ -322,6 +322,12 @@
                                 {{/view}}
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Observations</span>
+                                {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                            </div>
+                        </div>
                     </fieldset>
                     <div class="pull-right">
                         <input type="submit" value="Create" class="btn btn-success">
@@ -427,6 +433,12 @@
                                             {{/view}}
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Observations</span>
+                                            {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <div class="text-right">
                                     <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
@@ -462,6 +474,8 @@
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                                     <dt>Sterilized:</dt>
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
+                                    <dt>Observations:</dt>
+                                    <dd>{{observations}}</dd>
                                 </dl>
                             </div>
                             <hr/>
@@ -609,13 +623,15 @@
                                     <dd>{{created}}</dd>
                                     <dt>Last update:</dt>
                                     <dd>{{updated}}</dd>
+                                    <dt>Members:</dt>
+                                    <dd>{{view App.numberOfUsers}}</dd>
                                 </dl>
                             </div>
                             <hr/>
                             <div class=" col-md-12 text-right">
                                 <button class="btn btn-success" {{action toggleProp}}>Edit</button>
                                 <!-- &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a> -->
-                                &nbsp;{{#link-to 'animals' activeClass="active"}}back{{/link-to}}
+                                &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
                             </div>
                         </div>
                     {{/if}}

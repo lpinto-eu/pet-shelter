@@ -27,7 +27,8 @@ public enum AnimalsDTS implements DTS<Animal, String> {
         sb.append(input.getDrugs() == null ? "" : input.getDrugs()).append(";");
         //sb.append(animal.getPicture()).append(";");
         sb.append(sdf.format(input.getCreated().getTime())).append(";");
-        sb.append(sdf.format(input.getUpdated().getTime()));
+        sb.append(sdf.format(input.getUpdated().getTime())).append(";");
+        sb.append(input.getObservations());
 
         return sb.toString();
     }
