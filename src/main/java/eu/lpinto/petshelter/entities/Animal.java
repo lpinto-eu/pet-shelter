@@ -48,6 +48,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Animal.findByDrugs", query = "SELECT a FROM Animal a WHERE a.drugs = :drugs"),
     @NamedQuery(name = "Animal.findBySex", query = "SELECT a FROM Animal a WHERE a.sex = :sex"),
     @NamedQuery(name = "Animal.findBySterilized", query = "SELECT a FROM Animal a WHERE a.sterilized = :sterilized"),
+    @NamedQuery(name = "Animal.findByObservations", query = "SELECT a FROM Animal a WHERE a.observations = :observations"),
     @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organization = :organization")})
 public class Animal implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -93,6 +94,9 @@ public class Animal implements Serializable {
     @NotNull
     @Column(name = "organization_id")
     private int organization;
+    @Size(max = 250)
+    @Column(name = "observations")
+    private String observations;
 
     public Animal() {
     }
@@ -202,6 +206,14 @@ public class Animal implements Serializable {
 
     public void setOrganization(int organization) {
         this.organization = organization;
+    }
+    
+    public String getObservations() {
+        return observations;
+    }
+
+    public void setObservations(String observations) {
+        this.observations = observations;
     }
 
     @Override
