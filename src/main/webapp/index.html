@@ -147,7 +147,7 @@
                                         {{/if}}
                                     </div>
                                     <div class="panel-footer">
-                                        <p>
+                                        <p>                                       
                                             <span>{{name}}</span>
                                             <span class="pull-right">
                                                 {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
@@ -202,10 +202,15 @@
                                     <a {{action pushSort 'breed'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Breed
                                     </a>
-                                </th>
+                                </th>                              
                                 <th>
                                     <a {{action pushSort 'created'}} title="Sort by">
                                     <i class="fa fa-sort-amount-asc"></i> Register date
+                                    </a>
+                                </th> 
+                                <th>
+                                    <a {{action pushSort 'location'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Location
                                     </a>
                                 </th>
                             </tr>
@@ -223,7 +228,7 @@
                                     </td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
-                                    <td>{{breed}}</td>
+                                    <td>{{breed}}</td>                                    
                                     <td>
                                         {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                         {{#if drugs}}
@@ -233,10 +238,23 @@
                                         {{/if}}
                                         {{#if sterilized}}
                                             <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}
+                                        {{/if}}                                       
                                         <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
                                             <i class="fa fa-clock-o desc-item"></i>{{date created}}
                                         </abbr>
+                                    </td>
+                                    <td>  
+                                        {{#if isShelter}} 
+                                            Shelter 
+                                        {{/if}} 
+                                        
+                                        {{#if isAdopted}} 
+                                            Adopted 
+                                         {{/if}} 
+                                         
+                                         {{#if isFostering}} 
+                                            Fostering 
+                                         {{/if}}              
                                     </td>
                                 {{/link-to}}
                             {{else}}
@@ -308,7 +326,7 @@
                                     {{view Ember.Checkbox checkedBinding="sterilized"}}
                                 </span>
                             </div>
-                        </div>
+                        </div>                       
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
@@ -320,6 +338,15 @@
                                     {{/if}}
                                     {{view App.FotoUp}}
                                 {{/view}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Location
+                                </span>
+                                {{view Ember.Select contentBinding="App.Location" optionValuePath="content.id"
+                                    optionLabelPath="content.name" valueBinding="location" class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -435,6 +462,20 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
+                                            <span class="input-group-addon">
+                                            Location
+                                            </span>
+                                            {{view Ember.Select
+                                            contentBinding="App.Location"
+                                            optionValuePath="content.id"
+                                            optionLabelPath="content.name"
+                                            valueBinding="location"
+                                            class="form-control dropdown-toggle"
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <span class="input-group-addon">Observations</span>
                                             {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
                                         </div>
@@ -465,7 +506,7 @@
                                     <dt>Species:</dt>
                                     <dd>{{species}}</dd>
                                     <dt>Breed:</dt>
-                                    <dd>{{breed}}</dd>
+                                    <dd>{{breed}}</dd>                                   
                                     {{#if drugs}}
                                         <dt>Drugs:</dt>
                                         <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
@@ -473,7 +514,9 @@
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                                     <dt>Sterilized:</dt>
-                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
+                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>     
+                                    <dt>Location:</dt>
+                                    <dd>{{#if isShelter}} Shelter {{/if}} {{#if isAdopted}} Adopted {{/if}} {{#if isFostering}} Fostering {{/if}}</dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
                                 </dl>
@@ -755,6 +798,7 @@
         <script src="js/app/models/iso-date.js"></script>
         <script src="js/app/models/sex.js"></script>
         <script src="js/app/models/user.js"></script>
+        <script src="js/app/models/location.js"></script>
 
         <!-- Controllers -->
         <script src="js/app/controllers/animals/animal.js"></script>
@@ -769,7 +813,7 @@
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
-
+        
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>
         <script src="js/app/adapters/application.js"></script>

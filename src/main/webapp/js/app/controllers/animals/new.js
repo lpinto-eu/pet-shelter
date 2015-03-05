@@ -1,4 +1,5 @@
 App.AnimalsNewController = Ember.ObjectController.extend({
+ 
     actions: {
         save: function () {
             if (this.get("model")
