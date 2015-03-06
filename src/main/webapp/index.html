@@ -202,17 +202,17 @@
                                     <a {{action pushSort 'breed'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Breed
                                     </a>
-                                </th>                              
+                                </th>  
+                                <th>
+                                    <a {{action pushSort 'status'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Status
+                                    </a>
+                                </th>
                                 <th>
                                     <a {{action pushSort 'created'}} title="Sort by">
                                     <i class="fa fa-sort-amount-asc"></i> Register date
                                     </a>
                                 </th> 
-                                <th>
-                                    <a {{action pushSort 'location'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Location
-                                    </a>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -228,7 +228,28 @@
                                     </td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
-                                    <td>{{breed}}</td>                                    
+                                    <td>{{breed}}</td> 
+                                    <td>
+                                        {{#if isShelter}} 
+                                            Shelter 
+                                        {{/if}} 
+                                        
+                                        {{#if isAdopted}} 
+                                            Adopted 
+                                        {{/if}} 
+                                         
+                                        {{#if isFostering}} 
+                                            Fostering 
+                                        {{/if}}  
+                                        
+                                        {{#if isMissing}} 
+                                            Missing 
+                                        {{/if}}  
+                                        
+                                        {{#if isDeceased}} 
+                                            Deceased
+                                        {{/if}}  
+                                    </td>
                                     <td>
                                         {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                         {{#if drugs}}
@@ -242,19 +263,6 @@
                                         <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
                                             <i class="fa fa-clock-o desc-item"></i>{{date created}}
                                         </abbr>
-                                    </td>
-                                    <td>  
-                                        {{#if isShelter}} 
-                                            Shelter 
-                                        {{/if}} 
-                                        
-                                        {{#if isAdopted}} 
-                                            Adopted 
-                                         {{/if}} 
-                                         
-                                         {{#if isFostering}} 
-                                            Fostering 
-                                         {{/if}}              
                                     </td>
                                 {{/link-to}}
                             {{else}}
@@ -343,10 +351,10 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    Location
+                                    Status
                                 </span>
-                                {{view Ember.Select contentBinding="App.Location" optionValuePath="content.id"
-                                    optionLabelPath="content.name" valueBinding="location" class="form-control"}}
+                                {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id"
+                                    optionLabelPath="content.name" valueBinding="status" class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -463,13 +471,13 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                            Location
+                                            Status
                                             </span>
                                             {{view Ember.Select
-                                            contentBinding="App.Location"
+                                            contentBinding="App.Status"
                                             optionValuePath="content.id"
                                             optionLabelPath="content.name"
-                                            valueBinding="location"
+                                            valueBinding="status"
                                             class="form-control dropdown-toggle"
                                             }}
                                         </div>
@@ -515,8 +523,28 @@
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                                     <dt>Sterilized:</dt>
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>     
-                                    <dt>Location:</dt>
-                                    <dd>{{#if isShelter}} Shelter {{/if}} {{#if isAdopted}} Adopted {{/if}} {{#if isFostering}} Fostering {{/if}}</dd>
+                                    <dt>Status:</dt>
+                                    <dd>
+                                        {{#if isShelter}} 
+                                            Shelter 
+                                        {{/if}}
+                                        
+                                        {{#if isAdopted}} 
+                                            Adopted 
+                                        {{/if}} 
+                                        
+                                        {{#if isFostering}} 
+                                            Fostering 
+                                        {{/if}}                                         
+                                        
+                                        {{#if isMissing}} 
+                                            Missing 
+                                        {{/if}}  
+                                        
+                                        {{#if isDeceased}} 
+                                            Deceased
+                                        {{/if}}
+                                    </dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
                                 </dl>
@@ -798,7 +826,7 @@
         <script src="js/app/models/iso-date.js"></script>
         <script src="js/app/models/sex.js"></script>
         <script src="js/app/models/user.js"></script>
-        <script src="js/app/models/location.js"></script>
+        <script src="js/app/models/status.js"></script>
 
         <!-- Controllers -->
         <script src="js/app/controllers/animals/animal.js"></script>
