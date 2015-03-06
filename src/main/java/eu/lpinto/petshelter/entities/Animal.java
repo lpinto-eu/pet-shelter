@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Animal.findByBreed", query = "SELECT a FROM Animal a WHERE a.breed = :breed"),
     @NamedQuery(name = "Animal.findByDrugs", query = "SELECT a FROM Animal a WHERE a.drugs = :drugs"),
     @NamedQuery(name = "Animal.findBySex", query = "SELECT a FROM Animal a WHERE a.sex = :sex"),
-    @NamedQuery(name = "Animal.findByLocation", query = "SELECT a FROM Animal a WHERE a.location = :location"),
+    @NamedQuery(name = "Animal.findByStatus", query = "SELECT a FROM Animal a WHERE a.status = :status"),
     @NamedQuery(name = "Animal.findBySterilized", query = "SELECT a FROM Animal a WHERE a.sterilized = :sterilized"),
     @NamedQuery(name = "Animal.findByObservations", query = "SELECT a FROM Animal a WHERE a.observations = :observations"),
     @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organization = :organization")})
@@ -87,8 +87,8 @@ public class Animal implements Serializable {
     private String sex;
     @Column(name = "sterilized")
     private Boolean sterilized;
-    @Column(name = "location")
-    private Integer location;
+    @Column(name = "status")
+    private Integer status;
     @Lob
     @Size(max = 65535)
     @Column(name = "picture")
@@ -187,12 +187,12 @@ public class Animal implements Serializable {
         this.sex = sex;
     }
     
-    public Integer getLocation() {
-        return location;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setLocation(Integer location) {
-        this.location = location;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Boolean getSterilized() {
