@@ -4,8 +4,8 @@
 */
 
 App.Organization = DS.Model.extend({
-    created:       DS.attr('isodate'),
-    updated:       DS.attr('isodate'),
+    created:       DS.attr(),
+    updated:       DS.attr(),
     name:          DS.attr('string'),
     user:          DS.hasMany('user', { async: true }),
 

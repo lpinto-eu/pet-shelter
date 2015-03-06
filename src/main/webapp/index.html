@@ -610,8 +610,12 @@
                             {{#each class="organization-link"}}
                                 {{#link-to "organizations.organization" id tagName="tr"}}
                                     <td>{{name}}</td>
-                                    <td>{{created}}</td>
-                                    <td>{{updated}}</td>
+                                    <td> 
+                                        {{dateFormat created}}
+                                    </td>
+                                    <td>
+                                        {{dateFormat updated}}
+                                    </td>
                                 {{/link-to}}
                             {{else}}
                                 <tr>
@@ -666,7 +670,7 @@
                 <article class="row">
                     {{#if isEditing}}
                         <!-- UPDATE -->
-                        <div   class="col-md-12">
+                        <div class="col-md-12">
                             <form class="form-horizontal" role="form">
                                 <fieldset>
                                     <!-- <legend>Edit</legend> -->
@@ -691,11 +695,9 @@
                             <div class="col-md-8">
                                 <dl class="dl-horizontal">
                                     <dt>Creation:</dt>
-                                    <dd>{{created}}</dd>
+                                    <dd>{{dateFormat created}}</dd>
                                     <dt>Last update:</dt>
-                                    <dd>{{updated}}</dd>
-                                    <dt>Members:</dt>
-                                    <dd>{{view App.numberOfUsers}}</dd>
+                                    <dd>{{date Format updated}}</dd>
                                 </dl>
                             </div>
                             <hr/>
