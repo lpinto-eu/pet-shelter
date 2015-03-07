@@ -1,3 +1,8 @@
+/*
+ * 
+    @author Vítor Martins - varmartins@varmartins.com
+*/
+
 App.OrganizationsController = Ember.ArrayController.extend({
     actions: {
         pushSort: function (attribute) {

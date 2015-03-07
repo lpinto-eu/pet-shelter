@@ -1,3 +1,8 @@
+/*
+ * 
+    @author Vítor Martins - varmartins@varmartins.com
+*/
+
 App.OrganizationSerializer = DS.RESTSerializer.extend({
     /* add root element on incoming json */
     normalizePayload: function(payload) {

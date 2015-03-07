@@ -1,3 +1,8 @@
+/*
+ * 
+    @author Vítor Martins - varmartins@varmartins.com
+*/
+
 App.OrganizationsOrganizationController = Ember.ObjectController.extend({
     isEditing: false,
     
@@ -9,6 +14,7 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
         cancel: function() {
             if (this.get('content.isDirty') && confirm('Unsaved changes will be lost.')) {
                 this.get('model').rollback();
+                self.transitionToRoute('organzations.table');
             }
             this.toggleProperty("isEditing");
         },
@@ -16,24 +22,22 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
         update: function() {
             if (this.get('content.isDirty')) {
                 var self = this;
-                this.get('model').save()
-                    .then(function() {
-                        self.transitionToRoute('organzations');
-                        self.toggleProperty("isEditing");
+                this.get('model').save().then(function() {
+                    self.transitionToRoute('organizations.table');
+                    self.toggleProperty("isEditing");
                     });
             } else {
-                this.transitionToRoute('organizations');
+                this.transitionToRoute('organizations.table');
                 this.toggleProperty("isEditing");
             }
         },
         
         remove: function() {
             if (confirm('Delete: ' + this.get('name') + '?')) {
-                var animal = this.get('model');
-                animal.deleteRecord();
+                var organization = this.get('model');
+                organization.deleteRecord();
                 var self = this;
-                animal.save()
-                    .then(function() {
+                organization.save().then(function() {
                         self.toggleProperty("isEditing");
                         self.transitionToRoute('organizations.table');
                     });
