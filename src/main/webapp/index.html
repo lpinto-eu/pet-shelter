@@ -160,7 +160,7 @@
                                                     <i class="fa fa-shield text-success  desc-item"></i>
                                                 {{/if}}
                                                 <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                    <i class="fa fa-clock-o desc-item"></i>
+                                                    <i class="fa fa-clock-o desc-item"></i> {{date admission}}
                                                 </abbr>
                                             </span>
                                         </p>
@@ -209,8 +209,8 @@
                                     </a>
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'created'}} title="Sort by">
-                                    <i class="fa fa-sort-amount-asc"></i> Register date
+                                    <a {{action pushSort 'admission'}} title="Sort by">
+                                    <i class="fa fa-sort-amount-asc"></i> Admission date
                                     </a>
                                 </th> 
                             </tr>
@@ -261,7 +261,7 @@
                                             <i class="fa fa-shield text-success  desc-item"></i>
                                         {{/if}}                                       
                                         <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
-                                            <i class="fa fa-clock-o desc-item"></i>{{date created}}
+                                            <i class="fa fa-clock-o desc-item"></i>{{date admission}}
                                         </abbr>
                                     </td>
                                 {{/link-to}}
@@ -279,7 +279,7 @@
 
         <!-- =========================================================================================== Animals New -->
         <script type = "text/html" data-template-name="animals/new">
-            <article class ="col-xs-12">
+            <article class ="col-xs-12 col-lg-8">
                 <h3>Add new Animal</h3>
                 <form {{action "save" on="submit"}} class="form-horizontal">
                     <fieldset>
@@ -363,6 +363,12 @@
                                 {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Admission</span>
+                                {{view App.DatePicker valueBinding='admission'}}
+                            </div>
+                        </div>
                     </fieldset>
                     <div class="pull-right">
                         <input type="submit" value="Create" class="btn btn-success">
@@ -382,7 +388,7 @@
                             {{name}}&nbsp;
                             <span class="badge">
                                 <abbr {{bind-attr title="recordDate"}}>
-                                    {{date created}} <i class="fa fa-clock-o"></i>
+                                    {{date admission}} <i class="fa fa-clock-o"></i>
                                 </abbr>
                             </span>
                         </h2>
@@ -488,6 +494,12 @@
                                             {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Admission</span>
+                                            {{view App.DatePicker valueBinding='admission'}}
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <div class="text-right">
                                     <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
@@ -547,6 +559,8 @@
                                     </dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
+                                    <dt>Admission:</dt>
+                                    <dd>{{date admission}}</dd>
                                 </dl>
                             </div>
                             <hr/>
@@ -589,11 +603,16 @@
                     <table class="table table-bordered table-hover table-condensed table-striped">
                         <thead>
                             <tr>
+                                <th>
+                                    <a {{action pushSort 'logo'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Logo
+                                    </a>
+                                </th>
                                 <th style="width: 35%;">
                                     <a {{action pushSort 'name'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Name
                                     </a>
-                                </th>
+                                </th>                                
                                 <th>
                                     <a {{action pushSort 'created'}} title="Sort by">
                                     <i class="fa fa-sort-amount-asc"></i> Created
@@ -609,13 +628,22 @@
                         <tbody>
                             {{#each class="organization-link"}}
                                 {{#link-to "organizations.organization" id tagName="tr"}}
+                                
+                                <td>                                                       
+                                    {{#if logo}}
+                                        <img {{bind-attr src="logo"}} class="animal-img"/>
+                                    {{else}}
+                                        Logo
+                                    {{/if}}
+                            </div>
+                                    </td>
                                     <td>{{name}}</td>
                                     <td> 
                                         {{dateFormat created}}
                                     </td>
                                     <td>
                                         {{dateFormat updated}}
-                                    </td>
+                                    </td> 
                                 {{/link-to}}
                             {{else}}
                                 <tr>
@@ -640,6 +668,12 @@
                             <div class="input-group">
                                 <span class="input-group-addon">Name</span>
                                 {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                            </div>
+                            <div class="input-group">
+                            <span class="input-group-addon">Logo <i class="fa fa-picture-o"></i></span>
+                                {{#view Ember.View contentBinding="logo"  class="form-control image-picker"}}
+                                    {{view App.FotoUp}}
+                                {{/view}}
                             </div>
                         </div>
                     </fieldset>
@@ -843,6 +877,7 @@
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
+        <script src="js/app/views/datepicker.js"></script>
         
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>

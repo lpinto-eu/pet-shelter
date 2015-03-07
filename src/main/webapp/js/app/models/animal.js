@@ -10,6 +10,7 @@ App.Animal = DS.Model.extend({
     sterilized: DS.attr('boolean'),
     picture: DS.attr('string'),
     observations: DS.attr('string'),
+    admission: DS.attr('isodate'),
 
     recordDate: function () {
         return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');
