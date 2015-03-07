@@ -100,6 +100,9 @@ public class Animal implements Serializable {
     @Size(max = 250)
     @Column(name = "observations")
     private String observations;
+    @Column(name = "admission")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar admission;
 
     public Animal() {
     }
@@ -225,6 +228,14 @@ public class Animal implements Serializable {
 
     public void setObservations(String observations) {
         this.observations = observations;
+    }
+    
+    public Calendar getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(Calendar admission) {
+        this.admission = admission;
     }
 
     @Override

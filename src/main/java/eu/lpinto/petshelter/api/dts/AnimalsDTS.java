@@ -30,6 +30,7 @@ public enum AnimalsDTS implements DTS<Animal, String> {
         sb.append(sdf.format(input.getCreated().getTime())).append(";");
         sb.append(sdf.format(input.getUpdated().getTime())).append(";");
         sb.append(input.getObservations());
+        sb.append(sdf.format(input.getAdmission().getTime())).append(";");
 
         return sb.toString();
     }
