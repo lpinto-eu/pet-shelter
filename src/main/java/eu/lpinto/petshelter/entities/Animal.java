@@ -47,7 +47,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Animal.findByBreed", query = "SELECT a FROM Animal a WHERE a.breed = :breed"),
     @NamedQuery(name = "Animal.findByDrugs", query = "SELECT a FROM Animal a WHERE a.drugs = :drugs"),
     @NamedQuery(name = "Animal.findBySex", query = "SELECT a FROM Animal a WHERE a.sex = :sex"),
+    @NamedQuery(name = "Animal.findByStatus", query = "SELECT a FROM Animal a WHERE a.status = :status"),
     @NamedQuery(name = "Animal.findBySterilized", query = "SELECT a FROM Animal a WHERE a.sterilized = :sterilized"),
+    @NamedQuery(name = "Animal.findByObservations", query = "SELECT a FROM Animal a WHERE a.observations = :observations"),
     @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organization = :organization")})
 public class Animal implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -85,6 +87,8 @@ public class Animal implements Serializable {
     private String sex;
     @Column(name = "sterilized")
     private Boolean sterilized;
+    @Column(name = "status")
+    private Integer status;
     @Lob
     @Size(max = 65535)
     @Column(name = "picture")
@@ -93,6 +97,12 @@ public class Animal implements Serializable {
     @NotNull
     @Column(name = "organization_id")
     private int organization;
+    @Size(max = 250)
+    @Column(name = "observations")
+    private String observations;
+    @Column(name = "admission")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar admission;
 
     public Animal() {
     }
@@ -179,6 +189,14 @@ public class Animal implements Serializable {
     public void setSex(String sex) {
         this.sex = sex;
     }
+    
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Boolean getSterilized() {
         return sterilized;
@@ -202,6 +220,22 @@ public class Animal implements Serializable {
 
     public void setOrganization(int organization) {
         this.organization = organization;
+    }
+    
+    public String getObservations() {
+        return observations;
+    }
+
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
+    
+    public Calendar getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(Calendar admission) {
+        this.admission = admission;
     }
 
     @Override

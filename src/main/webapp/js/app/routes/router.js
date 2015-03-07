@@ -5,7 +5,9 @@ App.Router.map(function() {
     });
     this.resource('users', function() {
         this.route('signup');
-        this.route('user', {path: '/user/:user_id'});
+        this.route('user', {path: '/user/:user_id'}, function () {
+            this.route('organizations');
+        });
     });
 
     this.resource('animals', function() {
@@ -15,10 +17,16 @@ App.Router.map(function() {
         this.route("animal", {path: ":animal_id"});
     });
     
+    this.resource('project', { path: 'project/:id' }, function () {
+    this.route('participants');
+  });
+    
       this.resource('organizations', function() {
         this.route('table'),
         this.route('new');
-        this.route("organization", {path: ":organization_id"});
+        this.route("organization", {path: ":organization_id"}, function () {
+            this.route('users');
+        });
     });
 });
 

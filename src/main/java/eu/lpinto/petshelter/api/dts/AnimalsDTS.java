@@ -23,11 +23,14 @@ public enum AnimalsDTS implements DTS<Animal, String> {
         sb.append(input.getAge() == null ? "" : input.getAge()).append(";");
         sb.append(input.getBreed() == null ? "" : input.getBreed()).append(";");
         sb.append(input.getSex() == null ? "" : input.getSex()).append(";");
+        sb.append(input.getStatus() == null ? "" : input.getStatus()).append(";");
         sb.append(input.getSpecies() == null ? "" : input.getSpecies()).append(";");
         sb.append(input.getDrugs() == null ? "" : input.getDrugs()).append(";");
         //sb.append(animal.getPicture()).append(";");
         sb.append(sdf.format(input.getCreated().getTime())).append(";");
-        sb.append(sdf.format(input.getUpdated().getTime()));
+        sb.append(sdf.format(input.getUpdated().getTime())).append(";");
+        sb.append(input.getObservations());
+        sb.append(sdf.format(input.getAdmission().getTime())).append(";");
 
         return sb.toString();
     }

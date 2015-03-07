@@ -1,3 +1,8 @@
+/*
+ * 
+    @author Vítor Martins - varmartins@varmartins.com
+*/
+
 App.OrganizationsIndexRoute =  App.AuthenticatedRoute.extend({
     controllerName: 'Organizations',
     model: function() {

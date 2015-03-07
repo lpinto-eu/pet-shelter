@@ -1,4 +1,5 @@
 App.AnimalsController = Ember.ArrayController.extend({
+    
     sex: function () {
         var males = this.filter(function (animal) {
             return animal.get('sex') === "M";
