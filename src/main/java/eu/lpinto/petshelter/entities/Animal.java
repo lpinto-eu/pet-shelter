@@ -90,7 +90,6 @@ public class Animal implements Serializable {
     @Column(name = "status")
     private Integer status;
     @Lob
-    @Size(max = 65535)
     @Column(name = "picture")
     private String picture;
     @Basic(optional = false)
