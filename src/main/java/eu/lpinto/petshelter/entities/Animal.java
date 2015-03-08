@@ -105,6 +105,10 @@ public class Animal implements Serializable {
     @Size(max = 30)
     @Column(name = "furPattern")
     private String furPattern;
+    @Size(max = 30)
+    @Column(name = "size")
+    private String size;
+ 
     @Column(name = "weight")
     private float weight;
 
@@ -256,6 +260,14 @@ public class Animal implements Serializable {
 
     public void setWeight(float weight) {
         this.weight = weight;
+    }
+    
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     @Override

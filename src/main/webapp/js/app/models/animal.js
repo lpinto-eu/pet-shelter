@@ -13,6 +13,7 @@ App.Animal = DS.Model.extend({
     admission: DS.attr('isodate'),
     furPattern: DS.attr('string'),
     weight: DS.attr(),
+    size: DS.attr('string'),
 
     recordDate: function () {
         return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');

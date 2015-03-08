@@ -334,7 +334,13 @@
                                     {{view Ember.Checkbox checkedBinding="sterilized"}}
                                 </span>
                             </div>
-                        </div>                       
+                        </div>     
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Size</span>
+                                {{view Ember.TextField valueBinding='size' class="form-control"}}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
@@ -454,6 +460,12 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
+                                            <span class="input-group-addon">Size</span>
+                                            {{view Ember.TextField valueBinding='size' class="form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <span class="input-group-addon">
                                             Sex
                                             <i class="ion-female text-warning"></i>
@@ -557,6 +569,8 @@
                                     {{/if}}
                                     <dt>Fur Pattern:</dt>
                                     <dd>{{furPattern}}</dd>
+                                    <dt>Size:</dt>
+                                    <dd>{{size}}</dd>
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                                     <dt>Sterilized:</dt>
