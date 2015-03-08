@@ -11,6 +11,7 @@ App.Animal = DS.Model.extend({
     picture: DS.attr('string'),
     observations: DS.attr('string'),
     admission: DS.attr('isodate'),
+    furPattern: DS.attr('string'),
 
     recordDate: function () {
         return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');
