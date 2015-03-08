@@ -365,6 +365,12 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group">
+                                <span class="input-group-addon">Fur Pattern</span>
+                                {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
                                 <span class="input-group-addon">Admission</span>
                                 {{view App.DatePicker valueBinding='admission'}}
                             </div>
@@ -432,6 +438,12 @@
                                             <i class="fa fa-medkit text-warning"></i>
                                             </span>
                                             {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Fur Pattern</span>
+                                            {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -531,6 +543,8 @@
                                         <dt>Drugs:</dt>
                                         <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
                                     {{/if}}
+                                    <dt>Fur Pattern:</dt>
+                                    <dd>{{furPattern}}</dd>
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                                     <dt>Sterilized:</dt>

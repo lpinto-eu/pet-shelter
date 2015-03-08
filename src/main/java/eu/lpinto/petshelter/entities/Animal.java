@@ -102,6 +102,9 @@ public class Animal implements Serializable {
     @Column(name = "admission")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar admission;
+    @Size(max = 30)
+    @Column(name = "furPattern")
+    private String furPattern;
 
     public Animal() {
     }
@@ -237,6 +240,14 @@ public class Animal implements Serializable {
         this.admission = admission;
     }
 
+    public String getFurPattern() {
+        return furPattern;
+    }
+
+    public void setFurPattern(String furPattern) {
+        this.furPattern = furPattern;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
