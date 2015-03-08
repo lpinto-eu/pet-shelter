@@ -371,6 +371,12 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group">
+                                <span class="input-group-addon">Weight</span>
+                                {{view App.FloatInput valueBinding='weight' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
                                 <span class="input-group-addon">Admission</span>
                                 {{view App.DatePicker valueBinding='admission'}}
                             </div>
@@ -508,6 +514,12 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
+                                            <span class="input-group-addon">Weight</span>
+                                            {{view App.FloatInput valueBinding='weight' class="form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <span class="input-group-addon">Admission</span>
                                             {{view App.DatePicker valueBinding='admission'}}
                                         </div>
@@ -573,6 +585,8 @@
                                     </dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
+                                    <dt>Weight:</dt>
+                                    <dd>{{weight}}</dd>
                                     <dt>Admission:</dt>
                                     <dd>{{date admission}}</dd>
                                 </dl>
@@ -892,6 +906,7 @@
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
         <script src="js/app/views/datepicker.js"></script>
+        <script src="js/app/views/floatInput.js"></script>
         
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>
