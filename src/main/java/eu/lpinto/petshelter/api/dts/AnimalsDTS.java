@@ -24,6 +24,7 @@ public enum AnimalsDTS implements DTS<Animal, String> {
         sb.append(input.getBreed() == null ? "" : input.getBreed()).append(";");
         sb.append(input.getFurPattern() == null ? "" : input.getFurPattern()).append(";");
         sb.append(input.getWeight()).append(";");
+        sb.append(input.getSize() == null ? "" : input.getSize()).append(";");
         sb.append(input.getSex() == null ? "" : input.getSex()).append(";");
         sb.append(input.getStatus() == null ? "" : input.getStatus()).append(";");
         sb.append(input.getSpecies() == null ? "" : input.getSpecies()).append(";");
