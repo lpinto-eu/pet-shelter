@@ -11,6 +11,11 @@ App.Animal = DS.Model.extend({
     picture: DS.attr('string'),
     observations: DS.attr('string'),
     admission: DS.attr('isodate'),
+    furPattern: DS.attr('string'),
+    weight: DS.attr(),
+    proportion: DS.attr(),
+    primaryColor: DS.attr(),
+    secondaryColor: DS.attr(),
 
     recordDate: function () {
         return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');
@@ -35,4 +40,16 @@ App.Animal = DS.Model.extend({
     isDeceased: function () {
         return this.get('status') === 5;
     }.property('status'),
+    
+    isSmall: function () {
+        return this.get('proportion') === 1;
+    }.property('proportion'),
+    
+    isMedium: function () {
+        return this.get('proportion') === 2;
+    }.property('proportion'),
+    
+    isLarge: function () {
+        return this.get('proportion') === 3;
+    }.property('proportion')
 });

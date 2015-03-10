@@ -334,7 +334,28 @@
                                     {{view Ember.Checkbox checkedBinding="sterilized"}}
                                 </span>
                             </div>
-                        </div>                       
+                        </div>
+                       <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Primary Color</span>
+                                {{view App.ColorPicker valueBinding='primaryColor'}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Secondary Color</span>
+                                {{view App.ColorPicker valueBinding='secondaryColor'}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Proportion
+                                </span>
+                                {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id"
+                                    optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
@@ -361,6 +382,18 @@
                             <div class="input-group">
                                 <span class="input-group-addon">Observations</span>
                                 {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Fur Pattern</span>
+                                {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Weight</span>
+                                {{view App.FloatInput valueBinding='weight' class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -436,6 +469,26 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
+                                            <span class="input-group-addon">Fur Pattern</span>
+                                            {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                Status
+                                            </span>
+                                            {{view Ember.Select
+                                                contentBinding="App.Proportion"
+                                                optionValuePath="content.id"
+                                                optionLabelPath="content.name"
+                                                valueBinding="porportion"
+                                                class="form-control dropdown-toggle"
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <span class="input-group-addon">
                                             Sex
                                             <i class="ion-female text-warning"></i>
@@ -459,6 +512,18 @@
                                             <span class="form-control">
                                             {{view Ember.Checkbox checkedBinding="sterilized"}}
                                             </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Primary Color</span>
+                                            {{view App.ColorPicker valueBinding='primaryColor'}}
+                                        </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Secondary Color</span>
+                                            {{view App.ColorPicker valueBinding='secondaryColor'}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -492,6 +557,12 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Observations</span>
                                             {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Weight</span>
+                                            {{view App.FloatInput valueBinding='weight' class="form-control"}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -531,8 +602,28 @@
                                         <dt>Drugs:</dt>
                                         <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
                                     {{/if}}
+                                    <dt>Fur Pattern:</dt>
+                                    <dd>{{furPattern}}</dd>
+                                    <dt>Proportion:</dt>
+                                    <dd>
+                                        {{#if isSmall}} 
+                                            Small
+                                        {{/if}}
+                                        
+                                        {{#if isMedium}} 
+                                            Medium
+                                        {{/if}} 
+                                        
+                                        {{#if isLarge}} 
+                                            Large 
+                                        {{/if}}
+                                    </dd>
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
+                                    <dt>Primary Color:</dt>
+                                    <dd><span style="{{unbound getStyle primaryColor}}" >  </span></dd>
+                                    <dt>Secondary Color:</dt>
+                                    <dd><span style="{{unbound getStyle secondaryColor}}"> </span></dd>
                                     <dt>Sterilized:</dt>
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>     
                                     <dt>Status:</dt>
@@ -559,6 +650,8 @@
                                     </dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
+                                    <dt>Weight:</dt>
+                                    <dd>{{weight}}</dd>
                                     <dt>Admission:</dt>
                                     <dd>{{date admission}}</dd>
                                 </dl>
@@ -863,6 +956,7 @@
         <script src="js/app/models/sex.js"></script>
         <script src="js/app/models/user.js"></script>
         <script src="js/app/models/status.js"></script>
+        <script src="js/app/models/proportion.js"></script>
 
         <!-- Controllers -->
         <script src="js/app/controllers/animals/animal.js"></script>
@@ -878,6 +972,9 @@
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
         <script src="js/app/views/datepicker.js"></script>
+        <script src="js/app/views/floatInput.js"></script>
+        <script src="js/app/views/colorpicker.js"></script>
+        <script src="js/app/views/color.js"></script>
         
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>

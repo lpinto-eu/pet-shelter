@@ -90,7 +90,6 @@ public class Animal implements Serializable {
     @Column(name = "status")
     private Integer status;
     @Lob
-    @Size(max = 65535)
     @Column(name = "picture")
     private String picture;
     @Basic(optional = false)
@@ -103,6 +102,19 @@ public class Animal implements Serializable {
     @Column(name = "admission")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar admission;
+    @Size(max = 30)
+    @Column(name = "furPattern")
+    private String furPattern;
+    @Column(name = "proportion")
+    private Integer proportion;
+    @Column(name = "weight")
+    private float weight;
+    @Size(max = 30)
+    @Column(name = "primaryColor")
+    private String primaryColor;
+    @Size(max = 30)
+    @Column(name = "secondaryColor")
+    private String secondaryColor;
 
     public Animal() {
     }
@@ -238,6 +250,46 @@ public class Animal implements Serializable {
         this.admission = admission;
     }
 
+    public String getFurPattern() {
+        return furPattern;
+    }
+
+    public void setFurPattern(String furPattern) {
+        this.furPattern = furPattern;
+    }
+    
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+    
+    public Integer getProportion() {
+        return proportion;
+    }
+
+    public void setProportion(Integer proportion) {
+        this.proportion = proportion;
+    }
+    
+    public String getPrimaryColor() {
+        return primaryColor;
+    }
+
+    public void setPrimaryColor(String primaryColor) {
+        this.primaryColor = primaryColor;
+    }
+
+    public String getSecondaryColor() {
+        return secondaryColor;
+    }
+
+    public void setSecondaryColor(String secondaryColor) {
+        this.secondaryColor = secondaryColor;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
