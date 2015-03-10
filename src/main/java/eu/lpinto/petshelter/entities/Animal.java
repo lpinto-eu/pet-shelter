@@ -105,12 +105,16 @@ public class Animal implements Serializable {
     @Size(max = 30)
     @Column(name = "furPattern")
     private String furPattern;
-    @Size(max = 30)
-    @Column(name = "size")
-    private String size;
- 
+    @Column(name = "proportion")
+    private Integer proportion;
     @Column(name = "weight")
     private float weight;
+    @Size(max = 30)
+    @Column(name = "primaryColor")
+    private String primaryColor;
+    @Size(max = 30)
+    @Column(name = "secondaryColor")
+    private String secondaryColor;
 
     public Animal() {
     }
@@ -262,14 +266,30 @@ public class Animal implements Serializable {
         this.weight = weight;
     }
     
-    public String getSize() {
-        return size;
+    public Integer getProportion() {
+        return proportion;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setProportion(Integer proportion) {
+        this.proportion = proportion;
+    }
+    
+    public String getPrimaryColor() {
+        return primaryColor;
     }
 
+    public void setPrimaryColor(String primaryColor) {
+        this.primaryColor = primaryColor;
+    }
+
+    public String getSecondaryColor() {
+        return secondaryColor;
+    }
+
+    public void setSecondaryColor(String secondaryColor) {
+        this.secondaryColor = secondaryColor;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
