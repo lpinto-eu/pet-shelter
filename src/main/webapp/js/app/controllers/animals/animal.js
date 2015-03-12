@@ -1,6 +1,6 @@
 App.AnimalsAnimalController = Ember.ObjectController.extend({
     isEditing: false,
-
+    
     isMale: function () {
         return this.get('sex') === 'M';
     }.property('content.sex'),
