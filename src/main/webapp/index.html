@@ -63,6 +63,12 @@
                                     <li>{{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}</li>
                                 </ul>
                             </li>
+                            <li class="dropdown">
+                                <a href="organizations" class="dropdown-toggle" data-toggle="dropdown">Organizations <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>{{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}</li>
+                                </ul>
+                            </li>
                             <li><a {{action 'logout'}}>logout</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -74,7 +80,7 @@
         <script type="text/html" data-template-name='index'>
             <section id="home" class="jumbotron text-center">
                 <h1>Pet Shelter</h1>
-                <p class="lead">An open source solution for Animal Shelter managment.</p>
+                <p class="lead">An open source solution for Animal Shelter management.</p>
                 <hr/>
                 {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
                 {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
@@ -141,7 +147,7 @@
                                         {{/if}}
                                     </div>
                                     <div class="panel-footer">
-                                        <p>
+                                        <p>                                       
                                             <span>{{name}}</span>
                                             <span class="pull-right">
                                                 {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
@@ -154,7 +160,7 @@
                                                     <i class="fa fa-shield text-success  desc-item"></i>
                                                 {{/if}}
                                                 <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                    <i class="fa fa-clock-o desc-item"></i>
+                                                    <i class="fa fa-clock-o desc-item"></i> {{date admission}}
                                                 </abbr>
                                             </span>
                                         </p>
@@ -196,12 +202,17 @@
                                     <a {{action pushSort 'breed'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Breed
                                     </a>
-                                </th>
+                                </th>  
                                 <th>
-                                    <a {{action pushSort 'created'}} title="Sort by">
-                                    <i class="fa fa-sort-amount-asc"></i> Register date
+                                    <a {{action pushSort 'status'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Status
                                     </a>
                                 </th>
+                                <th>
+                                    <a {{action pushSort 'admission'}} title="Sort by">
+                                    <i class="fa fa-sort-amount-asc"></i> Admission date
+                                    </a>
+                                </th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -217,7 +228,28 @@
                                     </td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
-                                    <td>{{breed}}</td>
+                                    <td>{{breed}}</td> 
+                                    <td>
+                                        {{#if isShelter}} 
+                                            Shelter 
+                                        {{/if}} 
+                                        
+                                        {{#if isAdopted}} 
+                                            Adopted 
+                                        {{/if}} 
+                                         
+                                        {{#if isFostering}} 
+                                            Fostering 
+                                        {{/if}}  
+                                        
+                                        {{#if isMissing}} 
+                                            Missing 
+                                        {{/if}}  
+                                        
+                                        {{#if isDeceased}} 
+                                            Deceased
+                                        {{/if}}  
+                                    </td>
                                     <td>
                                         {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                         {{#if drugs}}
@@ -227,9 +259,9 @@
                                         {{/if}}
                                         {{#if sterilized}}
                                             <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}
+                                        {{/if}}                                       
                                         <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
-                                            <i class="fa fa-clock-o desc-item"></i>{{date created}}
+                                            <i class="fa fa-clock-o desc-item"></i>{{date admission}}
                                         </abbr>
                                     </td>
                                 {{/link-to}}
@@ -247,7 +279,7 @@
 
         <!-- =========================================================================================== Animals New -->
         <script type = "text/html" data-template-name="animals/new">
-            <article class ="col-xs-12">
+            <article class ="col-xs-12 col-lg-8">
                 <h3>Add new Animal</h3>
                 <form {{action "save" on="submit"}} class="form-horizontal">
                     <fieldset>
@@ -303,6 +335,27 @@
                                 </span>
                             </div>
                         </div>
+                       <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Primary Color</span>
+                                {{view App.ColorPicker valueBinding='primaryColor'}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Secondary Color</span>
+                                {{view App.ColorPicker valueBinding='secondaryColor'}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Proportion
+                                </span>
+                                {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id"
+                                    optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
@@ -314,6 +367,39 @@
                                     {{/if}}
                                     {{view App.FotoUp}}
                                 {{/view}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    Status
+                                </span>
+                                {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id"
+                                    optionLabelPath="content.name" valueBinding="status" class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Observations</span>
+                                {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Fur Pattern</span>
+                                {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Weight</span>
+                                {{view App.FloatInput valueBinding='weight' class="form-control"}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Admission</span>
+                                {{view App.DatePicker valueBinding='admission'}}
                             </div>
                         </div>
                     </fieldset>
@@ -335,7 +421,7 @@
                             {{name}}&nbsp;
                             <span class="badge">
                                 <abbr {{bind-attr title="recordDate"}}>
-                                    {{date created}} <i class="fa fa-clock-o"></i>
+                                    {{date admission}} <i class="fa fa-clock-o"></i>
                                 </abbr>
                             </span>
                         </h2>
@@ -383,6 +469,26 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
+                                            <span class="input-group-addon">Fur Pattern</span>
+                                            {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                Status
+                                            </span>
+                                            {{view Ember.Select
+                                                contentBinding="App.Proportion"
+                                                optionValuePath="content.id"
+                                                optionLabelPath="content.name"
+                                                valueBinding="porportion"
+                                                class="form-control dropdown-toggle"
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <span class="input-group-addon">
                                             Sex
                                             <i class="ion-female text-warning"></i>
@@ -410,6 +516,18 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
+                                            <span class="input-group-addon">Primary Color</span>
+                                            {{view App.ColorPicker valueBinding='primaryColor'}}
+                                        </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Secondary Color</span>
+                                            {{view App.ColorPicker valueBinding='secondaryColor'}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
                                             <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
                                             {{#view Ember.View contentBinding="picture" class="form-control image-picker"}}
                                                 {{#if picture}}
@@ -419,6 +537,38 @@
                                                 {{/if}}
                                                 {{view App.FotoUp id="image-button"}}
                                             {{/view}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                            Status
+                                            </span>
+                                            {{view Ember.Select
+                                            contentBinding="App.Status"
+                                            optionValuePath="content.id"
+                                            optionLabelPath="content.name"
+                                            valueBinding="status"
+                                            class="form-control dropdown-toggle"
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Observations</span>
+                                            {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Weight</span>
+                                            {{view App.FloatInput valueBinding='weight' class="form-control"}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Admission</span>
+                                            {{view App.DatePicker valueBinding='admission'}}
                                         </div>
                                     </div>
                                 </fieldset>
@@ -447,15 +597,63 @@
                                     <dt>Species:</dt>
                                     <dd>{{species}}</dd>
                                     <dt>Breed:</dt>
-                                    <dd>{{breed}}</dd>
+                                    <dd>{{breed}}</dd>                                   
                                     {{#if drugs}}
                                         <dt>Drugs:</dt>
                                         <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
                                     {{/if}}
+                                    <dt>Fur Pattern:</dt>
+                                    <dd>{{furPattern}}</dd>
+                                    <dt>Proportion:</dt>
+                                    <dd>
+                                        {{#if isSmall}} 
+                                            Small
+                                        {{/if}}
+                                        
+                                        {{#if isMedium}} 
+                                            Medium
+                                        {{/if}} 
+                                        
+                                        {{#if isLarge}} 
+                                            Large 
+                                        {{/if}}
+                                    </dd>
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
+                                    <dt>Primary Color:</dt>
+                                    <dd><span style="{{unbound getStyle primaryColor}}" >  </span></dd>
+                                    <dt>Secondary Color:</dt>
+                                    <dd><span style="{{unbound getStyle secondaryColor}}"> </span></dd>
                                     <dt>Sterilized:</dt>
-                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
+                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>     
+                                    <dt>Status:</dt>
+                                    <dd>
+                                        {{#if isShelter}} 
+                                            Shelter 
+                                        {{/if}}
+                                        
+                                        {{#if isAdopted}} 
+                                            Adopted 
+                                        {{/if}} 
+                                        
+                                        {{#if isFostering}} 
+                                            Fostering 
+                                        {{/if}}                                         
+                                        
+                                        {{#if isMissing}} 
+                                            Missing 
+                                        {{/if}}  
+                                        
+                                        {{#if isDeceased}} 
+                                            Deceased
+                                        {{/if}}
+                                    </dd>
+                                    <dt>Observations:</dt>
+                                    <dd>{{observations}}</dd>
+                                    <dt>Weight:</dt>
+                                    <dd>{{weight}}</dd>
+                                    <dt>Admission:</dt>
+                                    <dd>{{date admission}}</dd>
                                 </dl>
                             </div>
                             <hr/>
@@ -469,8 +667,179 @@
                 </article>
                 </section>
         </script>
+        
+        
+        <!-- ======================================================================================================= -->
+        <!--                                                                                                 Organizations -->
+        <!-- ======================================================================================================= -->
+        <script type="text/html" data-template-name="organizations">
+            <section id="organizations-header" class="row">
+                <div class="well">
+                    <h1>Organizations</h1>
+                    <div id="links" class="pull-right">
+                        <h3>
+                            {{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}
+                            <span> | <span>
+                            {{#link-to "organizations.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
+                        </h3>
+                    </div>
+                </div>
+            </section>
+            {{outlet}}
+        </script>
 
 
+        <!-- ========================================================================================= Organizations Table -->
+        <script type="text/html" data-template-name="organizations/table">
+            <section id="organizations" class="row">
+                <article class="col-xs-12">
+                    <table class="table table-bordered table-hover table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a {{action pushSort 'logo'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Logo
+                                    </a>
+                                </th>
+                                <th style="width: 35%;">
+                                    <a {{action pushSort 'name'}} title="Sort by">
+                                    <i class="fa fa-sort-alpha-asc"></i> Name
+                                    </a>
+                                </th>                                
+                                <th>
+                                    <a {{action pushSort 'created'}} title="Sort by">
+                                    <i class="fa fa-sort-amount-asc"></i> Created
+                                    </a>
+                                </th>
+                                 <th>
+                                    <a {{action pushSort 'updated'}} title="Sort by">
+                                    <i class="fa fa-sort-amount-asc"></i> Updated
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each class="organization-link"}}
+                                {{#link-to "organizations.organization" id tagName="tr"}}
+                                
+                                <td>                                                       
+                                    {{#if logo}}
+                                        <img {{bind-attr src="logo"}} class="animal-img"/>
+                                    {{else}}
+                                        Logo
+                                    {{/if}}
+                            </div>
+                                    </td>
+                                    <td>{{name}}</td>
+                                    <td> 
+                                        {{dateFormat created}}
+                                    </td>
+                                    <td>
+                                        {{dateFormat updated}}
+                                    </td> 
+                                {{/link-to}}
+                            {{else}}
+                                <tr>
+                                    <td>You have no organizations.</td>
+                                </tr>
+                            {{/each}}
+                        <tbody>
+                    </table>
+                </article>
+            </section>
+        </script>
+
+
+        <!-- =========================================================================================== Organizations New -->
+        <script type = "text/html" data-template-name="organizations/new">
+            <article class ="col-xs-12">
+                <h3>Add new Organization</h3>
+                <form {{action "save" on="submit"}} class="form-horizontal">
+                    <fieldset>
+                        <!-- <legend>Edit</legend> -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Name</span>
+                                {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                            </div>
+                            <div class="input-group">
+                            <span class="input-group-addon">Logo <i class="fa fa-picture-o"></i></span>
+                                {{#view Ember.View contentBinding="logo"  class="form-control image-picker"}}
+                                    {{view App.FotoUp}}
+                                {{/view}}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="pull-right">
+                        <input type="submit" value="Create" class="btn btn-success">
+                        &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                    </div>
+                </form>
+            </article>
+        </script>
+
+
+        <!-- ================================================================================================ Organization -->
+        <script type="text/html" data-template-name="organizations/organization">
+            <section id="organization" {{bind-attr class="isEditing:editing well"}}>
+                <article class="row">
+                    <div class="col-xs-12">
+                        <h2>
+                            {{name}}&nbsp;
+                            <span class="badge">
+                                <abbr {{bind-attr title="recordDate"}}>
+                                    {{date created}} <i class="fa fa-clock-o"></i>
+                                </abbr>
+                            </span>
+                        </h2>
+                    </div>
+                </article>
+                <article class="row">
+                    {{#if isEditing}}
+                        <!-- UPDATE -->
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form">
+                                <fieldset>
+                                    <!-- <legend>Edit</legend> -->
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Name</span>
+                                            {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="text-right">
+                                    <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
+                                    &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
+                                    <!-- &nbsp;<a {{action toggleProp}} style="cursor:pointer;">cancel</a> -->
+                                    &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                  {{else}}
+                        <!-- DETAILS -->
+                        <div id="details">                         
+                            <div class="col-md-8">
+                                <dl class="dl-horizontal">
+                                    <dt>Creation:</dt>
+                                    <dd>{{dateFormat created}}</dd>
+                                    <dt>Last update:</dt>
+                                    <dd>{{date Format updated}}</dd>
+                                </dl>
+                            </div>
+                            <hr/>
+                            <div class=" col-md-12 text-right">
+                                <button class="btn btn-success" {{action toggleProp}}>Edit</button>
+                                <!-- &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a> -->
+                                &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
+                            </div>
+                        </div>
+                    {{/if}}
+                </article>
+                </section>
+        </script>
+
+        
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Users -->
         <!-- ======================================================================================================= -->
@@ -582,33 +951,45 @@
 
         <!-- Models -->
         <script src="js/app/models/animal.js"></script>
+        <script src="js/app/models/organization.js"></script>
         <script src="js/app/models/iso-date.js"></script>
         <script src="js/app/models/sex.js"></script>
         <script src="js/app/models/user.js"></script>
+        <script src="js/app/models/status.js"></script>
+        <script src="js/app/models/proportion.js"></script>
 
         <!-- Controllers -->
         <script src="js/app/controllers/animals/animal.js"></script>
         <script src="js/app/controllers/animals/animals.js"></script>
         <script src="js/app/controllers/animals/new.js"></script>
+        <script src="js/app/controllers/organizations/organization.js"></script>
+        <script src="js/app/controllers/organizations/organizations.js"></script>
+        <script src="js/app/controllers/organizations/new.js"></script>
         <script src="js/app/controllers/sessions.js"></script>
         <script src="js/app/controllers/users/signup.js"></script>
 
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
-
+        <script src="js/app/views/datepicker.js"></script>
+        <script src="js/app/views/floatInput.js"></script>
+        <script src="js/app/views/colorpicker.js"></script>
+        <script src="js/app/views/color.js"></script>
+        
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>
         <script src="js/app/adapters/application.js"></script>
 
         <!-- Adapters -->
         <script src="js/app/serializers/animal.js"></script>
+        <script src="js/app/serializers/organization.js"></script>
         <script src="js/app/serializers/session.js"></script>
         <script src="js/app/serializers/user.js"></script>
 
         <!-- Routes -->
         <script src="js/app/routes/router.js"></script>
         <script src="js/app/routes/animals.js"></script>
+        <script src="js/app/routes/organizations.js"></script>
 
         <!-- Components -->
         <script src="js/app/components/donutchart.js"></script>
