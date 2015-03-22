@@ -61,6 +61,7 @@
                                 <ul class="dropdown-menu">
                                     <li>{{#link-to 'animals.list' activeClass="active"}}List{{/link-to}}</li>
                                     <li>{{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}</li>
+                                    <li>{{#link-to "animals.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -98,7 +99,7 @@
         <!--                                                                                                 Animals -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="animals">
-            <section id="animals-header" class="row">
+            <!--<section id="animals-header" class="row">
                 <div class="well">
                     <h1>Animals</h1>
                     <div id="links" class="pull-right">
@@ -111,18 +112,18 @@
                         </h3>
                     </div>
                 </div>
-            </section>
+            </section>-->
             {{outlet}}
         </script>
 
         <!-- ============================================================================================= Dashboard -->
         <script type = "text/html" data-template-name="animals/index">
             <section id="dashboard">
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-xs-12">
                         <h1>Shelter Dashboard</h1>
                     </div>
-                </div>-->
+                </div>
                 <div class="row text-center">
                     <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
                 </div>
@@ -147,7 +148,7 @@
                                         {{/if}}
                                     </div>
                                     <div class="panel-footer">
-                                        <p>                                       
+                                        <p>
                                             <span>{{name}}</span>
                                             <span class="pull-right">
                                                 {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
@@ -169,7 +170,11 @@
                             </div>
                         {{/link-to}}
                     {{else}}
-                        <h2>You have no animals.</h2>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <span class="sr-only">Error:</span>
+                            There are no animals to be displayed.
+                          </div>
                     {{/each}}
                 </article>
             </section>
@@ -202,7 +207,7 @@
                                     <a {{action pushSort 'breed'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Breed
                                     </a>
-                                </th>  
+                                </th>
                                 <th>
                                     <a {{action pushSort 'status'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Status
@@ -212,7 +217,7 @@
                                     <a {{action pushSort 'admission'}} title="Sort by">
                                     <i class="fa fa-sort-amount-asc"></i> Admission date
                                     </a>
-                                </th> 
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -228,27 +233,27 @@
                                     </td>
                                     <td>{{age}}</td>
                                     <td>{{species}}</td>
-                                    <td>{{breed}}</td> 
+                                    <td>{{breed}}</td>
                                     <td>
-                                        {{#if isShelter}} 
-                                            Shelter 
-                                        {{/if}} 
-                                        
-                                        {{#if isAdopted}} 
-                                            Adopted 
-                                        {{/if}} 
-                                         
-                                        {{#if isFostering}} 
-                                            Fostering 
-                                        {{/if}}  
-                                        
-                                        {{#if isMissing}} 
-                                            Missing 
-                                        {{/if}}  
-                                        
-                                        {{#if isDeceased}} 
+                                        {{#if isShelter}}
+                                            Shelter
+                                        {{/if}}
+
+                                        {{#if isAdopted}}
+                                            Adopted
+                                        {{/if}}
+
+                                        {{#if isFostering}}
+                                            Fostering
+                                        {{/if}}
+
+                                        {{#if isMissing}}
+                                            Missing
+                                        {{/if}}
+
+                                        {{#if isDeceased}}
                                             Deceased
-                                        {{/if}}  
+                                        {{/if}}
                                     </td>
                                     <td>
                                         {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
@@ -259,7 +264,7 @@
                                         {{/if}}
                                         {{#if sterilized}}
                                             <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}                                       
+                                        {{/if}}
                                         <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
                                             <i class="fa fa-clock-o desc-item"></i>{{date admission}}
                                         </abbr>
@@ -335,23 +340,27 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Fur Pattern</span>
+                                {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                            </div>
+                        </div>
                        <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Primary Color</span>
+                                <span class="input-group-addon">Color</span>
                                 {{view App.ColorPicker valueBinding='primaryColor'}}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Secondary Color</span>
+                                <span class="input-group-addon">Second Color</span>
                                 {{view App.ColorPicker valueBinding='secondaryColor'}}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">
-                                    Proportion
-                                </span>
+                                <span class="input-group-addon">Proportion</span>
                                 {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id"
                                     optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
                             </div>
@@ -381,30 +390,24 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Observations</span>
-                                {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                                {{view Ember.TextArea valueBinding='observations' class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Fur Pattern</span>
-                                {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon">Weight</span>
+                                <span class="input-group-addon">Weight <i class="fa fa-"></i></span>
                                 {{view App.FloatInput valueBinding='weight' class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Admission</span>
-                                {{view App.DatePicker valueBinding='admission'}}
+                                <span class="input-group-addon">Admission <i class="fa fa-clock-o"></i></span>
+                                {{view App.DatePicker valueBinding='admission' class="form-control"}}
                             </div>
                         </div>
                     </fieldset>
                     <div class="pull-right">
-                        <input type="submit" value="Create" class="btn btn-success">
+                        <input type="submit" value="Save" class="btn btn-success">
                         &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
                     </div>
                 </form>
@@ -516,13 +519,13 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <span class="input-group-addon">Primary Color</span>
+                                            <span class="input-group-addon">Color</span>
                                             {{view App.ColorPicker valueBinding='primaryColor'}}
                                         </div>
                                         </div>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <span class="input-group-addon">Secondary Color</span>
+                                            <span class="input-group-addon">Second Color</span>
                                             {{view App.ColorPicker valueBinding='secondaryColor'}}
                                         </div>
                                     </div>
@@ -556,7 +559,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">Observations</span>
-                                            {{view Ember.TextArea valueBinding='observations' class="form-control" required=true}}
+                                            {{view Ember.TextArea valueBinding='observations' class="form-control"}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -575,7 +578,6 @@
                                 <div class="text-right">
                                     <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
                                     &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
-                                    <!-- &nbsp;<a {{action toggleProp}} style="cursor:pointer;">cancel</a> -->
                                     &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
                                 </div>
                             </form>
@@ -597,7 +599,7 @@
                                     <dt>Species:</dt>
                                     <dd>{{species}}</dd>
                                     <dt>Breed:</dt>
-                                    <dd>{{breed}}</dd>                                   
+                                    <dd>{{breed}}</dd>
                                     {{#if drugs}}
                                         <dt>Drugs:</dt>
                                         <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
@@ -606,45 +608,45 @@
                                     <dd>{{furPattern}}</dd>
                                     <dt>Proportion:</dt>
                                     <dd>
-                                        {{#if isSmall}} 
+                                        {{#if isSmall}}
                                             Small
                                         {{/if}}
-                                        
-                                        {{#if isMedium}} 
+
+                                        {{#if isMedium}}
                                             Medium
-                                        {{/if}} 
-                                        
-                                        {{#if isLarge}} 
-                                            Large 
+                                        {{/if}}
+
+                                        {{#if isLarge}}
+                                            Large
                                         {{/if}}
                                     </dd>
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
-                                    <dt>Primary Color:</dt>
+                                    <dt>Color:</dt>
                                     <dd><span style="{{unbound getStyle primaryColor}}" >  </span></dd>
-                                    <dt>Secondary Color:</dt>
+                                    <dt>Second Color:</dt>
                                     <dd><span style="{{unbound getStyle secondaryColor}}"> </span></dd>
                                     <dt>Sterilized:</dt>
-                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>     
+                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
                                     <dt>Status:</dt>
                                     <dd>
-                                        {{#if isShelter}} 
-                                            Shelter 
+                                        {{#if isShelter}}
+                                            Shelter
                                         {{/if}}
-                                        
-                                        {{#if isAdopted}} 
-                                            Adopted 
-                                        {{/if}} 
-                                        
-                                        {{#if isFostering}} 
-                                            Fostering 
-                                        {{/if}}                                         
-                                        
-                                        {{#if isMissing}} 
-                                            Missing 
-                                        {{/if}}  
-                                        
-                                        {{#if isDeceased}} 
+
+                                        {{#if isAdopted}}
+                                            Adopted
+                                        {{/if}}
+
+                                        {{#if isFostering}}
+                                            Fostering
+                                        {{/if}}
+
+                                        {{#if isMissing}}
+                                            Missing
+                                        {{/if}}
+
+                                        {{#if isDeceased}}
                                             Deceased
                                         {{/if}}
                                     </dd>
@@ -659,7 +661,6 @@
                             <hr/>
                             <div class=" col-md-12 text-right">
                                 <button class="btn btn-success" {{action toggleProp}}>Edit</button>
-                                <!-- &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a> -->
                                 &nbsp;{{#link-to 'animals' activeClass="active"}}back{{/link-to}}
                             </div>
                         </div>
@@ -667,8 +668,8 @@
                 </article>
                 </section>
         </script>
-        
-        
+
+
         <!-- ======================================================================================================= -->
         <!--                                                                                                 Organizations -->
         <!-- ======================================================================================================= -->
@@ -705,7 +706,7 @@
                                     <a {{action pushSort 'name'}} title="Sort by">
                                     <i class="fa fa-sort-alpha-asc"></i> Name
                                     </a>
-                                </th>                                
+                                </th>
                                 <th>
                                     <a {{action pushSort 'created'}} title="Sort by">
                                     <i class="fa fa-sort-amount-asc"></i> Created
@@ -721,8 +722,8 @@
                         <tbody>
                             {{#each class="organization-link"}}
                                 {{#link-to "organizations.organization" id tagName="tr"}}
-                                
-                                <td>                                                       
+
+                                <td>
                                     {{#if logo}}
                                         <img {{bind-attr src="logo"}} class="animal-img"/>
                                     {{else}}
@@ -731,12 +732,12 @@
                             </div>
                                     </td>
                                     <td>{{name}}</td>
-                                    <td> 
+                                    <td>
                                         {{dateFormat created}}
                                     </td>
                                     <td>
                                         {{dateFormat updated}}
-                                    </td> 
+                                    </td>
                                 {{/link-to}}
                             {{else}}
                                 <tr>
@@ -818,7 +819,7 @@
                         </div>
                   {{else}}
                         <!-- DETAILS -->
-                        <div id="details">                         
+                        <div id="details">
                             <div class="col-md-8">
                                 <dl class="dl-horizontal">
                                     <dt>Creation:</dt>
@@ -839,7 +840,7 @@
                 </section>
         </script>
 
-        
+
         <!-- ======================================================================================================= -->
         <!--                                                                                                   Users -->
         <!-- ======================================================================================================= -->
@@ -974,8 +975,7 @@
         <script src="js/app/views/datepicker.js"></script>
         <script src="js/app/views/floatInput.js"></script>
         <script src="js/app/views/colorpicker.js"></script>
-        <script src="js/app/views/color.js"></script>
-        
+
         <!-- Adapters -->
         <script src="js/app/adapters/apikey.js"></script>
         <script src="js/app/adapters/application.js"></script>
