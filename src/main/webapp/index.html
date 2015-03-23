@@ -124,7 +124,19 @@
                     </div>
                 </div>
                 <div class="row text-center">
-                    <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
+                    {{#if content}}
+                        <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
+                    {{else}}
+                        <article class="dash-1">
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i>
+                        </article>
+                        <article class="dash-2">
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-pie-chart"></i>
+                        </article>
+                        <article class="dash-2">
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-area-chart"></i>
+                        </article>
+                    {{/if}}
                 </div>
             </section>
         </script>
