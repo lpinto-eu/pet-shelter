@@ -184,98 +184,106 @@
         <script type="text/html" data-template-name="animals/table">
             <section id="animals" class="row">
                 <article class="col-xs-12">
-                    <table class="table table-bordered table-hover table-condensed table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 35%;">
-                                    <a {{action pushSort 'name'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Name
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'age'}} title="Sort by">
-                                    <i class="fa fa-sort-numeric-asc"></i> Age
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'species'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Species
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'breed'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Breed
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'status'}} title="Sort by">
-                                    <i class="fa fa-sort-alpha-asc"></i> Status
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action pushSort 'admission'}} title="Sort by">
-                                    <i class="fa fa-sort-amount-asc"></i> Admission date
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each class="animal-link"}}
-                                {{#link-to "animals.animal" id tagName="tr"}}
-                                    <td>
-                                        {{#if picture}}
-                                            <img {{bind-attr src="picture"}} class="animal-img" style="height:19px"/>
-                                        {{else}}
-                                            <img src="img/dog.png" class="animal-img" style="height:19px"/>
-                                        {{/if}}
-                                        {{name}}
-                                    </td>
-                                    <td>{{age}}</td>
-                                    <td>{{species}}</td>
-                                    <td>{{breed}}</td>
-                                    <td>
-                                        {{#if isShelter}}
-                                            Shelter
-                                        {{/if}}
-
-                                        {{#if isAdopted}}
-                                            Adopted
-                                        {{/if}}
-
-                                        {{#if isFostering}}
-                                            Fostering
-                                        {{/if}}
-
-                                        {{#if isMissing}}
-                                            Missing
-                                        {{/if}}
-
-                                        {{#if isDeceased}}
-                                            Deceased
-                                        {{/if}}
-                                    </td>
-                                    <td>
-                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                        {{#if drugs}}
-                                            <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                <i class="fa fa-medkit"></i>
-                                            </abbr>
-                                        {{/if}}
-                                        {{#if sterilized}}
-                                            <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}
-                                        <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
-                                            <i class="fa fa-clock-o desc-item"></i>{{date admission}}
-                                        </abbr>
-                                    </td>
-                                {{/link-to}}
-                            {{else}}
+                    {{#if content}}
+                        <table class="table table-bordered table-hover table-condensed table-striped">
+                            <thead>
                                 <tr>
-                                    <td>You have no animals.</td>
+                                    <th style="width: 35%;">
+                                        <a {{action pushSort 'name'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i> Name
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'age'}} title="Sort by">
+                                        <i class="fa fa-sort-numeric-asc"></i> Age
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'species'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i> Species
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'breed'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i> Breed
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'status'}} title="Sort by">
+                                        <i class="fa fa-sort-alpha-asc"></i> Status
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <a {{action pushSort 'admission'}} title="Sort by">
+                                        <i class="fa fa-sort-amount-asc"></i> Admission date
+                                        </a>
+                                    </th>
                                 </tr>
-                            {{/each}}
-                        <tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {{#each class="animal-link"}}
+                                    {{#link-to "animals.animal" id tagName="tr"}}
+                                        <td>
+                                            {{#if picture}}
+                                                <img {{bind-attr src="picture"}} class="animal-img" style="height:19px"/>
+                                            {{else}}
+                                                <img src="img/dog.png" class="animal-img" style="height:19px"/>
+                                            {{/if}}
+                                            {{name}}
+                                        </td>
+                                        <td>{{age}}</td>
+                                        <td>{{species}}</td>
+                                        <td>{{breed}}</td>
+                                        <td>
+                                            {{#if isShelter}}
+                                                Shelter
+                                            {{/if}}
+
+                                            {{#if isAdopted}}
+                                                Adopted
+                                            {{/if}}
+
+                                            {{#if isFostering}}
+                                                Fostering
+                                            {{/if}}
+
+                                            {{#if isMissing}}
+                                                Missing
+                                            {{/if}}
+
+                                            {{#if isDeceased}}
+                                                Deceased
+                                            {{/if}}
+                                        </td>
+                                        <td>
+                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{#if drugs}}
+                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                    <i class="fa fa-medkit"></i>
+                                                </abbr>
+                                            {{/if}}
+                                            {{#if sterilized}}
+                                                <i class="fa fa-shield text-success  desc-item"></i>
+                                            {{/if}}
+                                            <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
+                                                <i class="fa fa-clock-o desc-item"></i>{{date admission}}
+                                            </abbr>
+                                        </td>
+                                    {{/link-to}}
+                                {{else}}
+                                    <tr>
+                                        <td>You have no animals.</td>
+                                    </tr>
+                                {{/each}}
+                            <tbody>
+                        </table>
+                    {{else}}
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <span class="sr-only">Error:</span>
+                            There are no animals to be displayed.
+                        </div>
+                    {{/if}}
                 </article>
             </section>
         </script>
