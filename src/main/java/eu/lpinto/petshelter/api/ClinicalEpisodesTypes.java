@@ -56,12 +56,18 @@ public class ClinicalEpisodesTypes {
     @Path("load")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void create() {
+    public void create() { 
         ClinicalEpisodeType tmp = new ClinicalEpisodeType();
+        tmp.setCreated(new GregorianCalendar());
+        tmp.setUpdated(new GregorianCalendar());
+        tmp.setEnable(true);
         tmp.setName("Vaccine");
         cinicalEpisodeTypes.create(tmp);
         
         tmp = new ClinicalEpisodeType();
+        tmp.setCreated(new GregorianCalendar());
+        tmp.setUpdated(new GregorianCalendar());
+        tmp.setEnable(true);
         tmp.setName("Deworm");
         cinicalEpisodeTypes.create(tmp);
     }
