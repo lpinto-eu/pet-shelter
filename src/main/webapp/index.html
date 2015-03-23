@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/theme.css">
-        <link rel="stylesheet" href="css/ionicons.min.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
 
@@ -133,7 +132,7 @@
         <!-- ========================================================================================= Animals Faces -->
         <script type="text/html" data-template-name="animals/list">
             <section id="animals" class="row">
-                <article>
+                <article class="col-xs-12">
                     {{#each}}
                         {{#link-to "animals.animal" this title="Details / Edit"}}
                             <div class="col-xs-6 col-sm-3 col-md-2">
@@ -324,7 +323,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    Sex <i class="ion-female text-warning"></i><i class="ion-male text-primary"></i>
+                                    Sex <i class="fa fa-venus text-warning"></i><i class="fa fa-mars text-primary"></i>
                                 </span>
                                 {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id"
                                     optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
@@ -494,8 +493,8 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                             Sex
-                                            <i class="ion-female text-warning"></i>
-                                            <i class="ion-male text-primary"></i>
+                                            <i class="fa fa-venus text-warning"></i>
+                                            <i class="fa fa-mars text-primary"></i>
                                             </span>
                                             {{view Ember.Select
                                             contentBinding="App.Sex"
