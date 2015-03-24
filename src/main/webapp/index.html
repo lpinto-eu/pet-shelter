@@ -114,13 +114,13 @@
                         <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
                     {{else}}
                         <article class="dash-1">
-                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i>
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i></div>
                         </article>
                         <article class="dash-2">
-                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-pie-chart"></i>
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-pie-chart"></i></div>
                         </article>
                         <article class="dash-2">
-                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-area-chart"></i>
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-area-chart"></i></div>
                         </article>
                     {{/if}}
                 </div>
@@ -273,7 +273,7 @@
                                         <td>You have no animals.</td>
                                     </tr>
                                 {{/each}}
-                            <tbody>
+                            </tbody>
                         </table>
                     {{else}}
                         <div class="alert alert-warning" role="alert">
@@ -678,13 +678,13 @@
                             </div>
                             <hr/>
                             <div class=" col-md-12 text-right">
-                                <button class="btn btn-success" {{action toggleProp}}>Edit</button>
+                                <button class="btn btn-success" {{action 'toggleProp'}}>Edit</button>
                                 &nbsp;{{#link-to 'animals' activeClass="active"}}back{{/link-to}}
                             </div>
                         </div>
                     {{/if}}
                 </article>
-                </section>
+            </section>
         </script>
 
 
@@ -698,7 +698,7 @@
                     <div id="links" class="pull-right">
                         <h3>
                             {{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}
-                            <span> | <span>
+                            <span> | </span>
                             {{#link-to "organizations.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
                         </h3>
                     </div>
@@ -741,28 +741,23 @@
                             {{#each class="organization-link"}}
                                 {{#link-to "organizations.organization" id tagName="tr"}}
 
-                                <td>
-                                    {{#if logo}}
-                                        <img {{bind-attr src="logo"}} class="animal-img"/>
-                                    {{else}}
-                                        Logo
-                                    {{/if}}
-                            </div>
+                                    <td>
+                                        {{#if logo}}
+                                            <img {{bind-attr src="logo"}} class="animal-img"/>
+                                        {{else}}
+                                            Logo
+                                        {{/if}}
                                     </td>
                                     <td>{{name}}</td>
-                                    <td>
-                                        {{dateFormat created}}
-                                    </td>
-                                    <td>
-                                        {{dateFormat updated}}
-                                    </td>
+                                    <td>{{dateFormat created}}</td>
+                                    <td>{{dateFormat updated}}</td>
                                 {{/link-to}}
                             {{else}}
                                 <tr>
                                     <td>You have no organizations.</td>
                                 </tr>
                             {{/each}}
-                        <tbody>
+                        </tbody>
                     </table>
                 </article>
             </section>
@@ -830,7 +825,6 @@
                                 <div class="text-right">
                                     <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
                                     &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
-                                    <!-- &nbsp;<a {{action toggleProp}} style="cursor:pointer;">cancel</a> -->
                                     &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
                                 </div>
                             </form>
@@ -849,13 +843,12 @@
                             <hr/>
                             <div class=" col-md-12 text-right">
                                 <button class="btn btn-success" {{action toggleProp}}>Edit</button>
-                                <!-- &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a> -->
                                 &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
                             </div>
                         </div>
                     {{/if}}
                 </article>
-                </section>
+            </section>
         </script>
 
 
@@ -951,7 +944,7 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                                 Imports -->
         <!-- ======================================================================================================= -->
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
         <script>jQuery('script[type="text/html"]').attr('type', 'text/x-handlebars');</script>
         <script src="js/libs/jquery.cookie.js"></script>
         <script src="js/libs/moment.js"></script>
@@ -959,9 +952,9 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <!-- ember -->
-        <script src="js/libs/handlebars-1.1.2.js"></script>
-        <script src="js/libs/ember-1.6.1.js"></script>
-        <script src="js/libs/ember-data-1.0.0-b8.js"></script>
+        <script src="http://builds.emberjs.com/release/ember.debug.js"></script>
+        <script src="http://builds.emberjs.com/release/ember-template-compiler.js"></script>
+        <script src="http://builds.emberjs.com/beta/ember-data.min.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
 
         <!-- App -->

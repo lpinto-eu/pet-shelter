@@ -16,11 +16,11 @@ App.Router.map(function() {
         this.route('new');
         this.route("animal", {path: ":animal_id"});
     });
-    
+
     this.resource('project', { path: 'project/:id' }, function () {
     this.route('participants');
   });
-    
+
       this.resource('organizations', function() {
         this.route('table'),
         this.route('new');
