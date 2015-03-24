@@ -371,6 +371,8 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            
+                            
                             <div class="input-group">
                                 <span class="input-group-addon">Second Color</span>
                                 <span class="form-control">{{view App.ColorPicker valueBinding='secondaryColor'}}</span>
@@ -627,9 +629,21 @@
                                     <dt>Sex:</dt>
                                     <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
                                     <dt>Color:</dt>
-                                    <dd><span style="{{unbound getStyle primaryColor}}" >  </span></dd>
+                                    <dd> 
+                                        {{#if primaryColorIsNull}} 
+                                            <span> No Primary Color Selected </span>
+                                        {{else}}
+                                            <span style="{{unbound getStyle primaryColor}}" >  </span>
+                                        {{/if}}
+                                    </dd>
                                     <dt>Second Color:</dt>
-                                    <dd><span style="{{unbound getStyle secondaryColor}}"> </span></dd>
+                                    <dd> 
+                                        {{#if secondaryColorIsNull}} 
+                                            <span> No Secondary Color Selected </span>
+                                        {{else}}
+                                            <span style="{{unbound getStyle secondaryColor}}" >  </span>
+                                        {{/if}}
+                                    </dd>
                                     <dt>Sterilized:</dt>
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
                                     <dt>Status:</dt>
