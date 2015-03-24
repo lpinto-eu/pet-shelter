@@ -98,24 +98,10 @@
         <!--                                                                                                 Animals -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="animals">
-            <!--<section id="animals-header" class="row">
-                <div class="well">
-                    <h1>Animals</h1>
-                    <div id="links" class="pull-right">
-                        <h3>
-                            {{#link-to 'animals.list' activeClass="active"}}List{{/link-to}}
-                            <span> | <span>
-                            {{#link-to 'animals.table' activeClass="active"}}Table{{/link-to}}
-                            <span> | <span>
-                            {{#link-to "animals.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
-                        </h3>
-                    </div>
-                </div>
-            </section>-->
             {{outlet}}
         </script>
 
-        <!-- ============================================================================================= Dashboard -->
+        <!-- ===================================================================================== Animals Dashboard -->
         <script type = "text/html" data-template-name="animals/index">
             <section id="dashboard">
                 <div class="row">
@@ -303,11 +289,24 @@
 
         <!-- =========================================================================================== Animals New -->
         <script type = "text/html" data-template-name="animals/new">
-            <article class ="col-xs-12 col-lg-8">
+            <article class ="col-xs-12">
                 <h3>Add new Animal</h3>
                 <form {{action "save" on="submit"}} class="form-horizontal">
-                    <fieldset>
-                        <!-- <legend>Edit</legend> -->
+                    <fieldset class="col-md-6">
+                         <legend>Geral</legend>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
+                                {{#view Ember.View contentBinding="picture" class="form-control image-picker"}}
+                                    {{#if picture}}
+                                        <img {{bind-attr src="picture"}} class="animal-preview"/>
+                                    {{else}}
+                                        <img src="img/dog.png" class="animal-preview"/>
+                                    {{/if}}
+                                    {{view App.FotoUp}}
+                                {{/view}}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Name</span>
@@ -322,6 +321,15 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group">
+                                <span class="input-group-addon">Sex <i class="fa fa-venus text-warning"></i><i class="fa fa-mars text-primary"></i></span>
+                                {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="col-md-6">
+                        <legend>Species</legend>
+                        <div class="form-group">
+                            <div class="input-group">
                                 <span class="input-group-addon">Species</span>
                                 {{view Ember.TextField valueBinding='species' class="form-control"}}
                             </div>
@@ -332,33 +340,24 @@
                                 {{view Ember.TextField valueBinding='breed' class="form-control"}}
                             </div>
                         </div>
+                    </fieldset>
+                    <fieldset class="col-md-6">
+                        <legend>Health</legend>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">
-                                    Drugs <i class="fa fa-medkit text-warning"></i>
-                                </span>
+                                <span class="input-group-addon">Drugs <i class="fa fa-medkit text-warning"></i></span>
                                 {{view Ember.TextField valueBinding='drugs' class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">
-                                    Sex <i class="fa fa-venus text-warning"></i><i class="fa fa-mars text-primary"></i>
-                                </span>
-                                {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id"
-                                    optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
+                                <span class="input-group-addon">Sterilized <i class="fa fa-shield text-success"></i></span>
+                                <span class="form-control">{{view Ember.Checkbox checkedBinding="sterilized"}}</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    Sterilized <i class="fa fa-shield text-success"></i>
-                                </span>
-                                <span class="form-control">
-                                    {{view Ember.Checkbox checkedBinding="sterilized"}}
-                                </span>
-                            </div>
-                        </div>
+                    </fieldset>
+                    <fieldset class="col-md-6">
+                        <legend>Look</legend>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Fur Pattern</span>
@@ -368,42 +367,34 @@
                        <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Color</span>
-                                {{view App.ColorPicker valueBinding='primaryColor'}}
+                                <span class="form-control">{{view App.ColorPicker valueBinding='primaryColor'}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Second Color</span>
-                                {{view App.ColorPicker valueBinding='secondaryColor'}}
+                                <span class="form-control">{{view App.ColorPicker valueBinding='secondaryColor'}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Proportion</span>
-                                {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id"
-                                    optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
+                                {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
-                                {{#view Ember.View contentBinding="picture"  class="form-control image-picker"}}
-                                    {{#if picture}}
-                                        <img {{bind-attr src="picture"}} class="animal-preview"/>
-                                    {{else}}
-                                        <img src="img/dog.png" class="animal-preview"/>
-                                    {{/if}}
-                                    {{view App.FotoUp}}
-                                {{/view}}
+                                <span class="input-group-addon">Weight <i class="fa fa-"></i></span>
+                                {{view App.FloatInput valueBinding='weight' class="form-control"}}
                             </div>
                         </div>
+                    </fieldset>
+                    <fieldset class="col-md-6">
+                        <legend>Administrative</legend>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">
-                                    Status
-                                </span>
-                                {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id"
-                                    optionLabelPath="content.name" valueBinding="status" class="form-control"}}
+                                <span class="input-group-addon">Status</span>
+                                {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="status" class="form-control"}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -414,14 +405,8 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">Weight <i class="fa fa-"></i></span>
-                                {{view App.FloatInput valueBinding='weight' class="form-control"}}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
                                 <span class="input-group-addon">Admission <i class="fa fa-clock-o"></i></span>
-                                {{view App.DatePicker valueBinding='admission' class="form-control"}}
+                                {{view App.DatePicker valueBinding='admission' class="form-control"  placeholder="12/31/1999"}}
                             </div>
                         </div>
                     </fieldset>
@@ -567,11 +552,11 @@
                                             Status
                                             </span>
                                             {{view Ember.Select
-                                            contentBinding="App.Status"
-                                            optionValuePath="content.id"
-                                            optionLabelPath="content.name"
-                                            valueBinding="status"
-                                            class="form-control dropdown-toggle"
+                                                contentBinding="App.Status"
+                                                optionValuePath="content.id"
+                                                optionLabelPath="content.name"
+                                                valueBinding="status"
+                                                class="form-control dropdown-toggle"
                                             }}
                                         </div>
                                     </div>
@@ -690,7 +675,7 @@
 
 
         <!-- ======================================================================================================= -->
-        <!--                                                                                                 Organizations -->
+        <!--                                                                                           Organizations -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="organizations">
             <section id="organizations-header" class="row">
@@ -709,7 +694,7 @@
         </script>
 
 
-        <!-- ========================================================================================= Organizations Table -->
+        <!-- =================================================================================== Organizations Table -->
         <script type="text/html" data-template-name="organizations/table">
             <section id="organizations" class="row">
                 <article class="col-xs-12">
@@ -770,7 +755,7 @@
         </script>
 
 
-        <!-- =========================================================================================== Organizations New -->
+        <!-- ===================================================================================== Organizations New -->
         <script type = "text/html" data-template-name="organizations/new">
             <article class ="col-xs-12">
                 <h3>Add new Organization</h3>
@@ -799,7 +784,7 @@
         </script>
 
 
-        <!-- ================================================================================================ Organization -->
+        <!-- ========================================================================================== Organization -->
         <script type="text/html" data-template-name="organizations/organization">
             <section id="organization" {{bind-attr class="isEditing:editing well"}}>
                 <article class="row">
