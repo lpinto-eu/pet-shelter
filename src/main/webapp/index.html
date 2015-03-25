@@ -289,8 +289,9 @@
 
         <!-- =========================================================================================== Animals New -->
         <script type = "text/html" data-template-name="animals/new">
-            <article class ="col-xs-12">
+            <article class ="col-xs-12" id="hb-new-animal">
                 <h3>Add new Animal</h3>
+                <div class="well">
                 <form {{action "save" on="submit"}}>
                     <div class="col-md-6">
                         <fieldset>
@@ -421,6 +422,7 @@
                         &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
                     </div>
                 </form>
+                </div>
             </article>
         </script>
 
