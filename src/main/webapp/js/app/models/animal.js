@@ -16,6 +16,7 @@ App.Animal = DS.Model.extend({
     proportion: DS.attr(),
     primaryColor: DS.attr(),
     secondaryColor: DS.attr(),
+    clinicalEpisodes: DS.hasMany('clinicalEpisode'),
 
     recordDate: function () {
         return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');
