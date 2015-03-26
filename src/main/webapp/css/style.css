@@ -78,6 +78,15 @@ body {
     width: 150px;
     height: 150px;
  }
+ 
+ .LPImg {
+    border-radius: 10px;
+    border:1px solid #ecf0f1;
+    margin-left: 50%;
+    margin-right: 50%;
+    padding: 2px;
+    vertical-align: middle;
+ }
 
 /* Animals
 *******************************************************************************/

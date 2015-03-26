@@ -69,7 +69,7 @@
                                     <li>{{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}</li>
                                 </ul>
                             </li>
-                            <li><a {{action 'logout'}}>logout</a></li>
+                            <li><a {{action 'logout'}}>Logout</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
@@ -80,15 +80,14 @@
         <script type="text/html" data-template-name='index'>
             <section id="home" class="jumbotron text-center">
                 <h1>Pet Shelter</h1>
-                <p class="lead">An open source solution for Animal Shelter management.</p>
+                <p class="lead"> A One Stop Solution For Pet Management.</p>
                 <hr/>
                 {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Signin{{/link-to}}
                 {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
             </section>
             <section class="row">
-                <article class="col-md-6 well">
-                    <p>You can create an accounnt and access a test shelter</p>
-                    <p>If you want to join a specific shelter contact <a href="mailto:mail@lpinto.eu">mail@lpinto.eu</a></p>
+                <article class="col-xs-6 col-sm-6 col-md-6">
+                    <img src="img/LPImg.jpg" class="LPImg"/>
                 </article>
             </section>
         </script>
