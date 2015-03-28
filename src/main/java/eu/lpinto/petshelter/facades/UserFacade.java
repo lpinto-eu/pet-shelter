@@ -1,15 +1,15 @@
 /**
- * UserFacade.java
- * Created on 12-Aug-2014, 22:01:03
+ * UserFacade.java Created on 12-Aug-2014, 22:01:03
  *
- * petshelter-webapp
- * petshelter-webapp
+ * petshelter-webapp petshelter-webapp
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
 package eu.lpinto.petshelter.facades;
 
+import eu.lpinto.petshelter.api.util.Digest;
 import eu.lpinto.petshelter.entities.User;
+import java.util.GregorianCalendar;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -32,18 +32,33 @@ public class UserFacade extends AbstractFacade<User> {
 
     public User findByName(final String name) {
         try {
-        return (User) em.createNamedQuery("User.findByName").setParameter("name", name).getSingleResult();
+            return (User) em.createNamedQuery("User.findByName").setParameter("name", name).getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }
     }
-    
+
     public User findByEmail(final String email) {
         try {
-        return (User) em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+            return (User) em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }
+    }
+
+    @Override
+    public void create(final User entity) {
+        entity.setCreated(new GregorianCalendar());
+        entity.setUpdated(new GregorianCalendar());
+        entity.setPassword(Digest.getSHA(entity.getPassword(), null));
+
+        super.create(entity);
+    }
+
+    @Override
+    public void edit(User entity) {
+        entity.setUpdated(new GregorianCalendar());
+        super.edit(entity); 
     }
 
     @Override

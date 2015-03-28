@@ -5,10 +5,8 @@
  */
 package eu.lpinto.petshelter.api;
 
-import eu.lpinto.petshelter.api.util.Digest;
 import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.UserFacade;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -45,7 +43,7 @@ public class Users {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public User retrieve(@PathParam("id") final int id) {
-        return usersFacade.find(id);
+        return usersFacade.retrieve(id);
     }
 
     @POST
@@ -53,16 +51,9 @@ public class Users {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(final User user) {
         try {
-            user.setCreated(new GregorianCalendar());
-            user.setUpdated(new GregorianCalendar());
-
-            if (user.getOrganizationId() == 0) {
-                user.setOrganizationId(1);
-            }
-
-            user.setPassword(Digest.getSHA(user.getPassword(), null));
-
+            /* Create User With No Organization */
             usersFacade.create(user);
+
             return Response.ok(user).build();
 
         } catch (RuntimeException ex) {
@@ -88,7 +79,6 @@ public class Users {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("id") final int id, final User user) {
-        user.setUpdated(new GregorianCalendar());
         usersFacade.edit(user);
     }
 
@@ -96,6 +86,6 @@ public class Users {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") final int id) {
-        usersFacade.remove(usersFacade.find(id));
+        usersFacade.remove(usersFacade.retrieve(id));
     }
 }

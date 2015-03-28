@@ -1,13 +1,10 @@
 /**
- * Animal.java
- * Created on 12-Aug-2014, 21:15:03
+ * Animal.java Created on 12-Aug-2014, 21:15:03
  *
- * petshelter-webapp
- * petshelter-webapp
+ * petshelter-webapp petshelter-webapp
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-
 package eu.lpinto.petshelter.entities;
 
 import java.io.Serializable;
@@ -15,10 +12,13 @@ import java.util.Calendar;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,11 +27,12 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO insert a class description
  *
- * @author Luís Pinto -  mail@lpinto.eu
+ * @author Luís Pinto - mail@lpinto.eu
  */
 @Entity
 @XmlRootElement
@@ -52,6 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Animal.findByObservations", query = "SELECT a FROM Animal a WHERE a.observations = :observations"),
     @NamedQuery(name = "Animal.findByOrganizationId", query = "SELECT a FROM Animal a WHERE a.organization = :organization")})
 public class Animal implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +65,6 @@ public class Animal implements Serializable {
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar created;
-    @NotNull
     @Basic(optional = false)
     @Column(name = "updated")
     @Temporal(TemporalType.TIMESTAMP)
@@ -92,10 +93,6 @@ public class Animal implements Serializable {
     @Lob
     @Column(name = "picture")
     private String picture;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "organization_id")
-    private int organization;
     @Size(max = 250)
     @Column(name = "observations")
     private String observations;
@@ -115,7 +112,11 @@ public class Animal implements Serializable {
     @Size(max = 30)
     @Column(name = "secondaryColor")
     private String secondaryColor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
+    /* Constructors */
     public Animal() {
     }
 
@@ -123,13 +124,13 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, Calendar created, Calendar updated, int organization) {
+    public Animal(Integer id, Calendar created, Calendar updated) {
         this.id = id;
         this.created = created;
         this.updated = updated;
-        this.organization = organization;
     }
 
+    /* Getters/Setters */
     public Integer getId() {
         return id;
     }
@@ -201,7 +202,7 @@ public class Animal implements Serializable {
     public void setSex(String sex) {
         this.sex = sex;
     }
-    
+
     public Integer getStatus() {
         return status;
     }
@@ -226,14 +227,15 @@ public class Animal implements Serializable {
         this.picture = picture;
     }
 
-    public int getOrganization() {
+    @XmlTransient
+    public Organization getOrganization() {
         return organization;
     }
 
-    public void setOrganization(int organization) {
+    public void setOrganization(Organization organization) {
         this.organization = organization;
     }
-    
+
     public String getObservations() {
         return observations;
     }
@@ -241,7 +243,7 @@ public class Animal implements Serializable {
     public void setObservations(String observations) {
         this.observations = observations;
     }
-    
+
     public Calendar getAdmission() {
         return admission;
     }
@@ -257,7 +259,7 @@ public class Animal implements Serializable {
     public void setFurPattern(String furPattern) {
         this.furPattern = furPattern;
     }
-    
+
     public float getWeight() {
         return weight;
     }
@@ -265,7 +267,7 @@ public class Animal implements Serializable {
     public void setWeight(float weight) {
         this.weight = weight;
     }
-    
+
     public Integer getProportion() {
         return proportion;
     }
@@ -273,7 +275,7 @@ public class Animal implements Serializable {
     public void setProportion(Integer proportion) {
         this.proportion = proportion;
     }
-    
+
     public String getPrimaryColor() {
         return primaryColor;
     }
@@ -289,7 +291,7 @@ public class Animal implements Serializable {
     public void setSecondaryColor(String secondaryColor) {
         this.secondaryColor = secondaryColor;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
