@@ -9,6 +9,7 @@ package eu.lpinto.petshelter.entities;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -112,9 +114,8 @@ public class Animal implements Serializable {
     @Size(max = 30)
     @Column(name = "secondaryColor")
     private String secondaryColor;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
+    @OneToMany(mappedBy = "animal")    
+    private Set<ClinicalEpisode> clinicalEpisodes;
 
     /* Constructors */
     public Animal() {
@@ -124,7 +125,15 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, Calendar created, Calendar updated) {
+    public Set<ClinicalEpisode> getClinicalEpisodes() {
+        return clinicalEpisodes;
+    }
+
+    public void setClinicalEpisodes(Set<ClinicalEpisode> clinicalEpisodes) {
+        this.clinicalEpisodes = clinicalEpisodes;
+    }
+
+    public Animal(Integer id, Calendar created, Calendar updated, int organization) {
         this.id = id;
         this.created = created;
         this.updated = updated;
