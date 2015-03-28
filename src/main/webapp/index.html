@@ -15,7 +15,7 @@
 
         <!-- STYLESHEETS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
         <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -98,7 +98,50 @@
         <!--                                                                                                 Animals -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="animals">
-            {{outlet}}
+            <section id="animals" class="row">
+                <ul class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                    {{#each}}
+                    <li style="overflow: auto;" class="well animal-item">
+                        {{#link-to "animals.animal" id tagName="span"}}
+                                {{#if picture}}
+                                    <img {{bind-attr src="picture"}} class="animal-img"/>
+                                {{else}}
+                                    <img src="img/dog.png" class="animal-img"/>
+                                {{/if}}
+                            <span class="description">
+                                <strong>{{name}}</strong>
+
+                                <br/>
+                                <small>
+                                    {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
+
+                                    {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+
+                                    {{#if drugs}}
+                                        <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                            <i class="fa fa-medkit"></i>
+                                        </abbr>
+                                    {{/if}}
+
+                                    {{#if sterilized}}
+                                        <i class="fa fa-shield text-success  desc-item"></i>
+                                    {{/if}}
+                                </small>
+                            </span>
+                        {{/link-to}}
+                    </li>
+                    {{else}}
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <span class="sr-only">Error:</span>
+                            There are no animals to be displayed.
+                        </div>
+                    {{/each}}
+                </ul>
+                <section class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
+                    {{outlet}}
+                </section>
+            </section>
         </script>
 
         <!-- ===================================================================================== Animals Dashboard -->
@@ -188,32 +231,27 @@
                                 <tr>
                                     <th style="width: 35%;">
                                         <a {{action pushSort 'name'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i> Name
+                                            <i class="fa fa-sort-alpha-asc"></i> Name
                                         </a>
                                     </th>
                                     <th>
                                         <a {{action pushSort 'age'}} title="Sort by">
-                                        <i class="fa fa-sort-numeric-asc"></i> Age
+                                            <i class="fa fa-sort-numeric-asc"></i> Age
                                         </a>
                                     </th>
                                     <th>
                                         <a {{action pushSort 'species'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i> Species
+                                            <i class="fa fa-sort-alpha-asc"></i> Species
                                         </a>
                                     </th>
                                     <th>
                                         <a {{action pushSort 'breed'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i> Breed
-                                        </a>
-                                    </th>
-                                    <th>
-                                        <a {{action pushSort 'status'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i> Status
+                                            <i class="fa fa-sort-alpha-asc"></i> Breed
                                         </a>
                                     </th>
                                     <th>
                                         <a {{action pushSort 'admission'}} title="Sort by">
-                                        <i class="fa fa-sort-amount-asc"></i> Admission date
+                                            <i class="fa fa-sort-amount-asc"></i> Details
                                         </a>
                                     </th>
                                 </tr>
@@ -233,27 +271,7 @@
                                         <td>{{species}}</td>
                                         <td>{{breed}}</td>
                                         <td>
-                                            {{#if isShelter}}
-                                                Shelter
-                                            {{/if}}
-
-                                            {{#if isAdopted}}
-                                                Adopted
-                                            {{/if}}
-
-                                            {{#if isFostering}}
-                                                Fostering
-                                            {{/if}}
-
-                                            {{#if isMissing}}
-                                                Missing
-                                            {{/if}}
-
-                                            {{#if isDeceased}}
-                                                Deceased
-                                            {{/if}}
-                                        </td>
-                                        <td>
+                                            {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
                                             {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
                                             {{#if drugs}}
                                                 <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
@@ -597,14 +615,14 @@
                     {{else}}
                         <!-- DETAILS -->
                         <div id="details">
-                            <div class="col-md-4">
+                            <div class="col-sm-5 col-md-4">
                                 {{#if picture}}
                                     <img {{bind-attr src="picture"}} class="animal-img"/>
                                 {{else}}
                                     <img src="img/dog.png" class="animal-img"/>
                                 {{/if}}
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-sm-7 col-md-8">
                                 <dl class="dl-horizontal">
                                     <dt>Age:</dt>
                                     <dd>{{age}}</dd>
@@ -654,25 +672,7 @@
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
                                     <dt>Status:</dt>
                                     <dd>
-                                        {{#if isShelter}}
-                                            Shelter
-                                        {{/if}}
-
-                                        {{#if isAdopted}}
-                                            Adopted
-                                        {{/if}}
-
-                                        {{#if isFostering}}
-                                            Fostering
-                                        {{/if}}
-
-                                        {{#if isMissing}}
-                                            Missing
-                                        {{/if}}
-
-                                        {{#if isDeceased}}
-                                            Deceased
-                                        {{/if}}
+                                        {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
                                     </dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
@@ -989,6 +989,7 @@
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/sex.js"></script>
+        <script src="js/app/views/status.js"></script>
         <script src="js/app/views/datepicker.js"></script>
         <script src="js/app/views/floatInput.js"></script>
         <script src="js/app/views/colorpicker.js"></script>

@@ -1,18 +1,18 @@
 App.AnimalsAnimalController = Ember.ObjectController.extend({
     isEditing: false,
-    
+
     primaryColorIsNull: function () {
         if (this.get('model').get('primaryColor') === undefined) {
             return true;
         }
     }.property('model.primaryColor'),
-    
+
     secondaryColorIsNull: function () {
         if (this.get('model').get('secondaryColor') === undefined) {
             return true;
         }
     }.property('model.primaryColor'),
-    
+
     isMale: function () {
         return this.get('sex') === 'M';
     }.property('content.sex'),
@@ -24,19 +24,19 @@ App.AnimalsAnimalController = Ember.ObjectController.extend({
     description: function () {
         return this.get("content.name") + " | " + this.get("content.age");
     }.property("content.name", "content.age"),
-    
+
     actions: {
         toggleProp:  function() {
             this.toggleProperty("isEditing");
         },
-        
+
         cancel: function() {
             if (this.get('content.isDirty') && confirm('Unsaved changes will be lost.')) {
                 this.get('model').rollback();
             }
             this.toggleProperty("isEditing");
         },
-        
+
         update: function() {
             if (this.get('content.isDirty')) {
                 var self = this;
@@ -50,7 +50,7 @@ App.AnimalsAnimalController = Ember.ObjectController.extend({
                 this.toggleProperty("isEditing");
             }
         },
-        
+
         remove: function() {
             if (confirm('Delete: ' + this.get('name') + '?')) {
                 var animal = this.get('model');

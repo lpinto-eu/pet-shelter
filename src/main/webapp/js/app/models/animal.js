@@ -21,26 +21,6 @@ App.Animal = DS.Model.extend({
         return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');
     }.property("content.created"),
 
-    isShelter: function () {
-        return this.get('status') === 1;
-    }.property('status'),
-
-    isAdopted: function () {
-        return this.get('status') === 2;
-    }.property('status'),
-
-    isFostering: function () {
-        return this.get('status') === 3;
-    }.property('status'),
-
-    isMissing: function () {
-        return this.get('status') === 4;
-    }.property('status'),
-
-    isDeceased: function () {
-        return this.get('status') === 5;
-    }.property('status'),
-
     isSmall: function () {
         return this.get('proportion') === 1;
     }.property('proportion'),
