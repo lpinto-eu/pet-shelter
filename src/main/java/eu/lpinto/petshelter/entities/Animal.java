@@ -114,8 +114,11 @@ public class Animal implements Serializable {
     @Size(max = 30)
     @Column(name = "secondaryColor")
     private String secondaryColor;
-    @OneToMany(mappedBy = "animal")    
+    @OneToMany(mappedBy = "animal")
     private Set<ClinicalEpisode> clinicalEpisodes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     /* Constructors */
     public Animal() {
