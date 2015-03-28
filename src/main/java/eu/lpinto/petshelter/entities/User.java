@@ -1,22 +1,28 @@
 /**
- * User.java
- * Created on 12-Aug-2014, 21:15:03
+ * User.java Created on 12-Aug-2014, 21:15:03
  *
- * petshelter-webapp
- * petshelter-webapp
+ * petshelter-webapp petshelter-webapp
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
 package eu.lpinto.petshelter.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,6 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO insert a class description
@@ -39,8 +46,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findByUpdated", query = "SELECT u FROM User u WHERE u.updated = :updated"),
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByOrganizationId", query = "SELECT u FROM User u WHERE u.organizationId = :organizationId")})
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
 
     @Basic(optional = false)
@@ -69,10 +75,13 @@ public class User implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "organization_id")
-    private int organizationId;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "User_Organization",
+            joinColumns = {
+                @JoinColumn(name = "ref_user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ref_org_id", referencedColumnName = "id")})
+    private List<Organization> organizations;
 
     /*
      * Constructors
@@ -89,7 +98,7 @@ public class User implements Serializable {
         this.created = created;
         this.updated = updated;
         this.password = password;
-        this.organizationId = organizationId;
+        this.organizations = Arrays.asList(new Organization(organizationId));
     }
 
     /*
@@ -171,11 +180,67 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getOrganizationId() {
-        return organizationId;
+    @XmlTransient
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 
-    public void setOrganizationId(int organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganizations(List<Organization> organizations) {
+        this.organizations = organizations;
+    }
+
+    public boolean hasOrganization(int orgID) {
+        List<Organization> orgs = getOrganizations();
+        if (orgs == null || orgs.isEmpty()) {
+            return false;
+        }
+
+        for (Organization org : orgs) {
+            if (org.getId().equals(orgID)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Organization getOrganization(int orgID) {
+        List<Organization> orgs = getOrganizations();
+        if (orgs == null || orgs.isEmpty()) {
+            return null;
+        }
+
+        for (Organization org : orgs) {
+            if (org.getId().equals(orgID)) {
+                return org;
+            }
+        }
+
+        return null;
+    }
+
+    public void addOrg(final Organization org) {
+        if (org != null) {
+            if (organizations == null) {
+                organizations = new ArrayList<>(1);
+            }
+
+            organizations.add(org);
+        }
+    }
+
+    public void rmOrg(final int orgID) {
+        if (organizations == null) {
+            return;
+        }
+
+        Iterator<Organization> iterator = organizations.iterator();
+        while (iterator.hasNext()) {
+            Organization org = iterator.next();
+            if (org.getId().equals(orgID)) {
+                iterator.remove();
+                break;
+            }
+        }
     }
 }
