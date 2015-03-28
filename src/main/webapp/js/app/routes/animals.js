@@ -12,7 +12,7 @@ App.AnimalsListRoute = App.AuthenticatedRoute.extend({
     }
 });
 
-App.AnimalsTableRoute = App.AuthenticatedRoute.extend({
+App.AnimalsRoute = App.AuthenticatedRoute.extend({
     controllerName: 'Animals',
     model: function() {
         return this.store.find("Animal");

@@ -19,6 +19,18 @@ body {
     min-width: 120px;
 }
 
+/*******************************************************************************
+ *
+ * Bootstrap
+ *
+*******************************************************************************/
+.text-blue {
+    color:#2196F3;
+}
+.text-pink {
+    color:#E91E63;
+}
+
 
 /*******************************************************************************
  *
@@ -86,6 +98,26 @@ body {
     display: inline-block;
 }
 
+
+#animals .well {
+    margin-bottom: 1px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.animal-item img {
+    height: 68px;
+    float: left;
+}
+
+.animal-item .description {
+    margin: 10px;
+    float: left;
+}
+
+.animal-item .description strong {
+    font-size: 16px;
+}
 
 /* Animals list
 *******************************************************************************/
@@ -165,6 +197,10 @@ animals-list-item
 *******************************************************************************/
 #hb-new-animal .well {
     overflow: hidden;
+}
+
+.image-picker input {
+    width: 100%;
 }
 
 /* Animal details
