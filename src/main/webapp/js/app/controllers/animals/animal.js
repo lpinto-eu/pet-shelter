@@ -1,6 +1,18 @@
 App.AnimalsAnimalController = Ember.ObjectController.extend({
     isEditing: false,
     
+    primaryColorIsNull: function () {
+        if (this.get('model').get('primaryColor') === undefined) {
+            return true;
+        }
+    }.property('model.primaryColor'),
+    
+    secondaryColorIsNull: function () {
+        if (this.get('model').get('secondaryColor') === undefined) {
+            return true;
+        }
+    }.property('model.primaryColor'),
+    
     isMale: function () {
         return this.get('sex') === 'M';
     }.property('content.sex'),

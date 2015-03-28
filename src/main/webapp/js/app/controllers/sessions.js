@@ -1,13 +1,13 @@
 App.SessionsController = Ember.ArrayController.extend({
-    
+
     // overwriting the default attemptedTransition attribute from the Ember.Controller object
     attemptedTransition: null,
 
     // create and set the token & current user objects based on the respective cookies
     token:               Ember.$.cookie('access_token'),
     currentUser:         Ember.$.cookie('auth_user'),
-    
-    
+
+
     // initialization method to verify if there is a access_token cookie set
     // so we can set our ajax header with it to access the protected pages
     init: function() {
@@ -37,7 +37,7 @@ App.SessionsController = Ember.ArrayController.extend({
       });
     },
 
-    
+
     // create a observer binded to the token property of this controller
     // to set/remove the authentication tokens
     tokenChanged: (function() {
@@ -49,11 +49,11 @@ App.SessionsController = Ember.ArrayController.extend({
         Ember.$.cookie('auth_user', this.get('currentUser'));
       }
     }).observes('token'),
-    
-    
+
+
     actions: {
         loginUser: function() {
-            
+
             var _this = this;
 
             // get the properties sent from the form and if there is any attemptedTransition set
@@ -75,7 +75,7 @@ App.SessionsController = Ember.ArrayController.extend({
                         'Authorization': 'Bearer ' + response.api_key.access_token
                       }
                     });
-                
+
                 // create a apiKey record on the local storage based on the returned object
                 var key = _this.get('store').createRecord('apiKey', {
                   accessToken: response.api_key.access_token
@@ -95,7 +95,7 @@ App.SessionsController = Ember.ArrayController.extend({
                   key.set('user', user);
                   key.save();
 
-                  user.get('apiKeys').content.push(key);
+                  user.get('apiKeys').currentState.push(key);
 
                   // check if there is any attemptedTransition to retry it or go to the secret route
                   if (attemptedTrans) {
@@ -106,13 +106,13 @@ App.SessionsController = Ember.ArrayController.extend({
                     _this.transitionToRoute('animals');
                   }
                 });
-                
+
                 }, function(error) {
                     console.log(error.responseText);
-                    
+
                     if (error.status === 401) {
                       alert("wrong user or password, please try again");
-                    
+
                     } else {
                         alert("Cannot login, please try again later.");
                     }

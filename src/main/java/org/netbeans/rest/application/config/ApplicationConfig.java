@@ -26,6 +26,7 @@ public class ApplicationConfig extends Application {
 
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(eu.lpinto.petshelter.api.Animals.class);
+        resources.add(eu.lpinto.petshelter.api.ClinicalEpisodesTypes.class);
         resources.add(eu.lpinto.petshelter.api.Organizations.class);
         resources.add(eu.lpinto.petshelter.api.Sessions.class);
         resources.add(eu.lpinto.petshelter.api.Users.class);
