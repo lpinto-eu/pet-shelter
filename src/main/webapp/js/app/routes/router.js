@@ -36,7 +36,8 @@ App.ApplicationRoute = Ember.Route.extend({
     logout: function() {
       // get the sessions controller instance and reset it to then transition to the sessions route
       this.controllerFor('sessions').reset();
-      this.transitionTo('sessions');
+      Ember.$('#header-links').hide();
+      this.transitionTo('application');
     },
     error: function(reason, transition) {
         alert(reason.status);
@@ -65,6 +66,7 @@ App.AuthenticatedRoute = Ember.Route.extend({
     // verify if the token property of the sessions controller is set before continuing with the request
     // if it is not, redirect to the login route (sessions)
     beforeModel: function(transition) {
+        Ember.$('#header-links').show();
         if (Ember.isEmpty(this.controllerFor('sessions').get('token'))) {
             return this.redirectToLogin(transition);
         }

@@ -37,7 +37,7 @@
 
         <!-- ================================================================================================ Header -->
         <script type="text/html" data-template-name='_header'>
-            <nav class="navbar navbar-inverse" role="navigation">
+            <nav class="navbar navbar-inverse" role="navigation" id="header">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
@@ -52,8 +52,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex8-collapse">
-                        <span> last update: 20 jan 17.25h</span>
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right" style="display: none;" id="header-links">
                             <li>{{#link-to 'animals' activeClass="active"}}Home{{/link-to}}</li>
                             <li class="dropdown">
                                 <a href="animals" class="dropdown-toggle" data-toggle="dropdown">Animals <b class="caret"></b></a>
@@ -71,23 +70,25 @@
                             </li>
                             <li><a {{action 'logout'}}>Logout</a></li>
                         </ul>
-                    </div><!-- /.navbar-collapse -->
+                    </div>
                 </div>
             </nav>
         </script>
 
         <!-- ================================================================================================= Index -->
         <script type="text/html" data-template-name='index'>
-            <section class="row">
-                <article class="col-xs-12 col-lg-8">
+            <section class="row" id="landingpage">
+                <article class="col-xs-12 col-md-7 col-lg-8">
                     <img src="img/cat.jpg" class="img-responsive"/>
                 </article>
-                <article class="col-xs-12 col-lg-3">
-                    <h1>Pet Shelter</h1>
-                    <p class="lead">An open source solution for Animal Shelter management.</p>
-                    <hr/>
-                    {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Login{{/link-to}}
-                    {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
+                <article class="col-xs-12 col-md-5 col-lg-4">
+                    <div class="jumbotron text-center">
+                        <h1>Pet Shelter</h1>
+                        <p class="lead">An open source solution for Animal Shelter management.</p>
+                        <hr/>
+                        {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Login{{/link-to}}
+                        {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
+                    </div>
                 </article>
             </section>
         </script>
