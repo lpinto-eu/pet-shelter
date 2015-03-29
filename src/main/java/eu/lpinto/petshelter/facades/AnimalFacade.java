@@ -10,9 +10,9 @@ package eu.lpinto.petshelter.facades;
 import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.Organization;
 import eu.lpinto.petshelter.entities.User;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-//import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,7 +44,7 @@ public class AnimalFacade extends AbstractFacade<Animal> {
 
         Organization organization = getUserOrganization(user, orgID);
         if (organization == null) {
-            return null;
+            return new ArrayList<>(0);
         }
 
         /* Find All */
