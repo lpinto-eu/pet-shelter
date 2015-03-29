@@ -1,14 +1,11 @@
 package eu.lpinto.petshelter.api;
 
-import eu.lpinto.petshelter.api.util.Digest;
 import eu.lpinto.petshelter.entities.ClinicalEpisodeType;
-import eu.lpinto.petshelter.facades.ClinicalEpisodeTypeFacade;
 import eu.lpinto.petshelter.facades.ClinicalEpisodeTypeFacade;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.validation.ConstraintViolationException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -41,7 +37,7 @@ public class ClinicalEpisodesTypes {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ClinicalEpisodeType retrieve(@PathParam("id") final int id) {
-        return cinicalEpisodeTypes.find(id);
+        return cinicalEpisodeTypes.retrieve(id);
     }
 
     @POST
@@ -84,6 +80,6 @@ public class ClinicalEpisodesTypes {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") final int id) {
-        cinicalEpisodeTypes.remove(cinicalEpisodeTypes.find(id));
+        cinicalEpisodeTypes.remove(cinicalEpisodeTypes.retrieve(id));
     }
 }

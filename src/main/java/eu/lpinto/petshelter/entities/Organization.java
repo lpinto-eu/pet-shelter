@@ -1,36 +1,39 @@
 /**
- * Organization.java
- * Created on 12-Aug-2014, 21:15:03
+ * Organization.java Created on 12-Aug-2014, 21:15:03
  *
- * petshelter-webapp
- * petshelter-webapp
+ * petshelter-webapp petshelter-webapp
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-
 package eu.lpinto.petshelter.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO insert a class description
  *
- * @author Luís Pinto -  mail@lpinto.eu
+ * @author Luís Pinto - mail@lpinto.eu
  */
 @Entity
 @Table(name = "organization")
@@ -63,7 +66,13 @@ public class Organization implements Serializable {
     @Lob
     @Column(name = "logo")
     private String logo;
+    @ManyToMany(mappedBy = "organizations", fetch = FetchType.LAZY)
+    private List<User> users;
+    @OneToMany(mappedBy = "organization")
+    private List<Animal> animals;
 
+
+    /* Constructors */
     public Organization() {
     }
 
@@ -77,6 +86,7 @@ public class Organization implements Serializable {
         this.updated = updated;
     }
 
+    /* Getters/Setters */
     public Integer getId() {
         return id;
     }
@@ -108,7 +118,7 @@ public class Organization implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getLogo() {
         return logo;
     }
@@ -140,6 +150,84 @@ public class Organization implements Serializable {
     @Override
     public String toString() {
         return "eu.lpinto.petshelter.entities.Organization[ id=" + id + " ]";
+    }
+
+    public void addUser(final User user) {
+        if (user != null) {
+            if (users == null) {
+                users = new ArrayList<>(1);
+            }
+
+            users.add(user);
+        }
+    }
+
+    public void rmUser(final int userID) {
+        if (users == null) {
+            return;
+        }
+
+        List<User> usrs = getUsers();
+        User target = null;
+        for (User user : usrs) {
+            if (user.getId().equals(userID)) {
+                target = user;
+                break;
+            }
+        }
+
+        if (target != null) {
+            users.remove(target);
+        }
+    }
+
+    @XmlTransient
+    public List<User> getUsers() {
+        return users;
+    }
+
+    @XmlTransient
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
+    }
+
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public boolean hasUser(int userID) {
+        List<User> usrs = getUsers();
+        if (usrs == null || usrs.isEmpty()) {
+            return false;
+        }
+
+        for (User user : usrs) {
+            if (user.getId().equals(userID)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Animal getAnimal(int animalID) {
+        List<Animal> anmls = getAnimals();
+        if (anmls == null || anmls.isEmpty()) {
+            return null;
+        }
+
+        for (Animal animal : anmls) {
+            if (animal.getId().equals(animalID)) {
+                return animal;
+            }
+        }
+
+        return null;
     }
 
 }
