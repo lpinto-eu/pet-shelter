@@ -201,8 +201,9 @@ animals-list-item
 
 /* Animal new
 *******************************************************************************/
-#hb-new-animal .well {
+#section-animal-new .well {
     overflow: hidden;
+    padding-top: 20px;
 }
 
 .image-picker input {
