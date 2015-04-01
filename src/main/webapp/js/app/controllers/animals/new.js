@@ -11,7 +11,7 @@ App.AnimalsNewController = Ember.ObjectController.extend({
             if (this.get('content.isDirty')) {
                 if (this.get('content.isNew') && confirm('Unsaved changes will be lost.')) {
                     this.get('content').deleteRecord();
-                    this.transitionToRoute('application');
+                    this.transitionToRoute('animals');
                 }
             }
         }

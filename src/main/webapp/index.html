@@ -316,11 +316,11 @@
 
         <!-- =========================================================================================== Animals New -->
         <script type = "text/html" data-template-name="animals/new">
-            <article class ="col-xs-12" id="hb-new-animal">
+            <article class ="col-xs-12" id="section-animal-new">
                 <h3>Add new Animal</h3>
                 <div class="well">
                     <form {{action "save" on="submit"}}>
-                        <div class="col-md-6">
+                        <div class="col-xs-12 col-lg-6">
                             <fieldset>
                                 <legend>Geral</legend>
                                 <div class="form-group">
@@ -350,7 +350,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Sex <i class="fa fa-venus text-warning"></i><i class="fa fa-mars text-primary"></i></span>
+                                        <span class="input-group-addon">Sex <i class="fa fa-venus text-pink"></i><i class="fa fa-mars text-blue"></i></span>
                                         {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
                                     </div>
                                 </div>
@@ -386,7 +386,7 @@
                                 </div>
                             </fieldset>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-xs-12 col-lg-6">
                             <fieldset>
                                 <legend>Look</legend>
                                 <div class="form-group">
@@ -441,10 +441,10 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </div>
-                        <div class="pull-right">
-                            <input type="submit" value="Save" class="btn btn-success">
-                            &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                            <div class="pull-right">
+                                <input type="submit" value="Save" class="btn btn-success">
+                                &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                            </div>
                         </div>
                     </form>
                 </div>
