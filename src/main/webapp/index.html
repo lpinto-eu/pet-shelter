@@ -99,48 +99,57 @@
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="animals">
             <section id="animals" class="row">
-                <ul class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-                    {{#each}}
-                    <li style="overflow: auto;" class="well animal-item">
-                        {{#link-to "animals.animal" id tagName="span"}}
-                                {{#if picture}}
-                                    <img {{bind-attr src="picture"}} class="animal-img"/>
-                                {{else}}
-                                    <img src="img/dog.png" class="animal-img"/>
-                                {{/if}}
-                            <span class="description">
-                                <strong>{{name}}</strong>
+                {{#if content}}
+                    <ul class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                        {{#each}}
+                            <li style="overflow: auto;" class="well animal-item">
+                                {{#link-to "animals.animal" id tagName="span"}}
+                                        {{#if picture}}
+                                            <img {{bind-attr src="picture"}} class="animal-img"/>
+                                        {{else}}
+                                            <img src="img/dog.png" class="animal-img"/>
+                                        {{/if}}
+                                    <span class="description">
+                                        <strong>{{name}}</strong>
 
-                                <br/>
-                                <small>
-                                    {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
+                                        <br/>
+                                        <small>
+                                            {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
 
-                                    {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
 
-                                    {{#if drugs}}
-                                        <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                            <i class="fa fa-medkit"></i>
-                                        </abbr>
-                                    {{/if}}
+                                            {{#if drugs}}
+                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                    <i class="fa fa-medkit"></i>
+                                                </abbr>
+                                            {{/if}}
 
-                                    {{#if sterilized}}
-                                        <i class="fa fa-shield text-success  desc-item"></i>
-                                    {{/if}}
-                                </small>
-                            </span>
-                        {{/link-to}}
-                    </li>
-                    {{else}}
-                        <div class="alert alert-warning" role="alert">
+                                            {{#if sterilized}}
+                                                <i class="fa fa-shield text-success  desc-item"></i>
+                                            {{/if}}
+                                        </small>
+                                    </span>
+                                {{/link-to}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                    <section class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
+                        {{outlet}}
+                    </section>
+                {{else}}
+                    <section class="col-xs-12">
+                        <article class="alert alert-warning" role="alert">
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             <span class="sr-only">Error:</span>
                             There are no animals to be displayed.
-                        </div>
-                    {{/each}}
-                </ul>
-                <section class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
-                    {{outlet}}
-                </section>
+                            <div class="pull-right">
+                                {{#link-to "animals.new"  activeClass="active" title="Add new" class="alert-warning"}}
+                                    <i class="fa fa-plus-square"></i> Register animals
+                                {{/link-to}}
+                            </div>
+                        </article>
+                    </section>
+                {{/if}}
             </section>
         </script>
 
@@ -154,17 +163,17 @@
                 </div>
                 <div class="row text-center">
                     {{#if content}}
-                    <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
+                        <article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article><article class="dash-2">{{donut-chart data=sex class="well"}}</article><article class="dash-2">{{donut-chart data=age class="well"}}</article>
                     {{else}}
-                    <article class="dash-1">
-                        <div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i></div>
-                    </article>
-                    <article class="dash-2">
-                        <div class="well"><br/><br/><br/><i class="fa fa-3x fa-pie-chart"></i></div>
-                    </article>
-                    <article class="dash-2">
-                        <div class="well"><br/><br/><br/><i class="fa fa-3x fa-area-chart"></i></div>
-                    </article>
+                        <article class="dash-1">
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i></div>
+                        </article>
+                        <article class="dash-2">
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-pie-chart"></i></div>
+                        </article>
+                        <article class="dash-2">
+                            <div class="well"><br/><br/><br/><i class="fa fa-3x fa-area-chart"></i></div>
+                        </article>
                     {{/if}}
                 </div>
             </section>
@@ -175,46 +184,46 @@
             <section id="animals" class="row">
                 <article class="col-xs-12">
                     {{#each}}
-                    {{#link-to "animals.animal" this title="Details / Edit"}}
-                    <div class="col-xs-6 col-sm-3 col-md-2">
-                        <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
-                            <div class="panel-heading">
-                                {{name}}
-                            </div>
-                            <div class="panel-body">
-                                {{#if picture}}
-                                <img {{bind-attr src="picture"}} class="animal-img"/>
-                                {{else}}
-                                <img src="img/dog.png" class="animal-img"/>
-                                {{/if}}
-                            </div>
-                            <div class="panel-footer">
-                                <p>
-                                    {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                    {{#if drugs}}
-                                    <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                        <i class="fa fa-medkit"></i>
-                                    </abbr>
+                        {{#link-to "animals.animal" this title="Details / Edit"}}
+                        <div class="col-xs-6 col-sm-3 col-md-2">
+                            <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
+                                <div class="panel-heading">
+                                    {{name}}
+                                </div>
+                                <div class="panel-body">
+                                    {{#if picture}}
+                                    <img {{bind-attr src="picture"}} class="animal-img"/>
+                                    {{else}}
+                                    <img src="img/dog.png" class="animal-img"/>
                                     {{/if}}
-                                    {{#if sterilized}}
-                                    <i class="fa fa-shield text-success  desc-item"></i>
-                                    {{/if}}
-                                    <span class="pull-right">
-                                        <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                            <i class="fa fa-clock-o desc-item"></i> {{date admission}}
+                                </div>
+                                <div class="panel-footer">
+                                    <p>
+                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                        {{#if drugs}}
+                                        <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                            <i class="fa fa-medkit"></i>
                                         </abbr>
-                                    </span>
-                                </p>
+                                        {{/if}}
+                                        {{#if sterilized}}
+                                        <i class="fa fa-shield text-success  desc-item"></i>
+                                        {{/if}}
+                                        <span class="pull-right">
+                                            <abbr class="timestamp" {{bind-attr title="recordDate"}}>
+                                                <i class="fa fa-clock-o desc-item"></i> {{date admission}}
+                                            </abbr>
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {{/link-to}}
+                        {{/link-to}}
                     {{else}}
-                    <div class="alert alert-warning" role="alert">
-                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                        <span class="sr-only">Error:</span>
-                        There are no animals to be displayed.
-                    </div>
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <span class="sr-only">Error:</span>
+                            There are no animals to be displayed.
+                        </div>
                     {{/each}}
                 </article>
             </section>
@@ -310,134 +319,134 @@
             <article class ="col-xs-12" id="hb-new-animal">
                 <h3>Add new Animal</h3>
                 <div class="well">
-                <form {{action "save" on="submit"}}>
-                    <div class="col-md-6">
-                        <fieldset>
-                            <legend>Geral</legend>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
-                                    {{#view Ember.View contentBinding="picture" class="form-control image-picker"}}
-                                    {{#if picture}}
-                                    <img {{bind-attr src="picture"}} class="animal-preview"/>
-                                    {{else}}
-                                    <img src="img/dog.png" class="animal-preview"/>
-                                    {{/if}}
-                                    {{view App.FotoUp}}
-                                    {{/view}}
+                    <form {{action "save" on="submit"}}>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <legend>Geral</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
+                                        {{#view Ember.View contentBinding="picture" class="form-control image-picker"}}
+                                        {{#if picture}}
+                                        <img {{bind-attr src="picture"}} class="animal-preview"/>
+                                        {{else}}
+                                        <img src="img/dog.png" class="animal-preview"/>
+                                        {{/if}}
+                                        {{view App.FotoUp}}
+                                        {{/view}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Name</span>
-                                    {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Name</span>
+                                        {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Age</span>
-                                    {{view Ember.TextField type="number" valueBinding='age' class="form-control"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Age</span>
+                                        {{view Ember.TextField type="number" valueBinding='age' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Sex <i class="fa fa-venus text-warning"></i><i class="fa fa-mars text-primary"></i></span>
-                                    {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Sex <i class="fa fa-venus text-warning"></i><i class="fa fa-mars text-primary"></i></span>
+                                        {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Species</legend>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Species</span>
-                                    {{view Ember.TextField valueBinding='species' class="form-control"}}
+                            </fieldset>
+                            <fieldset>
+                                <legend>Species</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Species</span>
+                                        {{view Ember.TextField valueBinding='species' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Breed</span>
-                                    {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Breed</span>
+                                        {{view Ember.TextField valueBinding='breed' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Health</legend>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Drugs <i class="fa fa-medkit text-warning"></i></span>
-                                    {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                            </fieldset>
+                            <fieldset>
+                                <legend>Health</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Drugs <i class="fa fa-medkit text-warning"></i></span>
+                                        {{view Ember.TextField valueBinding='drugs' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Sterilized <i class="fa fa-shield text-success"></i></span>
-                                    <span class="form-control">{{view Ember.Checkbox checkedBinding="sterilized"}}</span>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Sterilized <i class="fa fa-shield text-success"></i></span>
+                                        <span class="form-control">{{view Ember.Checkbox checkedBinding="sterilized"}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="col-md-6">
-                        <fieldset>
-                            <legend>Look</legend>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Fur Pattern</span>
-                                    {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <legend>Look</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Fur Pattern</span>
+                                        {{view Ember.TextField valueBinding='furPattern' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="color" class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Color</span>
-                                    <span class="form-control">{{view App.ColorPicker valueBinding='primaryColor'}}</span>
+                                <div id="color" class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Color</span>
+                                        <span class="form-control">{{view App.ColorPicker valueBinding='primaryColor'}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="secondaryColor" class="form-group" style="display:none">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Second Color</span>
-                                    <span class="form-control">{{view App.ColorPicker valueBinding='secondaryColor'}}</span>
+                                <div id="secondaryColor" class="form-group" style="display:none">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Second Color</span>
+                                        <span class="form-control">{{view App.ColorPicker valueBinding='secondaryColor'}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Proportion</span>
-                                    {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Proportion</span>
+                                        {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Weight <i class="fa fa-"></i></span>
-                                    {{view App.FloatInput valueBinding='weight' class="form-control"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Weight <i class="fa fa-"></i></span>
+                                        {{view App.FloatInput valueBinding='weight' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            <legend>Administrative</legend>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Status</span>
-                                    {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="status" class="form-control"}}
+                            </fieldset>
+                            <fieldset>
+                                <legend>Administrative</legend>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Status</span>
+                                        {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="status" class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Observations</span>
-                                    {{view Ember.TextArea valueBinding='observations' class="form-control"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Observations</span>
+                                        {{view Ember.TextArea valueBinding='observations' class="form-control"}}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Admission <i class="fa fa-clock-o"></i></span>
-                                    {{view App.DatePicker valueBinding='admission' class="form-control"  placeholder="12/31/1999"}}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Admission <i class="fa fa-clock-o"></i></span>
+                                        {{view App.DatePicker valueBinding='admission' class="form-control"  placeholder="12/31/1999"}}
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="pull-right">
-                        <input type="submit" value="Save" class="btn btn-success">
-                        &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
-                    </div>
-                </form>
+                            </fieldset>
+                        </div>
+                        <div class="pull-right">
+                            <input type="submit" value="Save" class="btn btn-success">
+                            &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
+                        </div>
+                    </form>
                 </div>
             </article>
         </script>
