@@ -6,10 +6,13 @@ App.ApiKey = DS.Model.extend({
 });
 
 App.User = DS.Model.extend({
-  name:                  DS.attr('string'),
+  created:               DS.attr(),
+  updated:               DS.attr(),
   email:                 DS.attr('string'),
+  serialVersionUID:      DS.attr(),
+  name:                  DS.attr('string'),
   password:              DS.attr('string'),
   apiKeys:               DS.hasMany('apiKey'),
-  organization:          DS.hasMany('organization', { async: true }),
+  organizations:         DS.hasMany('organization', { async: true }),
   errors:                {}
 });
