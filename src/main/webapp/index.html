@@ -63,10 +63,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="organizations" class="dropdown-toggle" data-toggle="dropdown">Organizations <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li>{{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}</li>
-                                </ul>
+                                {{#link-to 'organizations' activeClass="active"}}Organizations{{/link-to}}
                             </li>
                             <li><a {{action 'logout'}}>Logout</a></li>
                         </ul>
@@ -239,27 +236,27 @@
                             <thead>
                                 <tr>
                                     <th style="width: 35%;">
-                                        <a {{action pushSort 'name'}} title="Sort by">
+                                        <a {{action 'pushSort' 'name'}} title="Sort by">
                                             <i class="fa fa-sort-alpha-asc"></i> Name
                                         </a>
                                     </th>
                                     <th>
-                                        <a {{action pushSort 'age'}} title="Sort by">
+                                        <a {{action 'pushSort' 'age'}} title="Sort by">
                                             <i class="fa fa-sort-numeric-asc"></i> Age
                                         </a>
                                     </th>
                                     <th>
-                                        <a {{action pushSort 'species'}} title="Sort by">
+                                        <a {{action 'pushSort' 'species'}} title="Sort by">
                                             <i class="fa fa-sort-alpha-asc"></i> Species
                                         </a>
                                     </th>
                                     <th>
-                                        <a {{action pushSort 'breed'}} title="Sort by">
+                                        <a {{action 'pushSort' 'breed'}} title="Sort by">
                                             <i class="fa fa-sort-alpha-asc"></i> Breed
                                         </a>
                                     </th>
                                     <th>
-                                        <a {{action pushSort 'admission'}} title="Sort by">
+                                        <a {{action 'pushSort' 'admission'}} title="Sort by">
                                             <i class="fa fa-sort-amount-asc"></i> Details
                                         </a>
                                     </th>
@@ -705,46 +702,34 @@
         <!--                                                                                           Organizations -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="organizations">
-            <section id="organizations-header" class="row">
-                <div class="well">
-                    <h1>Organizations</h1>
-                    <div id="links" class="pull-right">
-                        <h3>
-                            {{#link-to 'organizations.table' activeClass="active"}}Table{{/link-to}}
-                            <span> | </span>
-                            {{#link-to "organizations.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i>{{/link-to}}
-                        </h3>
-                    </div>
-                </div>
-            </section>
             {{outlet}}
         </script>
 
 
-        <!-- =================================================================================== Organizations Table -->
-        <script type="text/html" data-template-name="organizations/table">
+        <!-- =================================================================================== Organizations Index -->
+        <script type="text/html" data-template-name="organizations/index">
             <section id="organizations" class="row">
                 <article class="col-xs-12">
                     <table class="table table-bordered table-hover table-condensed table-striped">
                         <thead>
                             <tr>
                                 <th>
-                                    <a {{action pushSort 'logo'}} title="Sort by">
+                                    <a {{action 'pushSort' 'logo'}} title="Sort by">
                                         <i class="fa fa-sort-alpha-asc"></i> Logo
                                     </a>
                                 </th>
                                 <th style="width: 35%;">
-                                    <a {{action pushSort 'name'}} title="Sort by">
+                                    <a {{action 'pushSort' 'name'}} title="Sort by">
                                         <i class="fa fa-sort-alpha-asc"></i> Name
                                     </a>
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'created'}} title="Sort by">
+                                    <a {{action 'pushSort' 'created'}} title="Sort by">
                                         <i class="fa fa-sort-amount-asc"></i> Created
                                     </a>
                                 </th>
                                 <th>
-                                    <a {{action pushSort 'updated'}} title="Sort by">
+                                    <a {{action 'pushSort' 'updated'}} title="Sort by">
                                         <i class="fa fa-sort-amount-asc"></i> Updated
                                     </a>
                                 </th>
@@ -855,7 +840,7 @@
                         </div>
                         <hr/>
                         <div class=" col-md-12 text-right">
-                            <button class="btn btn-success" {{action toggleProp}}>Edit</button>
+                            <button class="btn btn-success" {{action 'toggleProp'}}>Edit</button>
                             &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
                         </div>
                     </div>
