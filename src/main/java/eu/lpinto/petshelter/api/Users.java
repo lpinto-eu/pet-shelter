@@ -63,8 +63,7 @@ public class Users {
                 ConstraintViolationException ex1 = (ConstraintViolationException) ex.getCause().getCause();
 
                 if (ex1.getConstraintViolations().toArray() != null
-                    && ex1.getConstraintViolations().toArray().length > 0
-                    && ex1.getConstraintViolations().toArray()[0] instanceof ConstraintViolationException) {
+                    && ex1.getConstraintViolations().toArray().length > 0) {
                     System.out.println(ex1.getConstraintViolations().toArray()[0]);
                 }
 
