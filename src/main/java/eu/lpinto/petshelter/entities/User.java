@@ -29,6 +29,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -42,11 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByCreated", query = "SELECT u FROM User u WHERE u.created = :created"),
-    @NamedQuery(name = "User.findByUpdated", query = "SELECT u FROM User u WHERE u.updated = :updated"),
-    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
+    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
 public class User implements Serializable {
 
     @Basic(optional = false)
@@ -57,8 +54,7 @@ public class User implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar updated;
-    //@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-    //         message = "Invalid email")
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")
     @Size(max = 50)
     private String email;
     private static final long serialVersionUID = 1L;
@@ -68,19 +64,17 @@ public class User implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(min = 2, max = 50, message = "Invalid name")
-    @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
-    @Column(name = "password")
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "User_Organization",
-            joinColumns = {
-                @JoinColumn(name = "ref_user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "ref_org_id", referencedColumnName = "id")})
+               joinColumns = {
+                   @JoinColumn(name = "ref_user_id", referencedColumnName = "id")},
+               inverseJoinColumns = {
+                   @JoinColumn(name = "ref_org_id", referencedColumnName = "id")})
     private List<Organization> organizations;
 
     /*
