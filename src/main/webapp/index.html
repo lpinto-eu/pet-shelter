@@ -220,6 +220,11 @@
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             <span class="sr-only">Error:</span>
                             There are no animals to be displayed.
+                            <div class="pull-right">
+                                {{#link-to "animals.new"  activeClass="active" title="Add new" class="alert-warning"}}
+                                    <i class="fa fa-plus-square"></i> Register animals
+                                {{/link-to}}
+                            </div>
                         </div>
                     {{/each}}
                 </article>
@@ -304,6 +309,11 @@
                         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                         <span class="sr-only">Error:</span>
                         There are no animals to be displayed.
+                        <div class="pull-right">
+                            {{#link-to "animals.new"  activeClass="active" title="Add new" class="alert-warning"}}
+                                <i class="fa fa-plus-square"></i> Register animals
+                            {{/link-to}}
+                        </div>
                     </div>
                     {{/if}}
                 </article>
@@ -702,62 +712,74 @@
         <!--                                                                                           Organizations -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="organizations">
-            {{outlet}}
-        </script>
-
-
-        <!-- =================================================================================== Organizations Index -->
-        <script type="text/html" data-template-name="organizations/index">
-            <section id="organizations" class="row">
-                <article class="col-xs-12">
-                    <table class="table table-bordered table-hover table-condensed table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <a {{action 'pushSort' 'logo'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i> Logo
-                                    </a>
-                                </th>
-                                <th style="width: 35%;">
-                                    <a {{action 'pushSort' 'name'}} title="Sort by">
-                                        <i class="fa fa-sort-alpha-asc"></i> Name
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action 'pushSort' 'created'}} title="Sort by">
-                                        <i class="fa fa-sort-amount-asc"></i> Created
-                                    </a>
-                                </th>
-                                <th>
-                                    <a {{action 'pushSort' 'updated'}} title="Sort by">
-                                        <i class="fa fa-sort-amount-asc"></i> Updated
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each class="organization-link"}}
-                            {{#link-to "organizations.organization" id tagName="tr"}}
-
-                        <td>
-                            {{#if logo}}
-                            <img {{bind-attr src="logo"}} class="animal-img"/>
-                            {{else}}
-                            Logo
-                            {{/if}}
-                        </td>
-                        <td>{{name}}</td>
-                        <td>{{dateFormat created}}</td>
-                        <td>{{dateFormat updated}}</td>
-                        {{/link-to}}
+            <section id="animals" class="row">
+                {{#if content}}
+                    <section class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                        {{#each}}
+                            {{#link-to "organizations.organization" this title="Details / Edit"}}
+                            <div class="col-xs-12">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        {{name}}
+                                    </div>
+                                    <div class="panel-body">
+                                        {{#if logo}}
+                                            <img {{bind-attr src="logo"}} class="img-responsive"/>
+                                        {{else}}
+                                            <i class="fa fa-picture-o"></i>
+                                        {{/if}}
+                                    </div>
+                                    <div class="panel-footer">
+                                        <p>
+                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{#if drugs}}
+                                            <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                                <i class="fa fa-medkit"></i>
+                                            </abbr>
+                                            {{/if}}
+                                            {{#if sterilized}}
+                                            <i class="fa fa-shield text-success  desc-item"></i>
+                                            {{/if}}
+                                            <span class="pull-right">
+                                                <abbr class="timestamp" {{bind-attr title="recordDate"}}>
+                                                    <i class="fa fa-clock-o desc-item"></i> {{date created}}
+                                                </abbr>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/link-to}}
                         {{else}}
-                        <tr>
-                            <td>You have no organizations.</td>
-                        </tr>
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                <span class="sr-only">Error:</span>
+                                There are no organizations to be displayed.
+                                <div class="pull-right">
+                                    {{#link-to "organizations.new"  activeClass="active" title="Add new" class="alert-warning"}}
+                                        <i class="fa fa-plus-square"></i> Register organization
+                                    {{/link-to}}
+                                </div>
+                            </div>
                         {{/each}}
-                        </tbody>
-                    </table>
-                </article>
+                    </section>
+                    <section class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
+                        {{outlet}}
+                    </section>
+                {{else}}
+                    <section class="col-xs-12">
+                        <article class="alert alert-warning" role="alert">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                            <span class="sr-only">Error:</span>
+                            There are no organizations to be displayed.
+                            <div class="pull-right">
+                                {{#link-to "organizations.new"  activeClass="active" title="Add new" class="alert-warning"}}
+                                    <i class="fa fa-plus-square"></i> Register organization
+                                {{/link-to}}
+                            </div>
+                        </article>
+                    </section>
+                {{/if}}
             </section>
         </script>
 
@@ -808,42 +830,42 @@
                 </article>
                 <article class="row">
                     {{#if isEditing}}
-                    <!-- UPDATE -->
-                    <div class="col-md-12">
-                        <form class="form-horizontal" role="form">
-                            <fieldset>
-                                <!-- <legend>Edit</legend> -->
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Name</span>
-                                        {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                        <!-- UPDATE -->
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form">
+                                <fieldset>
+                                    <!-- <legend>Edit</legend> -->
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Name</span>
+                                            {{view Ember.TextField valueBinding='name' class="form-control" required=true}}
+                                        </div>
                                     </div>
+                                </fieldset>
+                                <div class="text-right">
+                                    <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
+                                    &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
+                                    &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
                                 </div>
-                            </fieldset>
-                            <div class="text-right">
-                                <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
-                                &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
-                                &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
                     {{else}}
-                    <!-- DETAILS -->
-                    <div id="details">
-                        <div class="col-md-8">
-                            <dl class="dl-horizontal">
-                                <dt>Creation:</dt>
-                                <dd>{{dateFormat created}}</dd>
-                                <dt>Last update:</dt>
-                                <dd>{{date Format updated}}</dd>
-                            </dl>
+                        <!-- DETAILS -->
+                        <div id="details">
+                            <div class="col-md-8">
+                                <dl class="dl-horizontal">
+                                    <dt>Creation:</dt>
+                                    <dd>{{dateFormat created}}</dd>
+                                    <dt>Last update:</dt>
+                                    <dd>{{date Format updated}}</dd>
+                                </dl>
+                            </div>
+                            <hr/>
+                            <div class=" col-md-12 text-right">
+                                <button class="btn btn-success" {{action 'toggleProp'}}>Edit</button>
+                                &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
+                            </div>
                         </div>
-                        <hr/>
-                        <div class=" col-md-12 text-right">
-                            <button class="btn btn-success" {{action 'toggleProp'}}>Edit</button>
-                            &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
-                        </div>
-                    </div>
                     {{/if}}
                 </article>
             </section>
