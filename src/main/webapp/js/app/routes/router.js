@@ -1,4 +1,5 @@
 App.Router.map(function() {
+    this.resource('error'),
     this.resource('sessions', function() {
         this.route('logout');
         this.route('login');
@@ -35,9 +36,14 @@ App.ApplicationRoute = Ember.Route.extend({
       this.transitionTo('application');
     },
     error: function(reason, transition) {
-        alert(reason.status);
-        console.log(reason.status + " - " + reason);
+        if (reason.status === 401) {
+            this.send('logout');
+        } else {
+            alert(reason.status);
+            console.log(reason.status + " - " + reason);
+            this.transitionTo('error');
         }
+    }
   }
 });
 
@@ -71,19 +77,6 @@ App.AuthenticatedRoute = Ember.Route.extend({
     redirectToLogin: function(transition) {
         this.controllerFor('sessions').set('attemptedTransition', transition);
         return this.transitionTo('sessions');
-    },
-
-    actions: {
-        // recover from any error that may happen during the transition to this route
-        error: function(reason, transition) {
-          // if the HTTP status is 401 (unauthorised), redirect to the login page
-          if (reason.status === 401) {
-              this.send('logout');
-            //this.redirectToLogin(transition);
-          } else {
-            console.log('unknown problem');
-          }
-        }
     }
 });
 
