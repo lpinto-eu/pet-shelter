@@ -27,8 +27,8 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
                     self.transitionToRoute('organizations');
                     });
             } else {
-                this.transitionToRoute('organizations.table');
                 this.toggleProperty("isEditing");
+                this.transitionToRoute('organizations');
             }
         },
 

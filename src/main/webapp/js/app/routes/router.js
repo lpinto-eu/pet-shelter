@@ -17,11 +17,7 @@ App.Router.map(function() {
         this.route("animal", {path: ":animal_id"});
     });
 
-    this.resource('project', { path: 'project/:id' }, function () {
-    this.route('participants');
-  });
-
-      this.resource('organizations', function() {
+    this.resource('organizations', function() {
         this.route('new');
         this.route("organization", {path: ":organization_id"}, function () {
             this.route('users');

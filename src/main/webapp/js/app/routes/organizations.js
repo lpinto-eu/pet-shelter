@@ -3,8 +3,7 @@
     @author Vítor Martins - varmartins@varmartins.com
 */
 
-App.OrganizationsIndexRoute =  App.AuthenticatedRoute.extend({
-//    controllerName: 'Organizations',
+App.OrganizationsRoute =  App.AuthenticatedRoute.extend({
     model: function() {
         return this.store.find("Organization");
     }
