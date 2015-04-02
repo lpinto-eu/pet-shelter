@@ -1,6 +1,5 @@
 package eu.lpinto.petshelter.api.filters;
 
-import eu.lpinto.petshelter.api.Organizations;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
@@ -26,7 +25,7 @@ import org.slf4j.LoggerFactory;
 @Priority(2)
 public class TrafficLogger implements ContainerRequestFilter, ContainerResponseFilter {
 
-    final Logger logger = LoggerFactory.getLogger(Organizations.class);
+    final Logger logger = LoggerFactory.getLogger(TrafficLogger.class);
 
     /*
      * ContainerRequestFilter
