@@ -3,8 +3,10 @@ package eu.lpinto.petshelter.api;
 import eu.lpinto.petshelter.api.dts.OrganizationsDTS;
 import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.Organization;
+import eu.lpinto.petshelter.entities.User;
 import eu.lpinto.petshelter.facades.AnimalFacade;
 import eu.lpinto.petshelter.facades.OrganizationFacade;
+import eu.lpinto.petshelter.facades.UserFacade;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -35,10 +37,13 @@ public class Organizations {
     private OrganizationFacade orgFacade;
 
     @EJB
+    private UserFacade userFacade;
+
+    @EJB
     private AnimalFacade animalFacade;
 
     /*
-     CRUD
+     * CRUD
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,21 +73,30 @@ public class Organizations {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Organization retrieve(@HeaderParam("userID") final Integer actionUserID,
-            @PathParam("id") final int id) {
+                                 @PathParam("id") final int id) {
         return orgFacade.retrieve(actionUserID, id);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Organization create(@HeaderParam("userID") final Integer actionUserID,
-            Organization org) {
+    public Response create(@HeaderParam("userID") final Integer actionUserID, final Organization org) {
+        /* Check if User can do action */
+
         try {
-            orgFacade.create(actionUserID, org);
-            return org;
+            /* Create Organization */
+            orgFacade.create(org);
+
+            /* update User */
+            User user = userFacade.retrieve(actionUserID);
+            user.addOrg(org);
+            userFacade.edit(user);
+
+            return Response.ok(org).build();
 
         } catch (RuntimeException ex) {
-            throw ex;
+            System.err.println(ex.getLocalizedMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Cannot create organization").build();
         }
     }
 
@@ -101,8 +115,8 @@ public class Organizations {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathParam("id") final int orgID,
-            @HeaderParam("userID") final Integer userID,
-            Organization org) {
+                       @HeaderParam("userID") final Integer userID,
+                       Organization org) {
 
         org.setId(orgID);
         orgFacade.update(userID, org);
@@ -116,15 +130,15 @@ public class Organizations {
     }
 
     /*
-     Users
+     * Users
      */
     @POST
     @Path("{id}/users/{targetUserID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void associateUser(@HeaderParam("userID") final Integer actionUserID,
-            @PathParam("id") final int id,
-            @PathParam("targetUserID") final int targetUserID) {
+                              @PathParam("id") final int id,
+                              @PathParam("targetUserID") final int targetUserID) {
         try {
             orgFacade.associateUser(actionUserID, id, targetUserID);
 
@@ -138,8 +152,8 @@ public class Organizations {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void dissociateUser(@HeaderParam("userID") final Integer actionUserID,
-            @PathParam("id") final int id,
-            @PathParam("targetUserID") final int targetUserID) {
+                               @PathParam("id") final int id,
+                               @PathParam("targetUserID") final int targetUserID) {
         try {
             orgFacade.dissociateUser(actionUserID, id, targetUserID);
 
@@ -149,13 +163,13 @@ public class Organizations {
     }
 
     /*
-     Animals
+     * Animals
      */
     @GET
     @Path("{id}/animals")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Animal> findAllAnimals(@HeaderParam("userID") final Integer actionUserID,
-            @PathParam("id") final int orgID) {
+                                       @PathParam("id") final int orgID) {
         try {
             /* Find Organizations */
             return animalFacade.findAll(actionUserID, orgID);
@@ -171,8 +185,8 @@ public class Organizations {
     @Path("{id}/animals/{animalID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Animal retrieveAnimal(@HeaderParam("userID") final Integer actionUserID,
-            @PathParam("id") final int orgID,
-            @PathParam("animalID") final int animalID) {
+                                 @PathParam("id") final int orgID,
+                                 @PathParam("animalID") final int animalID) {
         try {
             /* Find Organizations */
             return animalFacade.retrieve(actionUserID, orgID, animalID);
@@ -188,8 +202,8 @@ public class Organizations {
     @Path("{id}/animals")
     @Produces(MediaType.APPLICATION_JSON)
     public Animal createAnimal(@HeaderParam("userID") final Integer actionUserID,
-            @PathParam("id") final int orgID,
-            Animal animal) {
+                               @PathParam("id") final int orgID,
+                               Animal animal) {
         try {
             /* Find Organizations */
             return animalFacade.create(actionUserID, orgID, animal);

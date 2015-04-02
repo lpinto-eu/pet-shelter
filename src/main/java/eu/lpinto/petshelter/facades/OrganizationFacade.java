@@ -52,20 +52,12 @@ public class OrganizationFacade extends AbstractFacade<Organization> {
         return user.getOrganization(orgID);
     }
 
-    public void create(int actionUserID, Organization entity) {
-        /* Check if User can do action */
-        User user = em.find(User.class, actionUserID);
-        if (user == null) {
-            return;
-        }
-
-        /* Create Organization */
+    @Override
+    public void create(final Organization entity) {
         entity.setCreated(new GregorianCalendar());
         entity.setUpdated(new GregorianCalendar());
-        em.persist(entity);
 
-        user.addOrg(entity);
-        em.merge(user);
+        super.create(entity);
     }
 
     public void update(int actionUserID, Organization entity) {
