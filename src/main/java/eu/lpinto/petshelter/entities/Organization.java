@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +25,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,31 +42,32 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Organization.findByUpdated", query = "SELECT o FROM Organization o WHERE o.updated = :updated"),
     @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name")})
 public class Organization implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "created")
+
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar created;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "updated")
+
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar updated;
-    @Size(max = 50)
-    @Column(name = "name")
+
+    @Size(max = 100)
+    @Column(unique = true, nullable = false)
     private String name;
+
     @Lob
-    @Column(name = "logo")
     private String logo;
+
     @ManyToMany(mappedBy = "organizations", fetch = FetchType.LAZY)
     private List<User> users;
-    @OneToMany(mappedBy = "organization")
+
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private List<Animal> animals;
 
 
@@ -194,7 +193,6 @@ public class Organization implements Serializable {
     public void setAnimals(List<Animal> animals) {
         this.animals = animals;
     }
-
 
     public void setUsers(List<User> users) {
         this.users = users;
