@@ -1,17 +1,7 @@
-/*
- * TrafficLogger.java
- * Created on Dec 11, 2013, 5:55:55 PM
- *
- * Segura-Business-API-REST-impl
- * segura-api-rest-impl
- *
- * Copyright (c) PT Inovação S.A.
- */
 package eu.lpinto.petshelter.api.filters;
 
-import java.io.BufferedReader;
+import eu.lpinto.petshelter.api.Organizations;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +14,11 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * TODO insert a class description
+ * Logs the API requests and responses.
  *
  * @author Luís Pinto <code>luis-m-pinto@ext.ptinovacao.pt</code>
  */
@@ -34,22 +26,13 @@ import javax.ws.rs.ext.Provider;
 @Priority(2)
 public class TrafficLogger implements ContainerRequestFilter, ContainerResponseFilter {
 
-//    private static final LogService LOGGER = new LogService(TrafficLogger.class);
+    final Logger logger = LoggerFactory.getLogger(Organizations.class);
 
-    //ContainerRequestFilter
+    /*
+     * ContainerRequestFilter
+     */
     @Override
     public void filter(final ContainerRequestContext requestContext) throws IOException {
-        log(requestContext);
-    }
-
-    //ContainerResponseFilter
-    @Override
-    public void filter(final ContainerRequestContext requestContext,
-                       final ContainerResponseContext responseContext) throws IOException {
-        log(responseContext);
-    }
-
-    private void log(final ContainerRequestContext requestContext) throws IOException {
         SecurityContext securityContext = requestContext.getSecurityContext();
         String authentication = securityContext.getAuthenticationScheme();
         Principal userPrincipal = securityContext.getUserPrincipal();
@@ -58,23 +41,28 @@ public class TrafficLogger implements ContainerRequestFilter, ContainerResponseF
         List<Object> matchedResources = uriInfo.getMatchedResources();
         //...
 
-        System.out.println("----------------------------------------------------------");
-        System.out.println(method + " " + uriInfo.getAbsolutePath());
-        
-        System.out.println("---");
-        String headers = "Headers";
-        for(Map.Entry<String, List<String>> elem : requestContext.getHeaders().entrySet()) {
-            headers += ("\n\t" + elem.getKey() + " : " + elem.getValue());
-        }
-        System.out.println(headers);
-        
-        System.out.println("----------------------------------------------------------");
+        StringBuilder sb = new StringBuilder(1000);
+        sb.append("----------------------------------------------------------").append(System.lineSeparator());
+        sb.append(method).append(" ").append(uriInfo.getAbsolutePath()).append(System.lineSeparator());
+        sb.append("---").append(System.lineSeparator());
 
+        sb.append("Headers").append(System.lineSeparator());
+        for (Map.Entry<String, List<String>> elem : requestContext.getHeaders().entrySet()) {
+            sb.append("\t").append(elem.getKey()).append(" : ").append(elem.getValue()).append(System.lineSeparator());
+        }
+
+        sb.append("----------------------------------------------------------").append(System.lineSeparator());
+
+        logger.debug(sb.toString());
     }
 
-    private void log(final ContainerResponseContext responseContext) {
+    /*
+     * ContainerResponseFilter
+     */
+    @Override
+    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext)
+            throws IOException {
         MultivaluedMap<String, String> stringHeaders = responseContext.getStringHeaders();
         Object entity = responseContext.getEntity();
-        //...
     }
 }
