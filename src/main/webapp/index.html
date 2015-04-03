@@ -53,17 +53,11 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex8-collapse">
                         <ul class="nav navbar-nav navbar-right" style="display: none;" id="header-links">
-                            <li>{{#link-to 'animals' activeClass="active"}}Home{{/link-to}}</li>
-                            <li class="dropdown">
-                                <a href="animals" class="dropdown-toggle" data-toggle="dropdown">Animals <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li>{{#link-to 'animals.list' activeClass="active"}}<i class="fa fa-list"></i> List{{/link-to}}</li>
-                                    <li>{{#link-to 'animals.table' activeClass="active"}}<i class="fa fa-table"></i> Table{{/link-to}}</li>
-                                    <li>{{#link-to "animals.new"  activeClass="active" title="Add new"}}<i class="fa fa-plus-square"></i> New{{/link-to}}</li>
-                                </ul>
-                            </li>
                             <li class="dropdown">
                                 {{#link-to 'organizations' activeClass="active"}}Organizations{{/link-to}}
+                            </li>
+                            <li class="dropdown">
+                                {{#link-to 'animals' activeClass="active"}}Animals{{/link-to}}
                             </li>
                             <li><a {{action 'logout'}}>Logout</a></li>
                         </ul>
@@ -98,6 +92,11 @@
             <section id="animals" class="row">
                 {{#if content}}
                     <ul class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                        <li style="overflow: auto;" class="well animal-item text-center">
+                            {{#link-to "animals.new"  activeClass="active" title="Add new"}}
+                                <i class="fa fa-plus-square"></i>
+                            {{/link-to}}
+                        </li>
                         {{#each}}
                             <li style="overflow: auto;" class="well animal-item">
                                 {{#link-to "animals.animal" id tagName="span"}}
