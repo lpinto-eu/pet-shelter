@@ -10,7 +10,6 @@ package eu.lpinto.petshelter.facades;
 import eu.lpinto.petshelter.entities.Organization;
 import eu.lpinto.petshelter.entities.User;
 import java.util.GregorianCalendar;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,27 +30,6 @@ public class OrganizationFacade extends AbstractFacade<Organization> {
         super(Organization.class);
     }
 
-    /* Operations */
-    public List<Organization> findAll(int actionUserID) {
-        User user = em.find(User.class, actionUserID);
-
-        if (user == null) {
-            return null;
-        }
-
-        return user.getOrganizations();
-    }
-
-    public Organization retrieve(int actionUserID, int orgID) {
-        /* Check if User can do action */
-        User user = em.find(User.class, actionUserID);
-        if (user == null) {
-            return null;
-        }
-        /* Find Organization */
-        return user.getOrganization(orgID);
-    }
-
     @Override
     public void create(final Organization entity) {
         entity.setCreated(new GregorianCalendar());
@@ -60,15 +38,10 @@ public class OrganizationFacade extends AbstractFacade<Organization> {
         super.create(entity);
     }
 
-    public void update(int actionUserID, Organization entity) {
-        /* Check if User can do action */
-        User user = em.find(User.class, actionUserID);
-        if (user == null || entity == null || !user.hasOrganization(entity.getId())) {
-            return;
-        }
-
+    @Override
+    public void edit(Organization entity) {
         entity.setUpdated(new GregorianCalendar());
-        em.merge(entity);
+        super.edit(entity);
     }
 
     public void associateUser(int actionUserID, int orgID, int targetUserID) {
