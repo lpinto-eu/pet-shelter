@@ -10,6 +10,8 @@ App.OrganizationsNewController = Ember.ObjectController.extend({
                 this.get('model').save()
                         .then(function () {
                             self.transitionToRoute('organizations');
+                        }, function (reason) {
+                            self.send('error', reason);
                         });
         },
         cancel: function () {
