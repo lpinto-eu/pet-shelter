@@ -68,19 +68,28 @@
 
         <!-- ================================================================================================= Index -->
         <script type="text/html" data-template-name='index'>
-            <section class="row" id="landingpage">
-                <article class="col-xs-12 col-md-7 col-lg-8">
-                    <img src="img/cat.jpg" class="img-responsive"/>
-                </article>
-                <article class="col-xs-12 col-md-5 col-lg-4">
-                    <div class="jumbotron text-center">
-                        <h1>Pet Shelter</h1>
-                        <p class="lead">An open source solution for Animal Shelter management.</p>
-                        <hr/>
-                        {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Login{{/link-to}}
-                        {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
-                    </div>
-                </article>
+            <section id="landingpage">
+                <section class="row">
+                    <article class="col-xs-12 col-md-7 col-lg-8">
+                        <img src="img/cat.jpg" class="img-responsive"/>
+                    </article>
+                    <article class="col-xs-12 col-md-5 col-lg-4">
+                        <div class="jumbotron text-center">
+                            <h1>Pet Shelter</h1>
+                            <p class="lead">An open source solution for Animal Shelter management.</p>
+                            <hr/>
+                            {{#link-to 'sessions.index' class="btn btn-primary btn-lg"}}Login{{/link-to}}
+                            {{#link-to 'users.signup' class="btn btn-default btn-lg"}}Signup{{/link-to}}
+                        </div>
+                    </article>
+                </section>
+                <section>
+                    <article>
+                        <article class="col-xs-12 well">
+                            <p>If you have any doubts or comments please contact <a href="mailto:mail@lpinto.eu?Subject=[PetShelter] contact" target="_top">mail@lpinto.eu</a></p>
+                        </article>
+                    </article>
+                </section>
             </section>
         </script>
 
