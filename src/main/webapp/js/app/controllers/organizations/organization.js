@@ -22,10 +22,13 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
         update: function() {
             if (this.get('content.isDirty')) {
                 var self = this;
-                this.get('model').save().then(function() {
-                    self.toggleProperty("isEditing");
-                    self.transitionToRoute('organizations');
-                    });
+                this.get('model').save()
+                        .then(function() {
+                            self.toggleProperty("isEditing");
+                            self.transitionToRoute('organizations');
+                        }, function (reason) {
+                            self.send('error', reason);
+                        });
             } else {
                 this.toggleProperty("isEditing");
                 this.transitionToRoute('organizations');
@@ -37,9 +40,12 @@ App.OrganizationsOrganizationController = Ember.ObjectController.extend({
                 var organization = this.get('model');
                 organization.deleteRecord();
                 var self = this;
-                organization.save().then(function() {
-                        self.toggleProperty("isEditing");
-                        self.transitionToRoute('organizations');
+                organization.save()
+                        .then(function() {
+                            self.toggleProperty("isEditing");
+                            self.transitionToRoute('organizations');
+                        }, function (reason) {
+                            self.send('error', reason);
                     });
             }
         }
