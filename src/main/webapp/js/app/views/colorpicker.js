@@ -6,7 +6,7 @@ App.ColorPicker = Ember.TextField.extend({
     type: 'color',
     didInsertElement: function () {
         $("#color").click(function () {
-            $("#secondaryColor").css("display", "block");
+            $("#secondaryColor").show();
         });
     }
 });
