@@ -8,11 +8,7 @@
 package eu.lpinto.petshelter.facades;
 
 import eu.lpinto.petshelter.entities.Animal;
-import eu.lpinto.petshelter.entities.Organization;
-import eu.lpinto.petshelter.entities.User;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,82 +30,27 @@ public class AnimalFacade extends AbstractFacade<Animal> {
     }
 
     /* CRUD */
-    public List<Animal> findAll(int actionUserID, Integer orgID) {
-
-        User user = em.find(User.class, actionUserID);
-        em.refresh(user);
-        if (user == null) {
-            return null;
+    @Override
+    public void create(final Animal animal) {
+        if (animal.getOrganization() == null) {
+            throw new IllegalArgumentException("Cannot create animal '" + animal.getName() + "' with no organization.");
         }
 
-        Organization organization = getUserOrganization(user, orgID);
-        if (organization == null) {
-            return new ArrayList<>(0);
-        }
-
-        /* Find All */
-        em.refresh(organization);
-        return organization.getAnimals();
-    }
-
-    public Animal retrieve(int actionUserID, Integer orgID, int animalID) {
-        User user = em.find(User.class, actionUserID);
-        em.refresh(user);
-        if (user == null) {
-            return null;
-        }
-
-        Organization organization = getUserOrganization(user, orgID);
-        if (organization == null) {
-            return null;
-        }
-
-        /* Find All */
-        em.refresh(organization);
-
-        return organization.getAnimal(animalID);
-    }
-
-    public Animal create(int actionUserID, Integer orgID, Animal animal) {
-        /* Check if User can do action */
-        User user = em.find(User.class, actionUserID);
-        if (user == null) {
-            return null;
-        }
-
-        Organization organization = getUserOrganization(user, orgID);
-        if (organization == null) {
-            return null;
-        }
-
-        animal.setCreated(Calendar.getInstance());
-        animal.setOrganization(organization);
+        Calendar now = Calendar.getInstance();
+        animal.setCreated(now);
+        animal.setUpdated(now);
 
         super.create(animal);
-
-        return animal;
     }
 
-    protected Organization getUserOrganization(User user, Integer orgID) {
-        Organization organization;
-        if (orgID == null) {
-            if (user.getOrganizations() != null && user.getOrganizations().size() == 1) {
-                /* User has only one Org */
-                organization = user.getOrganizations().get(0);
-
-            } else {
-                return null;
-            }
-
-        } else {
-            if (!user.hasOrganization(orgID)) {
-                return null;
-            }
-
-            organization = user.getOrganization(orgID);
+    @Override
+    public void edit(Animal animal) {
+        if (animal.getOrganization() == null) {
+            throw new IllegalArgumentException("Cannot update animal '" + animal.getName() + "' with no organization.");
         }
 
-        return organization;
+        animal.setUpdated(Calendar.getInstance());
+        super.edit(animal);
     }
 
     @Override

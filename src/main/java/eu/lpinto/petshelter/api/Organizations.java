@@ -5,7 +5,6 @@ import eu.lpinto.petshelter.api.filters.TrafficLogger;
 import eu.lpinto.petshelter.entities.Animal;
 import eu.lpinto.petshelter.entities.Organization;
 import eu.lpinto.petshelter.entities.User;
-import eu.lpinto.petshelter.facades.AnimalFacade;
 import eu.lpinto.petshelter.facades.OrganizationFacade;
 import eu.lpinto.petshelter.facades.UserFacade;
 import java.nio.charset.Charset;
@@ -43,9 +42,6 @@ public class Organizations {
 
     @EJB
     private UserFacade userFacade;
-
-    @EJB
-    private AnimalFacade animalFacade;
 
     /*
      * CRUD
@@ -140,11 +136,9 @@ public class Organizations {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("id") final int organizationID,
-                       @HeaderParam("userID") final Integer userID,
-                       final Organization organization) {
+    public void update(@PathParam("id") final int organizationID, @HeaderParam("userID") final Integer userID, final Organization organization) {
         if (organization.getId() != null && organizationID != organization.getId()) {
-            throw new WebApplicationException("Cannot create organization", Response.Status.BAD_REQUEST);
+            throw new WebApplicationException("Cannot update organization", Response.Status.BAD_REQUEST);
         }
 
         organization.setId(organizationID);
@@ -204,9 +198,7 @@ public class Organizations {
     @Path("{id}/users/{targetUserID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void associateUser(@HeaderParam("userID") final Integer userID,
-                              @PathParam("id") final int id,
-                              @PathParam("targetUserID") final int targetUserID) {
+    public void associateUser(@HeaderParam("userID") final Integer userID, @PathParam("id") final int id, @PathParam("targetUserID") final int targetUserID) {
         try {
             orgFacade.associateUser(userID, id, targetUserID);
 
@@ -219,9 +211,7 @@ public class Organizations {
     @Path("{id}/users/{targetUserID}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void dissociateUser(@HeaderParam("userID") final Integer userID,
-                               @PathParam("id") final int id,
-                               @PathParam("targetUserID") final int targetUserID) {
+    public void dissociateUser(@HeaderParam("userID") final Integer userID, @PathParam("id") final int id, @PathParam("targetUserID") final int targetUserID) {
         try {
             orgFacade.dissociateUser(userID, id, targetUserID);
 
@@ -236,11 +226,10 @@ public class Organizations {
     @GET
     @Path("{id}/animals")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Animal> findAllAnimals(@HeaderParam("userID") final Integer userID,
-                                       @PathParam("id") final int orgID) {
+    public List<Animal> findAllAnimals(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID) {
         try {
             /* Find Organizations */
-            return animalFacade.findAll(userID, orgID);
+            return orgFacade.retrieve(orgID).getAnimals();
 
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
@@ -252,12 +241,10 @@ public class Organizations {
     @GET
     @Path("{id}/animals/{animalID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal retrieveAnimal(@HeaderParam("userID") final Integer userID,
-                                 @PathParam("id") final int orgID,
-                                 @PathParam("animalID") final int animalID) {
+    public Animal retrieveAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, @PathParam("animalID") final int animalID) {
         try {
             /* Find Organizations */
-            return animalFacade.retrieve(userID, orgID, animalID);
+            return userFacade.retrieve(userID).getOrganization(orgID).getAnimal(animalID);
 
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
@@ -269,12 +256,10 @@ public class Organizations {
     @POST
     @Path("{id}/animals")
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal createAnimal(@HeaderParam("userID") final Integer userID,
-                               @PathParam("id") final int orgID,
-                               Animal animal) {
+    public Animal createAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, Animal animal) {
         try {
             /* Find Organizations */
-            return animalFacade.create(userID, orgID, animal);
+            return new Animals().create(userID, animal).readEntity(Animal.class);
 
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
