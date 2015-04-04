@@ -71,41 +71,40 @@ App.SessionsController = Ember.ArrayController.extend({
                 .then(function(response) {
                     // set the ajax header with the returned access_token object
                     Ember.$.ajaxSetup({
-                      headers: {
-                        'Authorization': 'Bearer ' + response.api_key.access_token
-                      }
+                      headers: {'Authorization': 'Bearer ' + response.api_key.access_token}
                     });
 
-                // create a apiKey record on the local storage based on the returned object
-                var key = _this.get('store').createRecord('apiKey', {
-                  accessToken: response.api_key.access_token
-                });
+                    // create a apiKey record on the local storage based on the returned object
+                    var key = _this.get('store').createRecord('apiKey', {
+                      accessToken: response.api_key.access_token
+                    });
 
-                // find a user based on the user_id returned from the request to the /sessions api
-                _this.store.find('user', response.api_key.user_id).then(function(user) {
+                    // find a user based on the user_id returned from the request to the /sessions api
+                    _this.store.find('user', response.api_key.user_id)
+                            .then(function(user) {
 
-                  // set this controller token & current user properties
-                  // based on the data from the user and access_token
-                  _this.setProperties({
-                    token:       response.api_key.access_token,
-                    currentUser: user.getProperties('username', 'name', 'email')
-                  });
+                                // set this controller token & current user properties
+                                // based on the data from the user and access_token
+                                _this.setProperties({
+                                  token:       response.api_key.access_token,
+                                  currentUser: user.getProperties('username', 'name', 'email')
+                                });
 
-                  // set the relationship between the User and the ApiKey models & save the apiKey object
-                  key.set('user', user);
-                  key.save();
+                                // set the relationship between the User and the ApiKey models & save the apiKey object
+                                key.set('user', user);
+                                key.save();
 
-                  user.get('apiKeys').currentState.push(key);
+                                user.get('apiKeys').currentState.push(key);
 
-                  // check if there is any attemptedTransition to retry it or go to the secret route
-                  if (attemptedTrans) {
-                    attemptedTrans.retry();
-                    _this.set('attemptedTransition', null);
-                    //_this.transitionToRoute('animals');
-                  } else {
-                    _this.transitionToRoute('animals');
-                  }
-                });
+                                // check if there is any attemptedTransition to retry it or go to the secret route
+                                if (attemptedTrans) {
+                                  attemptedTrans.retry();
+                                  _this.set('attemptedTransition', null);
+                                  //_this.transitionToRoute('animals');
+                                } else {
+                                  _this.transitionToRoute('animals');
+                                }
+                            });
 
                 }, function(error) {
                     console.log(error.responseText);
