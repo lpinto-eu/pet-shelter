@@ -27,24 +27,38 @@ App.Router.map(function() {
 });
 
 App.ApplicationRoute = Ember.Route.extend({
-  actions: {
-    // create a global logout action
-    logout: function() {
-      // get the sessions controller instance and reset it to then transition to the sessions route
-      this.controllerFor('sessions').reset();
-      Ember.$('#header-links').hide();
-      this.transitionTo('application');
+    actions: {
+        // create a global logout action
+        logout: function() {
+          // get the sessions controller instance and reset it to then transition to the sessions route
+          this.controllerFor('sessions').reset();
+          Ember.$('#header-links').hide();
+          this.transitionTo('application');
+        },
+
+        error: function(reason, transition) {
+            this.handleError(reason, transition);
+        }
     },
-    error: function(reason, transition) {
+
+    events: {
+        error: function(reason, transition) {
+            this.handleError(reason, transition);
+        }
+    },
+
+    handleError: function(reason, transition) {
         if (reason.status === 401) {
             this.send('logout');
+
+        } else if (reason.status === 409) {
+            alert(reason.responseText);
+
         } else {
-            alert(reason.status);
-            console.log(reason.status + " - " + reason);
-            this.transitionTo('error');
+            console.log(reason.status + " - " + reason.statusText + " | " + reason.responseText);
+            this.transitionTo("error", {queryParams: {status: reason.status}});
         }
-    }
-  }
+      }
 });
 
 App.SessionsRoute = Ember.Route.extend({
