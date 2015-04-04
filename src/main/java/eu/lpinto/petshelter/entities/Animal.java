@@ -8,9 +8,9 @@
 package eu.lpinto.petshelter.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Set;
-import javax.persistence.Basic;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +26,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -58,82 +57,77 @@ public class Animal implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = "created")
+
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar created;
-    @Basic(optional = false)
-    @Column(name = "updated")
+
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar updated;
+
     @Size(max = 50)
-    @Column(name = "name")
+    @Column(nullable = false)
     private String name;
-    @Column(name = "age")
+
     private Integer age;
+
     @Size(max = 30)
-    @Column(name = "species")
     private String species;
+
     @Size(max = 30)
-    @Column(name = "breed")
     private String breed;
+
     @Size(max = 200)
-    @Column(name = "drugs")
     private String drugs;
+
     @Size(max = 1)
-    @Column(name = "sex")
     private String sex;
-    @Column(name = "sterilized")
+
     private Boolean sterilized;
-    @Column(name = "status")
+
     private Integer status;
+
     @Lob
-    @Column(name = "picture")
     private String picture;
+
     @Size(max = 250)
-    @Column(name = "observations")
     private String observations;
-    @Column(name = "admission")
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar admission;
+
     @Size(max = 30)
-    @Column(name = "furPattern")
     private String furPattern;
-    @Column(name = "proportion")
+
     private Integer proportion;
-    @Column(name = "weight")
+
     private float weight;
+
     @Size(max = 30)
-    @Column(name = "primaryColor")
     private String primaryColor;
+
     @Size(max = 30)
-    @Column(name = "secondaryColor")
     private String secondaryColor;
+
     @OneToMany(mappedBy = "animal")
-    private Set<ClinicalEpisode> clinicalEpisodes;
+    private List<ClinicalEpisode> clinicalEpisodes;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id")
+    @JoinColumn(name = "ORGANIZATION_ID")
     private Organization organization;
 
-    /* Constructors */
+    /*
+     * Constructors
+     */
     public Animal() {
     }
 
     public Animal(Integer id) {
         this.id = id;
-    }
-
-    public Set<ClinicalEpisode> getClinicalEpisodes() {
-        return clinicalEpisodes;
-    }
-
-    public void setClinicalEpisodes(Set<ClinicalEpisode> clinicalEpisodes) {
-        this.clinicalEpisodes = clinicalEpisodes;
     }
 
     public Animal(Integer id, Calendar created, Calendar updated, int organization) {
@@ -142,168 +136,9 @@ public class Animal implements Serializable {
         this.updated = updated;
     }
 
-    /* Getters/Setters */
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Calendar getCreated() {
-        return created;
-    }
-
-    public void setCreated(Calendar created) {
-        this.created = created;
-    }
-
-    public Calendar getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Calendar updated) {
-        this.updated = updated;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getSpecies() {
-        return species;
-    }
-
-    public void setSpecies(String species) {
-        this.species = species;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public String getDrugs() {
-        return drugs;
-    }
-
-    public void setDrugs(String drugs) {
-        this.drugs = drugs;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Boolean getSterilized() {
-        return sterilized;
-    }
-
-    public void setSterilized(Boolean sterilized) {
-        this.sterilized = sterilized;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    @XmlTransient
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
-    public String getObservations() {
-        return observations;
-    }
-
-    public void setObservations(String observations) {
-        this.observations = observations;
-    }
-
-    public Calendar getAdmission() {
-        return admission;
-    }
-
-    public void setAdmission(Calendar admission) {
-        this.admission = admission;
-    }
-
-    public String getFurPattern() {
-        return furPattern;
-    }
-
-    public void setFurPattern(String furPattern) {
-        this.furPattern = furPattern;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public Integer getProportion() {
-        return proportion;
-    }
-
-    public void setProportion(Integer proportion) {
-        this.proportion = proportion;
-    }
-
-    public String getPrimaryColor() {
-        return primaryColor;
-    }
-
-    public void setPrimaryColor(String primaryColor) {
-        this.primaryColor = primaryColor;
-    }
-
-    public String getSecondaryColor() {
-        return secondaryColor;
-    }
-
-    public void setSecondaryColor(String secondaryColor) {
-        this.secondaryColor = secondaryColor;
-    }
-
+    /*
+     * API
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -327,6 +162,182 @@ public class Animal implements Serializable {
     @Override
     public String toString() {
         return "eu.lpinto.petshelter.entities.Animal[ id=" + id + " ]";
+    }
+
+    /*
+     * Getters/Listters
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
+    public Calendar getCreated() {
+        return created;
+    }
+
+    public void setCreated(final Calendar created) {
+        this.created = created;
+    }
+
+    public Calendar getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(final Calendar updated) {
+        this.updated = updated;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(final Integer age) {
+        this.age = age;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(final String species) {
+        this.species = species;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(final String breed) {
+        this.breed = breed;
+    }
+
+    public String getDrugs() {
+        return drugs;
+    }
+
+    public void setDrugs(final String drugs) {
+        this.drugs = drugs;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(final String sex) {
+        this.sex = sex;
+    }
+
+    public Boolean getSterilized() {
+        return sterilized;
+    }
+
+    public void setSterilized(final Boolean sterilized) {
+        this.sterilized = sterilized;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(final Integer status) {
+        this.status = status;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(final String picture) {
+        this.picture = picture;
+    }
+
+    public String getObservations() {
+        return observations;
+    }
+
+    public void setObservations(final String observations) {
+        this.observations = observations;
+    }
+
+    public Calendar getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(final Calendar admission) {
+        this.admission = admission;
+    }
+
+    public String getFurPattern() {
+        return furPattern;
+    }
+
+    public void setFurPattern(final String furPattern) {
+        this.furPattern = furPattern;
+    }
+
+    public Integer getProportion() {
+        return proportion;
+    }
+
+    public void setProportion(final Integer proportion) {
+        this.proportion = proportion;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public String getPrimaryColor() {
+        return primaryColor;
+    }
+
+    public void setPrimaryColor(final String primaryColor) {
+        this.primaryColor = primaryColor;
+    }
+
+    public String getSecondaryColor() {
+        return secondaryColor;
+    }
+
+    public void setSecondaryColor(final String secondaryColor) {
+        this.secondaryColor = secondaryColor;
+    }
+
+    public List<ClinicalEpisode> getClinicalEpisodes() {
+        if (this.clinicalEpisodes == null) {
+            return new ArrayList<>(0);
+        }
+
+        return clinicalEpisodes;
+    }
+
+    public void setClinicalEpisodes(final List<ClinicalEpisode> clinicalEpisodes) {
+        this.clinicalEpisodes = clinicalEpisodes;
+    }
+
+    @XmlTransient
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(final Organization organization) {
+        this.organization = organization;
     }
 
 }

@@ -7,7 +7,6 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-
 package eu.lpinto.petshelter.facades;
 
 import java.util.List;
@@ -16,9 +15,10 @@ import javax.persistence.EntityManager;
 /**
  * TODO insert a class description
  *
- * @author Luís Pinto -  mail@lpinto.eu
+ * @author Luís Pinto - mail@lpinto.eu
  */
 public abstract class AbstractFacade<T> {
+
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {

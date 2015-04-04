@@ -41,10 +41,12 @@ App.AnimalsAnimalController = Ember.ObjectController.extend({
             if (this.get('content.isDirty')) {
                 var self = this;
                 this.get('model').save()
-                    .then(function() {
-                        self.transitionToRoute('animals');
-                        self.toggleProperty("isEditing");
-                    });
+                        .then(function() {
+                            self.transitionToRoute('animals');
+                            self.toggleProperty("isEditing");
+                        }, function (reason) {
+                            self.send('error', reason);
+                        });
             } else {
                 this.transitionToRoute('animals');
                 this.toggleProperty("isEditing");
@@ -57,10 +59,12 @@ App.AnimalsAnimalController = Ember.ObjectController.extend({
                 animal.deleteRecord();
                 var self = this;
                 animal.save()
-                    .then(function() {
-                        self.toggleProperty("isEditing");
-                        self.transitionToRoute('animals');
-                    });
+                        .then(function() {
+                            self.toggleProperty("isEditing");
+                            self.transitionToRoute('animals');
+                        }, function (reason) {
+                            self.send('error', reason);
+                        });
             }
         }
     }
