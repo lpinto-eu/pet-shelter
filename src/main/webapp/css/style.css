@@ -79,18 +79,16 @@ body {
     }
 }
 
-.dash-1 {
+.dash-1,
+.dash-2 {
     display:  inline-block;
+    vertical-align: top;
 }
 
  .dash-1 .well {
     min-width:  300px;
     height: 150px;
  }
-
-.dash-2 {
-    display:  inline-block;
-}
 
  .dash-2 .well {
     width: 150px;
