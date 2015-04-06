@@ -56,8 +56,8 @@ App.AnimalsController = Ember.ArrayController.extend({
     cTimeMonth: function () {
         var data = new Array();
         this.map(function (animal) {
-            if(animal.get('created'))
-                return animal.get('created').getMonth();
+            if(animal.get('admission'))
+                return animal.get('admission').getMonth();
         }).reduce(function (data, month) {
             data[month] = data[month] ? data[month] + 1 : 1;
             return data;
