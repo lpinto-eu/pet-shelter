@@ -1,5 +1,5 @@
 App.AnimalsController = Ember.ArrayController.extend({
-    
+
     sex: function () {
         var males = this.filter(function (animal) {
             return animal.get('sex') === "M";
@@ -9,32 +9,48 @@ App.AnimalsController = Ember.ArrayController.extend({
             return animal.get('sex') === "F";
         });
 
-        return [
-            {key: 'Male', value: males.length},
-            {key: 'Female', value: females.length}
-        ];
+        if(males.length > 0 || females.length > 0) {
+            return [
+                {key: 'Male', value: males.length},
+                {key: 'Female', value: females.length}
+            ];
+        } else {
+            return null;
+        }
     }.property('@each.sex'),
 
     age: function () {
+        var flag = false;
+
         var data = [
             {key: '<1', value: 0},
             {key: '1-4', value: 0},
             {key: '5-9', value: 0},
             {key: '>10', value: 0}
         ];
-        return this.reduce(function (buckets, animal) {
-            var a = animal.get('age');
-            if (a < 1) {
+        var x = this.reduce(function (buckets, animal) {
+            var age = animal.get('age');
+            if (age < 1) {
                 buckets[0].value++;
-            } else if (a < 5) {
+                flag = true;
+            } else if (age < 5) {
                 buckets[1].value++;
-            } else if (a < 10) {
+                flag = true;
+            } else if (age < 10) {
                 buckets[2].value++;
-            } else {
+                flag = true;
+            } else if (age) {
                 buckets[3].value++;
+                flag = true;
             }
             return buckets;
         }, data);
+
+        if(flag) {
+            return x;
+        } else {
+            return null;
+        }
     }.property('@each.age'),
 
     cTimeMonth: function () {
