@@ -111,12 +111,12 @@ body {
 }
 
 .animal-item img {
-    height: 48px;
+    height: 55px;
     float: left;
 }
 
 .animal-item .description {
-    margin: 10px;
+    margin: 7px;
     float: left;
 }
 
