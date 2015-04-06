@@ -163,7 +163,7 @@
             <section id="dashboard">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1>Shelter Dashboard</h1>
+                        <h1 class="text-center">Shelter Dashboard</h1>
                     </div>
                 </div>
                 <div class="row text-center">{{#if cTimeMonth}}<article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article>{{else}}<article class="dash-1"><div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i></div></article>{{/if}}{{#if sex}}<article class="dash-2"><div class="well"><header>Sexes</header>{{donut-chart data=sex}}</div></article>{{else}}<article class="dash-2"><div class="well"><br/><br/><p>Sexes</p><i class="fa fa-3x fa-pie-chart"></i></div></article>{{/if}}{{#if age}}<article class="dash-2"><div class="well"><header>Ages</header>{{donut-chart data=age}}</div></article>{{else}}<article class="dash-2"><div class="well"><br/><br/><p>Ages</p><i class="fa fa-3x fa-area-chart"></i></div></article>{{/if}}</div>
