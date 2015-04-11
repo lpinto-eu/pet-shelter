@@ -20,8 +20,12 @@ App.AnimalsController = Ember.ArrayController.extend({
     }.property('@each.sex'),
 
     sheterCount: function () {
-        var x = this.filter(function(animal) { return animal.get('status') === 1; }).length;
-        return x;
+        return this.filter(function(animal) { return animal.get('status') === 1; }).length;
+    }.property('@each.status'),
+
+    sheterCountPlural: function () {
+        var inshelter = this.filter(function(animal) { return animal.get('status') === 1; }).length;
+        return inshelter === 0 || inshelter > 1;
     }.property('@each.status'),
 
     age: function () {

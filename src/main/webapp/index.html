@@ -166,7 +166,11 @@
                         <h1 class="text-center">Shelter Dashboard</h1>
                     </div>
                 </div>
-                <div class="row text-center">{{#if cTimeMonth}}<article class="dash-1">{{bar-graph data=cTimeMonth  class="well"}}</article>{{else}}<article class="dash-1"><div class="well"><br/><br/><br/><i class="fa fa-3x fa-bar-chart"></i></div></article>{{/if}}{{#if sex}}<article class="dash-2"><div class="well"><header>Sexes</header>{{donut-chart data=sex}}</div></article>{{else}}<article class="dash-2"><div class="well"><br/><br/><p>Sexes</p><i class="fa fa-3x fa-pie-chart"></i></div></article>{{/if}}{{#if age}}<article class="dash-2"><div class="well"><header>Ages</header>{{donut-chart data=age}}</div></article>{{else}}<article class="dash-2"><div class="well"><br/><br/><p>Ages</p><i class="fa fa-3x fa-area-chart"></i></div></article>{{/if}}<article class="dash-2"><div class="well"><header>Animals in shelter</header><h1>{{sheterCount}}</h1></div></article></div>
+                <div class="row text-center">
+                    {{#if cTimeMonth}}<article class="dash-1 well"><br/><header><h4>Admissions by month</h4></header>{{bar-graph data=cTimeMonth}}</article>{{else}}<article class="dash-1 well"><br/><header><h4>Admissions by month</h4></header><br/><i class="fa fa-3x fa-bar-chart"></i></article>{{/if}}
+                {{#if sex}}<article class="dash-2 well"><br/><header><h4>Sexes</h4></header>{{donut-chart data=sex}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Sexes</h4></header><br/><i class="fa fa-3x fa-pie-chart"></i></article>{{/if}}
+                {{#if age}}<article class="dash-2 well"><br/><header><h4>Ages</h4></header>{{donut-chart data=age}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Ages</h4></header><br/><i class="fa fa-3x fa-area-chart"></i></article>{{/if}}
+                <article class="dash-2 well"><br/><header><h4>In shelter</h4></header><h1>{{sheterCount}}</h1>animal{{#if sheterCountPlural}}s{{/if}}</article></div>
             </section>
         </script>
 
@@ -966,9 +970,9 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <!-- ember -->
-        <script src="http://builds.emberjs.com/release/ember.debug.js"></script>
-        <script src="http://builds.emberjs.com/release/ember-template-compiler.js"></script>
-        <script src="http://builds.emberjs.com/beta/ember-data.min.js"></script>
+        <script src="//builds.emberjs.com/release/ember.debug.js"></script>
+        <script src="//builds.emberjs.com/release/ember-template-compiler.js"></script>
+        <script src="//builds.emberjs.com/beta/ember-data.min.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
 
         <!-- App -->

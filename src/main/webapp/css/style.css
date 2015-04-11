@@ -85,15 +85,20 @@ body {
     vertical-align: top;
 }
 
- .dash-1 .well {
+.dash-1.well {
     min-width:  300px;
     height: 150px;
- }
+}
 
- .dash-2 .well {
+.dash-2.well {
     width: 150px;
     height: 150px;
- }
+}
+
+.dash-2 h1 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
 
 /*
  * Animals
@@ -122,6 +127,10 @@ body {
 
 .animal-item .description strong {
     font-size: 16px;
+}
+
+.animal-item .description i {
+    display: inline-block;
 }
 
 /* Animals list
