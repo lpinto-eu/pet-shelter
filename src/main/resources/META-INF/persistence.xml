@@ -3,6 +3,9 @@
   <persistence-unit name="eu.lpinto.petshelter_petshelter-webapp_war_1.0-SNAPSHOTPU" transaction-type="JTA">
     <jta-data-source>java:app/jdbc/petshelter</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <!--<property name="eclipselink.logging.level" value="FINE"/>-->
+    </properties>
   </persistence-unit>
 </persistence>
