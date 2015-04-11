@@ -6,7 +6,7 @@ App.BarGraphComponent = Ember.Component.extend({
 
         var margin = {top: 20, right: 6, bottom: 20, left: 20};
         var width = 290 - margin.left - margin.right;
-        var height = 140 - margin.top - margin.bottom;
+        var height = 90 - margin.top - margin.bottom;
 
         var x = d3.scale.ordinal()
         .domain(d3.range(1, 13))
@@ -60,7 +60,6 @@ App.BarGraphComponent = Ember.Component.extend({
         .attr("x", (width / 2))
         .attr("y", 0 - 0.2 * margin.top)
         .attr("text-anchor", "middle")
-        .style("font-size", "12px")
-        .text("Admissions by month");
+        .style("font-size", "12px");
     }
 });
