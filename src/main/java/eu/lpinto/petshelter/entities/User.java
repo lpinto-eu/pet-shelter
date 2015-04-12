@@ -55,8 +55,8 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar created;
 
-    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Calendar updated;
 
     @Column(unique = true, nullable = false)
