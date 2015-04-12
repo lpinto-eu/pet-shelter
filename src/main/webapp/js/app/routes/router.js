@@ -108,13 +108,3 @@ App.UsersSignupRoute = Ember.Route.extend({
 //    })
 //  }
 });
-
-
-App.LoadingRoute = Ember.Route.extend({
-    beforeModel: function(params) {
-        Ember.$('.navbar-header').hide();
-    },
-    afterModel: function(params) {
-        Ember.$('.navbar-header').show();
-    }
-});
