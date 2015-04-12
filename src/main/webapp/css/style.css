@@ -108,6 +108,10 @@ body {
     display: inline-block;
 }
 
+#animals .fa-plus-square {
+    margin: 14px;
+}
+
 
 #animals .well {
     margin-bottom: 1px;
