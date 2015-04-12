@@ -711,38 +711,19 @@
                     <section class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
                         {{#each}}
                             {{#link-to "organizations.organization" this title="Details / Edit"}}
-                            <div class="col-xs-12">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        {{name}}
-                                    </div>
-                                    <div class="panel-body">
-                                        {{#if logo}}
-                                            <img {{bind-attr src="logo"}} class="img-responsive"/>
-                                        {{else}}
-                                            <i class="fa fa-picture-o"></i>
-                                        {{/if}}
-                                    </div>
-                                    <div class="panel-footer">
-                                        <p>
-                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
-                                            {{#if drugs}}
-                                            <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                <i class="fa fa-medkit"></i>
-                                            </abbr>
+                                <div class="col-xs-12">
+                                    <div class="panel">
+                                        <div class="panel-heading">&nbsp;</div>
+                                        <div class="panel-body">
+                                            {{#if logo}}
+                                                <img {{bind-attr src="logo"}} class="img-responsive"/>
+                                            {{else}}
+                                                <i class="fa fa-picture-o"></i>
                                             {{/if}}
-                                            {{#if sterilized}}
-                                            <i class="fa fa-shield text-success  desc-item"></i>
-                                            {{/if}}
-                                            <span class="pull-right">
-                                                <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                    <i class="fa fa-clock-o desc-item"></i> {{date created}}
-                                                </abbr>
-                                            </span>
-                                        </p>
+                                        </div>
+                                        <div class="panel-footer"><p>{{name}}</p></div>
                                     </div>
                                 </div>
-                            </div>
                             {{/link-to}}
                         {{else}}
                             <div class="alert alert-warning" role="alert">
@@ -812,14 +793,7 @@
             <section id="organization" {{bind-attr class="isEditing:editing well"}}>
                 <article class="row">
                     <div class="col-xs-12">
-                        <h2>
-                            {{name}}&nbsp;
-                            <span class="badge">
-                                <abbr {{bind-attr title="recordDate"}}>
-                                    {{date created}} <i class="fa fa-clock-o"></i>
-                                </abbr>
-                            </span>
-                        </h2>
+                        <h2>{{name}}</h2>
                     </div>
                 </article>
                 <article class="row">
@@ -828,15 +802,23 @@
                         <div class="col-md-12">
                             <form class="form-horizontal" role="form">
                                 <fieldset>
-                                    <!-- <legend>Edit</legend> -->
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">Name</span>
                                             {{input valueBinding='name' class="form-control" required=true}}
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Logo <i class="fa fa-picture-o"></i></span>
+                                            {{#view Ember.View contentBinding="logo" class="form-control image-picker"}}
+                                            {{view App.FotoUp}}
+                                            {{/view}}
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <div class="text-right">
+                                    <hr/>
                                     <input type="submit" value="Save" class="btn btn-success" {{action 'update'}}>
                                     &nbsp;<button class="btn btn-danger" {{action 'remove'}}>Delete</button>
                                     &nbsp;<a {{action 'cancel'}} style="cursor:pointer;">cancel</a>
@@ -845,17 +827,15 @@
                         </div>
                     {{else}}
                         <!-- DETAILS -->
-                        <div id="details">
-                            <div class="col-md-8">
-                                <dl class="dl-horizontal">
-                                    <dt>Creation:</dt>
-                                    <dd>{{dateFormat created}}</dd>
-                                    <dt>Last update:</dt>
-                                    <dd>{{date Format updated}}</dd>
-                                </dl>
-                            </div>
-                            <hr/>
-                            <div class=" col-md-12 text-right">
+                        <div id="details" class="col-xs-12">
+                            <dl class="dl-horizontal">
+                                <dt>Creation:</dt>
+                                <dd>{{dateFormat created}}</dd>
+                                <dt>Last update:</dt>
+                                <dd>{{date Format updated}}</dd>
+                            </dl>
+                            <div class="text-right">
+                                <hr/>
                                 <button class="btn btn-success" {{action 'toggleProp'}}>Edit</button>
                                 &nbsp;{{#link-to 'organizations' activeClass="active"}}back{{/link-to}}
                             </div>
