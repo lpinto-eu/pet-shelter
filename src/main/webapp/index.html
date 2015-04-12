@@ -113,7 +113,7 @@
                             <li style="overflow: auto;" class="well animal-item">
                                 {{#link-to "animals.animal" id tagName="span"}}
                                         {{#if picture}}
-                                            <img {{bind-attr src="picture"}} class="animal-img"/>
+                                            <div class="center-cropped animal-img" style='background-image: url("{{picture}}");'></div>
                                         {{else}}
                                             <img src="img/dog.png" class="animal-img"/>
                                         {{/if}}

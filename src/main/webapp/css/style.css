@@ -5,6 +5,13 @@
  *
  *******************************************************************************/
 
+.center-cropped {
+/*    width: 100px;
+    height: 100px;*/
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 /*******************************************************************************
  *
  * HTML
@@ -119,9 +126,10 @@ body {
     cursor: pointer;
 }
 
-.animal-item img {
-    height: 55px;
+.animal-item .animal-img {
+    width: 55px; height: 55px;
     float: left;
+    background-size:cover;
 }
 
 .animal-item .description {
