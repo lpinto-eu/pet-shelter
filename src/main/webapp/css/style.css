@@ -126,6 +126,15 @@ body {
     cursor: pointer;
 }
 
+.no-bullets {
+    list-style-type: none;
+}
+
+.animal-item {
+    min-height: 58px;
+    overflow: hidden;
+}
+
 .animal-item .animal-img {
     width: 55px; height: 55px;
     float: left;
