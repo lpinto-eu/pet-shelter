@@ -1,7 +1,12 @@
-App.AnimalSexView = Ember.View.extend({
+/*
+ * @author Vítor Martins - varmartins@varmartins.com
+ */
+
+
+App.SexDisplayComponent = Ember.Component.extend({
     tagName: "i",
     classNameBindings: ['sex-icon'],
-
+    
     'sex-icon': function() {
         if (this.content === "F") {
             return "fa fa-venus text-pink";
@@ -10,3 +15,4 @@ App.AnimalSexView = Ember.View.extend({
         }
     }.property('content')
 });
+

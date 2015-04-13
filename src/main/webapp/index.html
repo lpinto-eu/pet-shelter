@@ -120,8 +120,8 @@
                                     <br/>
                                     <small>
                                         {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
-
-                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                        
+                                        {{sex-display content=sex class=" desc-item"}}
 
                                         {{#if drugs}}
                                             <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
@@ -190,7 +190,7 @@
                                 </div>
                                 <div class="panel-footer">
                                     <p>
-                                        {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                        {{sex-display content=sex class=" desc-item"}}
                                         {{#if drugs}}
                                         <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
                                             <i class="fa fa-medkit"></i>
@@ -277,7 +277,7 @@
                                         <td>{{breed}}</td>
                                         <td>
                                             {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
-                                            {{view App.AnimalSexView contentBinding="sex" class=" desc-item"}}
+                                            {{sex-display content=sex class=" desc-item"}}
                                             {{#if drugs}}
                                                 <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
                                                     <i class="fa fa-medkit"></i>
@@ -652,7 +652,7 @@
                                         {{/if}}
                                     </dd>
                                     <dt>Sex:</dt>
-                                    <dd>{{view App.AnimalSexView contentBinding="sex"}}</dd>
+                                    <dd>{{sex-display content=sex class=" desc-item"}}</dd>
                                     <dt>Color:</dt>
                                     <dd>
                                         {{#if primaryColorIsNull}}
@@ -947,8 +947,8 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <!-- ember -->
-        <!--<script src="//builds.emberjs.com/release/ember.debug.js"></script>-->
-        <script src="js/libs/ember.prod.js"></script>
+        <script src="//builds.emberjs.com/release/ember.debug.js"></script>
+<!--        <script src="js/libs/ember.prod.js"></script>-->
         <script src="js/libs/ember-template-compiler.js"></script>
         <script src="js/libs/ember-data.min.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
@@ -978,7 +978,6 @@
 
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
-        <script src="js/app/views/sex.js"></script>
         <script src="js/app/views/status.js"></script>
         <script src="js/app/views/datepicker.js"></script>
         <script src="js/app/views/colorpicker.js"></script>
@@ -1001,5 +1000,6 @@
         <!-- Components -->
         <script src="js/app/components/donutchart.js"></script>
         <script src="js/app/components/bargraph.js"></script>
+        <script src="js/app/components/sex.js"></script>
     </body>
 </html>
