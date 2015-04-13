@@ -119,7 +119,7 @@
 
                                     <br/>
                                     <small>
-                                        {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
+                                        {{status-display content=status  class="desc-item status-icon"}}
                                         
                                         {{sex-display content=sex class=" desc-item"}}
 
@@ -276,7 +276,7 @@
                                         <td>{{species}}</td>
                                         <td>{{breed}}</td>
                                         <td>
-                                            {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
+                                            {{status-display content=status  class="desc-item status-icon"}}
                                             {{sex-display content=sex class=" desc-item"}}
                                             {{#if drugs}}
                                                 <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
@@ -673,7 +673,7 @@
                                     <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
                                     <dt>Status:</dt>
                                     <dd>
-                                        {{view App.AnimalStatusView contentBinding="status" class="desc-item status-icon"}}
+                                        {{status-display content=status  class="desc-item status-icon"}}
                                     </dd>
                                     <dt>Observations:</dt>
                                     <dd>{{observations}}</dd>
@@ -978,7 +978,6 @@
 
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
-        <script src="js/app/views/status.js"></script>
         <script src="js/app/views/datepicker.js"></script>
         <script src="js/app/views/colorpicker.js"></script>
 
@@ -1001,5 +1000,6 @@
         <script src="js/app/components/donutchart.js"></script>
         <script src="js/app/components/bargraph.js"></script>
         <script src="js/app/components/sex.js"></script>
+        <script src="js/app/components/status.js"></script>
     </body>
 </html>

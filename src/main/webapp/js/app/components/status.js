@@ -1,8 +1,13 @@
-App.AnimalStatusView = Ember.View.extend({
-    tagName: "i",
-    classNameBindings: ['icon'],
+/*
+ * @author Vítor Martins - varmartins@varmartins.com
+ */
 
-    'icon': function() {
+
+App.StatusDisplayComponent = Ember.Component.extend({
+    tagName: "i",
+    classNameBindings: ['status-icon'],
+    
+'status-icon': function() {
         switch(this.content) {
             case 1:
                 return "fa fa-life-saver text-primary";
@@ -17,3 +22,4 @@ App.AnimalStatusView = Ember.View.extend({
         }
     }.property('content')
 });
+
