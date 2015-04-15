@@ -708,7 +708,7 @@
         <script type="text/html" data-template-name="organizations">
             <section id="animals" class="row">
                 {{#if content}}
-                    <section class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                    <section class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
                         {{#each}}
                             {{#link-to "organizations.organization" this title="Details / Edit"}}
                                 <div class="col-xs-12">
@@ -738,7 +738,7 @@
                             </div>
                         {{/each}}
                     </section>
-                    <section class="col-xs-6 col-sm-7 col-md-8 col-lg-9">
+                    <section class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
                         {{outlet}}
                     </section>
                 {{else}}
