@@ -33,7 +33,6 @@ App.ApplicationRoute = Ember.Route.extend({
         // create a global logout action
         logout: function () {
             this.controllerFor('sessions').reset();
-            Ember.$('#header-links').hide();
             this.transitionTo('application');
         },
         error: function (reason, transition) {
@@ -79,7 +78,6 @@ App.AuthenticatedRoute = Ember.Route.extend({
     // verify if the token property of the sessions controller is set before continuing with the request
     // if it is not, redirect to the login route (sessions)
     beforeModel: function (transition) {
-        Ember.$('#header-links').show();
         if (Ember.isEmpty(this.controllerFor('sessions').get('token'))) {
             return this.redirectToLogin(transition);
         }

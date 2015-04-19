@@ -87,7 +87,7 @@ App.SessionsController = Ember.ArrayController.extend({
                                 // based on the data from the user and access_token
                                 _this.setProperties({
                                   token:       response.api_key.access_token,
-                                  currentUser: user.getProperties('username', 'name', 'email')
+                                  currentUser: user.get('name')
                                 });
 
                                 // set the relationship between the User and the ApiKey models & save the apiKey object
@@ -100,7 +100,6 @@ App.SessionsController = Ember.ArrayController.extend({
                                 if (attemptedTrans) {
                                   attemptedTrans.retry();
                                   _this.set('attemptedTransition', null);
-                                  //_this.transitionToRoute('animals');
                                 } else {
                                   _this.transitionToRoute('animals');
                                 }

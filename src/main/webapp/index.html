@@ -41,26 +41,35 @@
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+                        {{#if isAuthenticated}}
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex8-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        {{/if}}
                         <a class="navbar-brand" href="#"><img src="img/logo.png" alt="logo" class="animal-img"/></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex8-collapse">
-                        <ul class="nav navbar-nav navbar-right" style="display: none;" id="header-links">
-                            <li class="dropdown">
-                                {{#link-to 'organizations' activeClass="active"}}Organizations{{/link-to}}
-                            </li>
-                            <li class="dropdown">
-                                {{#link-to 'animals' activeClass="active"}}Animals{{/link-to}}
-                            </li>
-                            <li><a {{action 'logout'}}>Logout</a></li>
-                        </ul>
+                        {{#if isAuthenticated}}
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    {{#link-to 'organizations' activeClass="active"}}Organizations{{/link-to}}
+                                </li>
+                                <li class="dropdown">
+                                    {{#link-to 'animals' activeClass="active"}}Animals{{/link-to}}
+                                </li>
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">{{currentUser}} <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a {{action 'logout'}}>Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        {{/if}}
                     </div>
                 </div>
             </nav>
@@ -120,7 +129,7 @@
                                     <br/>
                                     <small>
                                         {{status-display content=status  class="desc-item status-icon"}}
-                                        
+
                                         {{sex-display content=sex class=" desc-item"}}
 
                                         {{#if drugs}}
@@ -948,7 +957,7 @@
 
         <!-- ember -->
         <script src="//builds.emberjs.com/release/ember.debug.js"></script>
-<!--        <script src="js/libs/ember.prod.js"></script>-->
+        <!--<script src="js/libs/ember.prod.js"></script>-->
         <script src="js/libs/ember-template-compiler.js"></script>
         <script src="js/libs/ember-data.min.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
@@ -973,8 +982,9 @@
         <script src="js/app/controllers/organizations/organization.js"></script>
         <script src="js/app/controllers/organizations/organizations.js"></script>
         <script src="js/app/controllers/organizations/new.js"></script>
-        <script src="js/app/controllers/sessions.js"></script>
         <script src="js/app/controllers/users/signup.js"></script>
+        <script src="js/app/controllers/Application.js"></script>
+        <script src="js/app/controllers/sessions.js"></script>
 
         <!-- Views -->
         <script src="js/app/views/imagepicker.js"></script>
