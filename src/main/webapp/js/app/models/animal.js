@@ -17,10 +17,6 @@ App.Animal = DS.Model.extend({
     primaryColor: DS.attr(),
     secondaryColor: DS.attr(),
 
-    recordDate: function () {
-        return moment(this.get("created")).format('MMMM Do YYYY, h:mm:ss a');
-    }.property("content.created"),
-
     isSmall: function () {
         return this.get('proportion') === 1;
     }.property('proportion'),
