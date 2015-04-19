@@ -2,13 +2,13 @@ App.AnimalsAnimalController = Ember.Controller.extend({
     isEditing: false,
 
     primaryColorIsNull: function () {
-        if (this.get('model').get('primaryColor') === undefined) {
+        if (this.get('model.primaryColor') === undefined) {
             return true;
         }
     }.property('model.primaryColor'),
 
     secondaryColorIsNull: function () {
-        if (this.get('model').get('secondaryColor') === undefined) {
+        if (this.get('model.secondaryColor') === undefined) {
             return true;
         }
     }.property('model.primaryColor'),
@@ -42,7 +42,7 @@ App.AnimalsAnimalController = Ember.Controller.extend({
         },
 
         remove: function() {
-            if (confirm('Delete: ' + this.get('name') + '?')) {
+            if (confirm('Delete: ' + this.get('model.name') + '?')) {
                 var animal = this.get('model');
                 animal.deleteRecord();
                 var self = this;
