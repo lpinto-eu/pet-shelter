@@ -1,4 +1,4 @@
-App.AnimalsAnimalController = Ember.ObjectController.extend({
+App.AnimalsAnimalController = Ember.Controller.extend({
     isEditing: false,
 
     primaryColorIsNull: function () {
@@ -12,18 +12,6 @@ App.AnimalsAnimalController = Ember.ObjectController.extend({
             return true;
         }
     }.property('model.primaryColor'),
-
-    isMale: function () {
-        return this.get('sex') === 'M';
-    }.property('content.sex'),
-
-    isFemale: function () {
-        return this.get('sex') === 'F';
-    }.property('content.sex'),
-
-    description: function () {
-        return this.get("content.name") + " | " + this.get("content.age");
-    }.property("content.name", "content.age"),
 
     actions: {
         toggleProp:  function() {
