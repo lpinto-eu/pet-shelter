@@ -1,4 +1,4 @@
-App.AnimalsNewController = Ember.ObjectController.extend({
+App.AnimalsNewController = Ember.Controller.extend({
     actions: {
         save: function () {
             var self = this;

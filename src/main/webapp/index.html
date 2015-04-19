@@ -191,9 +191,9 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
-                                        {{#view Ember.View contentBinding="picture" class="form-control image-picker"}}
-                                        {{#if picture}}
-                                        <img {{bind-attr src="picture"}} class="animal-preview"/>
+                                        {{#view Ember.View contentBinding="model.picture" class="form-control image-picker"}}
+                                        {{#if model.picture}}
+                                        <img {{bind-attr src="model.picture"}} class="animal-preview"/>
                                         {{else}}
                                         <img src="img/dog.png" class="animal-preview"/>
                                         {{/if}}
@@ -204,19 +204,19 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Name</span>
-                                        {{input valueBinding='name' class="form-control" required=true}}
+                                        {{input valueBinding='model.name' class="form-control" required=true}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Age</span>
-                                        {{input type="number" valueBinding='age' class="form-control"}}
+                                        {{input type="number" valueBinding='model.age' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Sex <i class="fa fa-venus text-pink"></i><i class="fa fa-mars text-blue"></i></span>
-                                        {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="sex" class="form-control"}}
+                                        {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="model.sex" class="form-control"}}
                                     </div>
                                 </div>
                             </fieldset>
@@ -225,13 +225,13 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Species</span>
-                                        {{input valueBinding='species' class="form-control"}}
+                                        {{input valueBinding='model.species' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Breed</span>
-                                        {{input valueBinding='breed' class="form-control"}}
+                                        {{input valueBinding='model.breed' class="form-control"}}
                                     </div>
                                 </div>
                             </fieldset>
@@ -240,13 +240,13 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Drugs <i class="fa fa-medkit text-warning"></i></span>
-                                        {{input valueBinding='drugs' class="form-control"}}
+                                        {{input valueBinding='model.drugs' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Sterilized <i class="fa fa-shield text-success"></i></span>
-                                        <span class="form-control">{{view Ember.Checkbox checkedBinding="sterilized"}}</span>
+                                        <span class="form-control">{{view Ember.Checkbox checkedBinding="model.sterilized"}}</span>
                                     </div>
                                 </div>
                             </fieldset>
@@ -257,31 +257,31 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Fur Pattern</span>
-                                        {{input valueBinding='furPattern' class="form-control"}}
+                                        {{input valueBinding='model.furPattern' class="form-control"}}
                                     </div>
                                 </div>
                                 <div id="color" class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Color</span>
-                                        <span class="form-control">{{view App.ColorPicker valueBinding='primaryColor'}}</span>
+                                        <span class="form-control">{{view App.ColorPicker valueBinding='model.primaryColor'}}</span>
                                     </div>
                                 </div>
                                 <div id="secondaryColor" class="form-group" style="display:none">
                                     <div class="input-group">
                                         <span class="input-group-addon">Second Color</span>
-                                        <span class="form-control">{{view App.ColorPicker valueBinding='secondaryColor'}}</span>
+                                        <span class="form-control">{{view App.ColorPicker valueBinding='model.secondaryColor'}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Proportion</span>
-                                        {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="proportion" class="form-control"}}
+                                        {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="model.proportion" class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Weight <i class="fa fa-"></i></span>
-                                        {{input type="number" valueBinding='weight' class="form-control"}}
+                                        {{input type="number" valueBinding='model.weight' class="form-control"}}
                                     </div>
                                 </div>
                             </fieldset>
@@ -290,19 +290,19 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Status</span>
-                                        {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="status" class="form-control"}}
+                                        {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="model.status" class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Observations</span>
-                                        {{view Ember.TextArea valueBinding='observations' class="form-control"}}
+                                        {{view Ember.TextArea valueBinding='model.observations' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Admission <i class="fa fa-clock-o"></i></span>
-                                        {{view App.DatePicker valueBinding='admission' class="form-control"  placeholder="12/31/1999"}}
+                                        {{view App.DatePicker valueBinding='model.admission' class="form-control"  placeholder="12/31/1999"}}
                                     </div>
                                 </div>
                             </fieldset>
@@ -319,14 +319,14 @@
 
         <!-- ================================================================================================ Animal -->
         <script type="text/html" data-template-name="animals/animal">
-            <section id="animal" {{bind-attr class="isEditing:editing well"}}>
+            <section id="animal" {{bind-attr class="isEditing:editing"}}>
                 <article class="row">
                     <div class="col-xs-12">
                         <h2>
-                            {{name}}&nbsp;
+                            {{model.name}}&nbsp;
                             <span class="badge">
-                                <abbr {{bind-attr title="recordDate"}}>
-                                    {{date admission}} <i class="fa fa-clock-o"></i>
+                                <abbr title={{model.admission}}>
+                                    {{date model.admission}} <i class="fa fa-clock-o"></i>
                                 </abbr>
                             </span>
                         </h2>
@@ -342,25 +342,25 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Name</span>
-                                        {{input valueBinding='name' class="form-control" required=true}}
+                                        {{input valueBinding='model.name' class="form-control" required=true}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Age</span>
-                                        {{input valueBinding='age' class="form-control"}}
+                                        {{input valueBinding='model.age' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Species</span>
-                                        {{input valueBinding='species' class="form-control"}}
+                                        {{input valueBinding='model.species' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Breed</span>
-                                        {{input valueBinding='breed' class="form-control"}}
+                                        {{input valueBinding='model.breed' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -369,25 +369,25 @@
                                             Drugs
                                             <i class="fa fa-medkit text-warning"></i>
                                         </span>
-                                        {{input valueBinding='drugs' class="form-control"}}
+                                        {{input valueBinding='model.drugs' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Fur Pattern</span>
-                                        {{input valueBinding='furPattern' class="form-control"}}
+                                        {{input valueBinding='model.furPattern' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                            Status
+                                            Proportion
                                         </span>
                                         {{view Ember.Select
                                                 contentBinding="App.Proportion"
                                                 optionValuePath="content.id"
                                                 optionLabelPath="content.name"
-                                                valueBinding="porportion"
+                                                valueBinding="model.proportion"
                                                 class="form-control dropdown-toggle"
                                         }}
                                     </div>
@@ -403,7 +403,7 @@
                                             contentBinding="App.Sex"
                                             optionValuePath="content.id"
                                             optionLabelPath="content.name"
-                                            valueBinding="sex"
+                                            valueBinding="model.sex"
                                             class="form-control dropdown-toggle"
                                         }}
                                     </div>
@@ -415,28 +415,28 @@
                                             <i class="fa fa-shield text-success"></i>
                                         </span>
                                         <span class="form-control">
-                                            {{view Ember.Checkbox checkedBinding="sterilized"}}
+                                            {{view Ember.Checkbox checkedBinding="model.sterilized"}}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Color</span>
-                                        {{view App.ColorPicker valueBinding='primaryColor'}}
+                                        {{view App.ColorPicker valueBinding='model.primaryColor'}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Second Color</span>
-                                        {{view App.ColorPicker valueBinding='secondaryColor'}}
+                                        {{view App.ColorPicker valueBinding='model.secondaryColor'}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
-                                        {{#view Ember.View contentBinding="picture" class="form-control image-picker"}}
-                                        {{#if picture}}
-                                        <img {{bind-attr src="picture"}} class="animal-preview"/>
+                                        {{#view Ember.View contentBinding="model.picture" class="form-control image-picker"}}
+                                        {{#if model.picture}}
+                                        <img {{bind-attr src="model.picture"}} class="animal-preview"/>
                                         {{else}}
                                         <img src="img/dog.png" class="animal-preview"/>
                                         {{/if}}
@@ -453,7 +453,7 @@
                                                 contentBinding="App.Status"
                                                 optionValuePath="content.id"
                                                 optionLabelPath="content.name"
-                                                valueBinding="status"
+                                                valueBinding="model.status"
                                                 class="form-control dropdown-toggle"
                                         }}
                                     </div>
@@ -461,19 +461,19 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Observations</span>
-                                        {{view Ember.TextArea valueBinding='observations' class="form-control"}}
+                                        {{view Ember.TextArea valueBinding='model.observations' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Weight</span>
-                                        {{input type="number" valueBinding='weight' class="form-control"}}
+                                        {{input type="number" valueBinding='model.weight' class="form-control"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Admission</span>
-                                        {{view App.DatePicker valueBinding='admission'}}
+                                        {{view App.DatePicker valueBinding='model.admission' class="form-control" placeholder="12/31/2000"}}
                                     </div>
                                 </div>
                             </fieldset>
@@ -490,66 +490,66 @@
                             <div class="col-xs-6">
                                 <dl class="dl-horizontal">
                                     <dt>Age:</dt>
-                                    <dd>{{age}}</dd>
+                                    <dd>{{model.age}}</dd>
                                     <dt>Species:</dt>
-                                    <dd>{{species}}</dd>
+                                    <dd>{{model.species}}</dd>
                                     <dt>Breed:</dt>
-                                    <dd>{{breed}}</dd>
-                                    {{#if drugs}}
+                                    <dd>{{model.breed}}</dd>
+                                    {{#if model.drugs}}
                                         <dt>Drugs:</dt>
-                                        <dd><i class="fa fa-medkit text-warning"></i> {{drugs}}</dd>
+                                        <dd><i class="fa fa-medkit text-warning"></i> {{model.drugs}}</dd>
                                     {{/if}}
                                     <dt>Fur Pattern:</dt>
-                                    <dd>{{furPattern}}</dd>
+                                    <dd>{{model.furPattern}}</dd>
                                     <dt>Proportion:</dt>
                                     <dd>
-                                        {{#if isSmall}}
+                                        {{#if model.isSmall}}
                                             Small
                                         {{/if}}
 
-                                    {{#if isMedium}}
+                                    {{#if model.isMedium}}
                                     Medium
                                     {{/if}}
 
-                                        {{#if isLarge}}
+                                        {{#if model.isLarge}}
                                             Large
                                         {{/if}}
                                     </dd>
                                     <dt>Sex:</dt>
-                                    <dd>{{sex-display content=sex class=" desc-item"}}</dd>
+                                    <dd>{{sex-display content=model.sex class=" desc-item"}}</dd>
                                     <dt>Color:</dt>
                                     <dd>
-                                        {{#if primaryColorIsNull}}
+                                        {{#if model.primaryColorIsNull}}
                                             <span> No Primary Color Selected </span>
                                         {{else}}
-                                            <span style="{{unbound getStyle primaryColor}}" >  </span>
+                                            <span style="{{unbound getStyle model.primaryColor}}" >  </span>
                                         {{/if}}
                                     </dd>
                                     <dt>Second Color:</dt>
                                     <dd>
-                                        {{#if secondaryColorIsNull}}
+                                        {{#if model.secondaryColorIsNull}}
                                             <span> No Secondary Color Selected </span>
                                         {{else}}
-                                            <span style="{{unbound getStyle secondaryColor}}" >  </span>
+                                            <span style="{{unbound getStyle model.secondaryColor}}" >  </span>
                                         {{/if}}
                                     </dd>
                                     <dt>Sterilized:</dt>
-                                    <dd><i {{bind-attr class="sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
+                                    <dd><i {{bind-attr class="model.sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
                                     <dt>Status:</dt>
                                     <dd>
-                                        {{status-display content=status  class="desc-item status-icon"}}
+                                        {{status-display content=model.status  class="desc-item status-icon"}}
                                     </dd>
                                     <dt>Observations:</dt>
-                                    <dd>{{observations}}</dd>
+                                    <dd>{{model.observations}}</dd>
                                     <dt>Weight:</dt>
-                                    <dd>{{weight}}</dd>
+                                    <dd>{{model.weight}}</dd>
                                     <dt>Admission:</dt>
-                                    <dd>{{date admission}}</dd>
+                                    <dd>{{date model.admission}}</dd>
                                 </dl>
                             </div>
                             <div class="col-xs-6">
-                                {{#if picture}}
-                                    <img {{bind-attr src="picture"}} class="animal-img"/>
+                                {{#if model.picture}}
+                                    <img {{bind-attr src="model.picture"}} class="animal-img"/>
                                 {{else}}
                                     <img src="img/dog.png" class="animal-img"/>
                                 {{/if}}
