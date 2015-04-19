@@ -116,30 +116,30 @@
                         {{#link-to "animals.new" tagName="li" title="Add new" class="well animal-item text-center"}}
                                 <i class="fa fa-plus-square fa-2x text-success"></i>
                         {{/link-to}}
-                        {{#each}}
-                            {{#link-to "animals.animal" id tagName="li" class="well animal-item"}}
-                                    {{#if picture}}
-                                        <div class="center-cropped animal-img" style='background-image: url("{{picture}}");'></div>
+                        {{#each animal in this}}
+                            {{#link-to "animals.animal" animal.id tagName="li" class="well animal-item"}}
+                                    {{#if animal.picture}}
+                                        <div class="center-cropped animal-img" style='background-image: url("{{animal.picture}}");'></div>
                                     {{else}}
                                         <img src="img/dog.png" class="animal-img"/>
                                     {{/if}}
                                 <span class="description">
-                                    <strong {{bind-attr class="drugs:text-warning"}}>{{name}}</strong>
+                                    <strong {{bind-attr class="drugs:text-warning"}}>{{animal.name}}</strong>
 
                                     <br/>
                                     <small>
-                                        {{status-display content=status  class="desc-item status-icon"}}
+                                        {{status-display content=status class="desc-item status-icon"}}
 
-                                        {{sex-display content=sex class=" desc-item"}}
+                                        {{sex-display content=sex class="desc-item"}}
 
-                                        {{#if drugs}}
-                                            <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
+                                        {{#if animal.drugs}}
+                                            <abbr {{bind-attr title="animal.drugs"}} class="text-warning desc-item">
                                                 <i class="fa fa-medkit"></i>
                                             </abbr>
                                         {{/if}}
 
-                                        {{#if sterilized}}
-                                            <i class="fa fa-shield text-success  desc-item"></i>
+                                        {{#if animal.sterilized}}
+                                            <i class="fa fa-shield text-success desc-item"></i>
                                         {{/if}}
                                     </small>
                                 </span>
@@ -178,151 +178,6 @@
                 <article class="dash-2 well"><br/><header><h4>In shelter</h4></header><h1>{{sheterCount}}</h1>animal{{#if sheterCountPlural}}s{{/if}}</article></div>
             </section>
         </script>
-
-        <!-- ========================================================================================= Animals Faces -->
-        <script type="text/html" data-template-name="animals/list">
-            <section id="animals" class="row">
-                <article class="col-xs-12">
-                    {{#each}}
-                        {{#link-to "animals.animal" this title="Details / Edit"}}
-                        <div class="col-xs-6 col-sm-3 col-md-2">
-                            <div {{bind-attr class="drugs:panel-warning:panel-info :animals-list-item :panel"}}>
-                                <div class="panel-heading">
-                                    {{name}}
-                                </div>
-                                <div class="panel-body">
-                                    {{#if picture}}
-                                    <img {{bind-attr src="picture"}} class="animal-img"/>
-                                    {{else}}
-                                    <img src="img/dog.png" class="animal-img"/>
-                                    {{/if}}
-                                </div>
-                                <div class="panel-footer">
-                                    <p>
-                                        {{sex-display content=sex class=" desc-item"}}
-                                        {{#if drugs}}
-                                        <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                            <i class="fa fa-medkit"></i>
-                                        </abbr>
-                                        {{/if}}
-                                        {{#if sterilized}}
-                                        <i class="fa fa-shield text-success  desc-item"></i>
-                                        {{/if}}
-                                        <span class="pull-right">
-                                            <abbr class="timestamp" {{bind-attr title="recordDate"}}>
-                                                <i class="fa fa-clock-o desc-item"></i> {{date admission}}
-                                            </abbr>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        {{/link-to}}
-                    {{else}}
-                        <div class="alert alert-warning" role="alert">
-                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            <span class="sr-only">Error:</span>
-                            There are no animals to be displayed.
-                            <div class="pull-right">
-                                {{#link-to "animals.new"  activeClass="active" title="Add new" class="alert-warning"}}
-                                    <i class="fa fa-plus-square"></i> Register animals
-                                {{/link-to}}
-                            </div>
-                        </div>
-                    {{/each}}
-                </article>
-            </section>
-        </script>
-
-
-        <!-- ========================================================================================= Animals Table -->
-        <script type="text/html" data-template-name="animals/table">
-            <section id="animals" class="row">
-                <article class="col-xs-12">
-                    {{#if content}}
-                        <table class="table table-bordered table-hover table-condensed table-striped">
-                            <thead>
-                                <tr>
-                                    <th style="width: 35%;">
-                                        <a {{action 'pushSort' 'name'}} title="Sort by">
-                                            <i class="fa fa-sort-alpha-asc"></i> Name
-                                        </a>
-                                    </th>
-                                    <th>
-                                        <a {{action 'pushSort' 'age'}} title="Sort by">
-                                            <i class="fa fa-sort-numeric-asc"></i> Age
-                                        </a>
-                                    </th>
-                                    <th>
-                                        <a {{action 'pushSort' 'species'}} title="Sort by">
-                                            <i class="fa fa-sort-alpha-asc"></i> Species
-                                        </a>
-                                    </th>
-                                    <th>
-                                        <a {{action 'pushSort' 'breed'}} title="Sort by">
-                                            <i class="fa fa-sort-alpha-asc"></i> Breed
-                                        </a>
-                                    </th>
-                                    <th>
-                                        <a {{action 'pushSort' 'admission'}} title="Sort by">
-                                            <i class="fa fa-sort-amount-asc"></i> Details
-                                        </a>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each class="animal-link"}}
-                                    {{#link-to "animals.animal" id tagName="tr"}}
-                                        <td>
-                                            {{#if picture}}
-                                                <img {{bind-attr src="picture"}} class="animal-img" style="height:19px"/>
-                                            {{else}}
-                                                <img src="img/dog.png" class="animal-img" style="height:19px"/>
-                                            {{/if}}
-                                            {{name}}
-                                        </td>
-                                        <td>{{age}}</td>
-                                        <td>{{species}}</td>
-                                        <td>{{breed}}</td>
-                                        <td>
-                                            {{status-display content=status  class="desc-item status-icon"}}
-                                            {{sex-display content=sex class=" desc-item"}}
-                                            {{#if drugs}}
-                                                <abbr {{bind-attr title="drugs"}} class="text-warning desc-item">
-                                                    <i class="fa fa-medkit"></i>
-                                                </abbr>
-                                            {{/if}}
-                                            {{#if sterilized}}
-                                                <i class="fa fa-shield text-success  desc-item"></i>
-                                            {{/if}}
-                                            <abbr class="timestamp pull-right" {{bind-attr title="recordDate"}}>
-                                                <i class="fa fa-clock-o desc-item"></i>{{date admission}}
-                                            </abbr>
-                                        </td>
-                                    {{/link-to}}
-                                {{else}}
-                                    <tr>
-                                        <td>You have no animals.</td>
-                                    </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                    {{else}}
-                    <div class="alert alert-warning" role="alert">
-                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                        <span class="sr-only">Error:</span>
-                        There are no animals to be displayed.
-                        <div class="pull-right">
-                            {{#link-to "animals.new"  activeClass="active" title="Add new" class="alert-warning"}}
-                                <i class="fa fa-plus-square"></i> Register animals
-                            {{/link-to}}
-                        </div>
-                    </div>
-                    {{/if}}
-                </article>
-            </section>
-        </script>
-
 
         <!-- =========================================================================================== Animals New -->
         <script type = "text/html" data-template-name="animals/new">
@@ -718,19 +573,19 @@
             <section id="animals" class="row">
                 {{#if content}}
                     <section class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
-                        {{#each}}
-                            {{#link-to "organizations.organization" this title="Details / Edit"}}
+                        {{#each organization in this}}
+                            {{#link-to "organizations.organization" organization.id title="Details / Edit"}}
                                 <div class="col-xs-12">
                                     <div class="panel">
                                         <div class="panel-heading">&nbsp;</div>
                                         <div class="panel-body">
-                                            {{#if logo}}
-                                                <img {{bind-attr src="logo"}} class="img-responsive"/>
+                                            {{#if organization.logo}}
+                                                <img {{bind-attr src="organization.logo"}} class="img-responsive"/>
                                             {{else}}
                                                 <i class="fa fa-picture-o"></i>
                                             {{/if}}
                                         </div>
-                                        <div class="panel-footer"><p>{{name}}</p></div>
+                                        <div class="panel-footer"><p>{{organization.name}}</p></div>
                                     </div>
                                 </div>
                             {{/link-to}}
