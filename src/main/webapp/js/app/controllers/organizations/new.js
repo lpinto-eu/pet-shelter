@@ -3,7 +3,7 @@
     @author Vítor Martins - varmartins@varmartins.com
 */
 
-App.OrganizationsNewController = Ember.ObjectController.extend({
+App.OrganizationsNewController = Ember.Controller.extend({
     actions: {
         save: function () {
             var self = this;

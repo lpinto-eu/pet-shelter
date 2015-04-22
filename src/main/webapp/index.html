@@ -629,16 +629,15 @@
                 <h3>Add new Organization</h3>
                 <form {{action "save" on="submit"}} class="form-horizontal">
                     <fieldset>
-                        <!-- <legend>Edit</legend> -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Name</span>
-                                {{input valueBinding='name' class="form-control" required=true}}
+                                {{input valueBinding='model.name' class="form-control" required=true}}
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon">Logo <i class="fa fa-picture-o"></i></span>
-                                {{#view Ember.View contentBinding="logo"  class="form-control image-picker"}}
-                                {{view App.FotoUp}}
+                                {{#view Ember.View contentBinding="model.logo"  class="form-control image-picker"}}
+                                    {{view App.FotoUp}}
                                 {{/view}}
                             </div>
                         </div>
@@ -654,10 +653,10 @@
 
         <!-- ========================================================================================== Organization -->
         <script type="text/html" data-template-name="organizations/organization">
-            <section id="organization" {{bind-attr class="isEditing:editing well"}}>
+            <section id="organization" {{bind-attr class="isEditing:editing"}}>
                 <article class="row">
                     <div class="col-xs-12">
-                        <h2>{{name}}</h2>
+                        <h2>{{model.name}}</h2>
                     </div>
                 </article>
                 <article class="row">
@@ -669,14 +668,19 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">Name</span>
-                                            {{input valueBinding='name' class="form-control" required=true}}
+                                            {{input valueBinding='model.name' class="form-control" required=true}}
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <span class="input-group-addon">Logo <i class="fa fa-picture-o"></i></span>
-                                            {{#view Ember.View contentBinding="logo" class="form-control image-picker"}}
-                                            {{view App.FotoUp}}
+                                            <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
+                                            {{#view Ember.View contentBinding="model.picture" class="form-control image-picker"}}
+                                                {{#if model.picture}}
+                                                    <img {{bind-attr src="model.logo"}} class="animal-preview"/>
+                                                {{else}}
+                                                    <i class="fa fa-picture-o"></i>
+                                                {{/if}}
+                                                {{view App.FotoUp}}
                                             {{/view}}
                                         </div>
                                     </div>
@@ -689,14 +693,15 @@
                                 </div>
                             </form>
                         </div>
+
                     {{else}}
                         <!-- DETAILS -->
                         <div id="details" class="col-xs-12">
                             <dl class="dl-horizontal">
                                 <dt>Creation:</dt>
-                                <dd>{{dateFormat created}}</dd>
+                                <dd>{{dateFormat model.created}}</dd>
                                 <dt>Last update:</dt>
-                                <dd>{{date Format updated}}</dd>
+                                <dd>{{date Format model.updated}}</dd>
                             </dl>
                             <div class="text-right">
                                 <hr/>
