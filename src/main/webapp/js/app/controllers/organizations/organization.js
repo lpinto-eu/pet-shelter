@@ -3,7 +3,7 @@
     @author Vítor Martins - varmartins@varmartins.com
 */
 
-App.OrganizationsOrganizationController = Ember.ObjectController.extend({
+App.OrganizationsOrganizationController = Ember.Controller.extend({
     isEditing: false,
 
     actions: {
