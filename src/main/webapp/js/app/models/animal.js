@@ -27,5 +27,9 @@ App.Animal = DS.Model.extend({
 
     isLarge: function () {
         return this.get('proportion') === 3;
-    }.property('proportion')
+    }.property('proportion'),
+
+    bgimg: function () {
+        return ('background-image: url("' + this.get("picture") + '");').htmlSafe();;
+    }.property('picture')
 });
