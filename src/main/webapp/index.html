@@ -119,7 +119,7 @@
                         {{#each animal in this}}
                             {{#link-to "animals.animal" animal.id tagName="li" class="well animal-item"}}
                                     {{#if animal.picture}}
-                                        <div class="center-cropped animal-img" style='background-image: url("{{animal.picture}}");'></div>
+                                        <div class="center-cropped animal-img" style={{animal.bgimg}}></div>
                                     {{else}}
                                         <img src="img/dog.png" class="animal-img"/>
                                     {{/if}}
