@@ -10,6 +10,10 @@
     height: 100px;*/
     background-position: center center;
     background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 /*******************************************************************************
@@ -138,7 +142,6 @@ body {
 .animal-item .animal-img {
     width: 55px; height: 55px;
     float: left;
-    background-size:cover;
 }
 
 .animal-item .description {
@@ -211,15 +214,8 @@ a {
 .panel-body {
     padding: 0;
     overflow:hidden;
-    height: 150px;
     line-height: 150px;
     text-align: center;
-}
-
-.animal-img {
-    max-width: 100%;
-    max-height: 100%;
-    vertical-align: middle;
 }
 
 .panel-footer p {
@@ -262,8 +258,8 @@ a {
 /*
  * Organizations
 *******************************************************************************/
-#organizations-index-section tr img {
-    height: 100px;
+.organization-img {
+    height: 200px;
 }
 
 
