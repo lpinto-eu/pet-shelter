@@ -5,13 +5,6 @@ App.AnimalsIndexRoute =  App.AuthenticatedRoute.extend({
     }
 });
 
-App.AnimalsListRoute = App.AuthenticatedRoute.extend({
-    controllerName: 'Animals',
-    model: function() {
-        return this.store.find('Animal');
-    }
-});
-
 App.AnimalsRoute = App.AuthenticatedRoute.extend({
     controllerName: 'Animals',
     model: function() {
