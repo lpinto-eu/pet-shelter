@@ -7,5 +7,9 @@ App.Organization = DS.Model.extend({
     created:       DS.attr(),
     updated:       DS.attr(),
     name:          DS.attr('string'),
-    logo:          DS.attr()
+    logo:          DS.attr(),
+
+    bgimg: function () {
+        return ('background-image: url("' + this.get("logo") + '");').htmlSafe();;
+    }.property('logo')
 });
