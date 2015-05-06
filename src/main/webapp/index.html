@@ -30,6 +30,11 @@
             {{partial "header"}}
 
             <div class="container">
+                <div class="fade in" role="alert" style="display:none" id="flash">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong>
+                    <span></span>
+                </div>
                 {{outlet}}
             </div>
         </script>
