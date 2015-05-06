@@ -126,11 +126,6 @@ body {
 /*
  * Animals
 *******************************************************************************/
-#animals-header h1,
-#animals-header #links {
-    display: inline-block;
-}
-
 #animals .fa-plus-square {
     margin: 14px;
 }
@@ -262,11 +257,34 @@ body {
 /*
  * Organizations
 *******************************************************************************/
-.organization-img {
-    height: 200px;
+#organizations-list .item{
+    margin-bottom: 1px;
+    padding: 0;
+    min-height: 58px;
+    cursor: pointer;
 }
 
+#organizations-list .item .fa-plus-square {
+    margin: 14px;
+}
 
+#organizations-list .item .logo {
+    width: 58px; height: 58px;
+    float: left;
+}
+
+#organizations-list .item i.logo {
+    margin: 15px 14px;
+}
+
+#organizations-list .item .description {
+    margin: 7px;
+    float: left;
+}
+
+#organizations-list .item .description strong {
+    font-size: 16px;
+}
 
 /*******************************************************************************
  *

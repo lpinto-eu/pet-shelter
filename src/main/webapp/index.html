@@ -575,25 +575,25 @@
         <!--                                                                                           Organizations -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name="organizations">
-            <section id="animals" class="row">
+            <section id="section-organizations" class="row">
                 {{#if content}}
-                    <section class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                    <ul class="col-xs-12 col-sm-5 col-md-4 col-lg-3 no-bullets" id="organizations-list">
+                        <!-- {{#link-to "organizations.new" tagName="li" title="Add new" class="well text-center item"}}
+                            <i class="fa fa-plus-square fa-2x text-success"></i>
+                        {{/link-to}} -->
                         {{#each organization in this}}
-                            {{#link-to "organizations.organization" organization.id title="Details / Edit"}}
-                                <div class="panel">
-                                    <div class="panel-heading">&nbsp;</div>
-                                    <div class="panel-body">
-                                        {{#if organization.logo}}
-                                            <div class="center-cropped organization-img" style=' {{organization.bgimg}}'></div>
-                                        {{else}}
-                                            <i class="fa fa-picture-o"></i>
-                                        {{/if}}
-                                    </div>
-                                    <div class="panel-footer"><p>{{organization.name}}</p></div>
-                                </div>
+                            {{#link-to "organizations.organization" organization.id tagName="li" class="well item" title="Details / Edit"}}
+                                {{#if organization.logo}}
+                                    <div class="center-cropped logo" style='{{organization.bgimg}}'></div>
+                                {{else}}
+                                    <i class="fa fa-picture-o fa-2x logo"></i>
+                                {{/if}}
+                                <span class="description">
+                                    <strong>{{organization.name}}</strong>
+                                </span>
                             {{/link-to}}
                         {{/each}}
-                    </section>
+                    </ul>
                     <section class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
                         {{outlet}}
                     </section>
@@ -601,8 +601,7 @@
                     <section class="col-xs-12">
                         <article class="alert alert-warning" role="alert">
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            <span class="sr-only">Error:</span>
-                            There are no organizations to be displayed.
+                            <span class="sr-only">Error:</span> There are no organizations to be displayed.
                             <div class="pull-right">
                                 {{#link-to "organizations.new"  activeClass="active" title="Add new" class="alert-warning"}}
                                     <i class="fa fa-plus-square"></i> Register organization
