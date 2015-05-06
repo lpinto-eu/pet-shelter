@@ -68,7 +68,7 @@
                                     {{#link-to 'animals' activeClass="active"}}Animals{{/link-to}}
                                 </li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">{{currentUser}} <b class="caret"></b></a>
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">{{currentUser.name}} <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a {{action 'logout'}}>Logout</a></li>
                                     </ul>
@@ -117,10 +117,12 @@
                     <section class="col-xs-12 col-sm-8 col-lg-9">
                         {{outlet}}
                     </section>
+
                     <ul class="col-xs-12 col-sm-4 col-lg-3 no-bullets">
                         {{#link-to "animals.new" tagName="li" title="Add new" class="well animal-item text-center"}}
                                 <i class="fa fa-plus-square fa-2x text-success"></i>
                         {{/link-to}}
+
                         {{#each animal in this}}
                             {{#link-to "animals.animal" animal.id tagName="li" class="well animal-item"}}
                                     {{#if animal.picture}}
@@ -130,22 +132,12 @@
                                     {{/if}}
                                 <span class="description">
                                     <strong {{bind-attr class="drugs:text-warning"}}>{{animal.name}}</strong>
-
                                     <br/>
                                     <small>
-                                        {{status-display content=status class="desc-item status-icon"}}
-
-                                        {{sex-display content=sex class="desc-item"}}
-
-                                        {{#if animal.drugs}}
-                                            <abbr {{bind-attr title="animal.drugs"}} class="text-warning desc-item">
-                                                <i class="fa fa-medkit"></i>
-                                            </abbr>
-                                        {{/if}}
-
-                                        {{#if animal.sterilized}}
-                                            <i class="fa fa-shield text-success desc-item"></i>
-                                        {{/if}}
+                                        {{status-display content=animal.status class="desc-item status-icon"}}
+                                        {{sex-display content=animal.sex class="desc-item"}}
+                                        {{#if animal.drugs}}<abbr {{bind-attr title="animal.drugs"}} class="text-warning desc-item"><i class="fa fa-medkit"></i></abbr>{{/if}}
+                                        {{#if animal.sterilized}}<i class="fa fa-shield text-success desc-item"></i>{{/if}}
                                     </small>
                                 </span>
                             {{/link-to}}
@@ -155,12 +147,9 @@
                     <section class="col-xs-12">
                         <article class="alert alert-warning" role="alert">
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            <span class="sr-only">Error:</span>
-                            There are no animals to be displayed.
+                            <span class="sr-only">Error:</span> There are no animals to be displayed.
                             <div class="pull-right">
-                                {{#link-to "animals.new"  activeClass="active" title="Add new" class="alert-warning"}}
-                                    <i class="fa fa-plus-square"></i> Register animals
-                                {{/link-to}}
+                                {{#link-to "animals.new" activeClass="active" title="Add new" class="alert-warning"}}<i class="fa fa-plus-square"></i> Register animals{{/link-to}}
                             </div>
                         </article>
                     </section>
@@ -197,12 +186,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
                                         {{#view Ember.View contentBinding="model.picture" class="form-control image-picker"}}
-                                        {{#if model.picture}}
-                                        <img {{bind-attr src="model.picture"}} class="animal-preview"/>
-                                        {{else}}
-                                        <img src="img/dog.png" class="animal-preview"/>
-                                        {{/if}}
-                                        {{view App.FotoUp}}
+                                            {{#if model.picture}}
+                                                <img {{bind-attr src="model.picture"}} class="animal-preview"/>
+                                            {{else}}
+                                                <img src="img/dog.png" class="animal-preview"/>
+                                            {{/if}}
+                                            {{view App.FotoUp}}
                                         {{/view}}
                                     </div>
                                 </div>
@@ -307,7 +296,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Admission <i class="fa fa-clock-o"></i></span>
-                                        {{view App.DatePicker valueBinding='model.admission' class="form-control"  placeholder="12/31/1999"}}
+                                        {{view App.DatePicker valueBinding='model.admission' class="form-control" placeholder="12/31/1999"}}
                                     </div>
                                 </div>
                             </fieldset>
@@ -328,22 +317,16 @@
                 <article class="row">
                     <div class="col-xs-12">
                         <h2>
-                            {{model.name}}&nbsp;
-                            <span class="badge">
-                                <abbr title={{model.admission}}>
-                                    {{date model.admission}} <i class="fa fa-clock-o"></i>
-                                </abbr>
-                            </span>
+                            {{model.name}} <span class="badge"><abbr title={{model.admission}}>{{date model.admission}} <i class="fa fa-clock-o"></i></abbr></span>
                         </h2>
                     </div>
                 </article>
+
                 <article class="row">
-                    {{#if isEditing}}
-                    <!-- UPDATE -->
+                    {{#if isEditing}} <!-- UPDATE -->
                     <div   class="col-md-12">
                         <form class="form-horizontal" role="form">
                             <fieldset>
-                                <!-- <legend>Edit</legend> -->
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">Name</span>
@@ -370,10 +353,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Drugs
-                                            <i class="fa fa-medkit text-warning"></i>
-                                        </span>
+                                        <span class="input-group-addon">Drugs <i class="fa fa-medkit text-warning"></i></span>
                                         {{input valueBinding='model.drugs' class="form-control"}}
                                     </div>
                                 </div>
@@ -385,43 +365,20 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Proportion
-                                        </span>
-                                        {{view Ember.Select
-                                                contentBinding="App.Proportion"
-                                                optionValuePath="content.id"
-                                                optionLabelPath="content.name"
-                                                valueBinding="model.proportion"
-                                                class="form-control dropdown-toggle"
-                                        }}
+                                        <span class="input-group-addon">Proportion</span>
+                                        {{view Ember.Select contentBinding="App.Proportion" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="model.proportion" class="form-control dropdown-toggle"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Sex
-                                            <i class="fa fa-venus text-pink"></i>
-                                            <i class="fa fa-mars text-blue"></i>
-                                        </span>
-                                        {{view Ember.Select
-                                            contentBinding="App.Sex"
-                                            optionValuePath="content.id"
-                                            optionLabelPath="content.name"
-                                            valueBinding="model.sex"
-                                            class="form-control dropdown-toggle"
-                                        }}
+                                        <span class="input-group-addon">Sex <i class="fa fa-venus text-pink"></i> <i class="fa fa-mars text-blue"></i></span>
+                                        {{view Ember.Select contentBinding="App.Sex" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="model.sex" class="form-control dropdown-toggle"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <span class="input-group-addon">
-                                            Sterilized
-                                            <i class="fa fa-shield text-success"></i>
-                                        </span>
-                                        <span class="form-control">
-                                            {{view Ember.Checkbox checkedBinding="model.sterilized"}}
-                                        </span>
+                                        <span class="input-group-addon">Sterilized <i class="fa fa-shield text-success"></i></span>
+                                        <span class="form-control">{{view Ember.Checkbox checkedBinding="model.sterilized"}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -440,12 +397,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Image <i class="fa fa-picture-o"></i></span>
                                         {{#view Ember.View contentBinding="model.picture" class="form-control image-picker"}}
-                                        {{#if model.picture}}
-                                        <img {{bind-attr src="model.picture"}} class="animal-preview"/>
-                                        {{else}}
-                                        <img src="img/dog.png" class="animal-preview"/>
-                                        {{/if}}
-                                        {{view App.FotoUp id="image-button"}}
+                                            {{#if model.picture}}
+                                                <img {{bind-attr src="model.picture"}} class="animal-preview"/>
+                                            {{else}}
+                                                <img src="img/dog.png" class="animal-preview"/>
+                                            {{/if}}
+                                            {{view App.FotoUp id="image-button"}}
                                         {{/view}}
                                     </div>
                                 </div>
@@ -454,13 +411,7 @@
                                         <span class="input-group-addon">
                                             Status
                                         </span>
-                                        {{view Ember.Select
-                                                contentBinding="App.Status"
-                                                optionValuePath="content.id"
-                                                optionLabelPath="content.name"
-                                                valueBinding="model.status"
-                                                class="form-control dropdown-toggle"
-                                        }}
+                                        {{view Ember.Select contentBinding="App.Status" optionValuePath="content.id" optionLabelPath="content.name" valueBinding="model.status" class="form-control dropdown-toggle"}}
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -494,62 +445,23 @@
                         <div id="details">
                             <div class="col-xs-6">
                                 <dl class="dl-horizontal">
-                                    <dt>Age:</dt>
-                                    <dd>{{model.age}}</dd>
-                                    <dt>Species:</dt>
-                                    <dd>{{model.species}}</dd>
-                                    <dt>Breed:</dt>
-                                    <dd>{{model.breed}}</dd>
-                                    {{#if model.drugs}}
-                                        <dt>Drugs:</dt>
-                                        <dd><i class="fa fa-medkit text-warning"></i> {{model.drugs}}</dd>
-                                    {{/if}}
-                                    <dt>Fur Pattern:</dt>
-                                    <dd>{{model.furPattern}}</dd>
-                                    <dt>Proportion:</dt>
-                                    <dd>
-                                        {{#if model.isSmall}}
-                                            Small
-                                        {{/if}}
-
-                                    {{#if model.isMedium}}
-                                    Medium
-                                    {{/if}}
-
-                                        {{#if model.isLarge}}
-                                            Large
-                                        {{/if}}
-                                    </dd>
-                                    <dt>Sex:</dt>
-                                    <dd>{{sex-display content=model.sex class=" desc-item"}}</dd>
+                                    <dt>Age:</dt><dd>{{model.age}}</dd>
+                                    <dt>Species:</dt><dd>{{model.species}}</dd>
+                                    <dt>Breed:</dt><dd>{{model.breed}}</dd>
+                                    {{#if model.drugs}}<dt>Drugs:</dt><dd><i class="fa fa-medkit text-warning"></i> {{model.drugs}}</dd>{{/if}}
+                                    <dt>Fur Pattern:</dt><dd>{{model.furPattern}}</dd>
+                                    <dt>Proportion:</dt><dd>{{#if model.isSmall}}Small{{/if}}{{#if model.isMedium}}Medium{{/if}}{{#if model.isLarge}}Large{{/if}}</dd>
+                                    <dt>Sex:</dt><dd>{{sex-display content=model.sex class="desc-item"}}</dd>
                                     <dt>Color:</dt>
                                     <dd>
-                                        {{#if model.primaryColorIsNull}}
-                                            <span> No Primary Color Selected </span>
-                                        {{else}}
-                                            <span style="{{unbound getStyle model.primaryColor}}" >  </span>
-                                        {{/if}}
+                                        {{#if model.primaryColor}}<span style="{{unbound getStyle model.primaryColor}}" >  </span>{{/if}}
+                                        {{#if model.secondaryColor}}<span style="{{unbound getStyle model.secondaryColor}}" ></span>{{/if}}
                                     </dd>
-                                    <dt>Second Color:</dt>
-                                    <dd>
-                                        {{#if model.secondaryColorIsNull}}
-                                            <span> No Secondary Color Selected </span>
-                                        {{else}}
-                                            <span style="{{unbound getStyle model.secondaryColor}}" >  </span>
-                                        {{/if}}
-                                    </dd>
-                                    <dt>Sterilized:</dt>
-                                    <dd><i {{bind-attr class="model.sterilized::disabled :text-success :fa  :fa-shield"}}></i></dd>
-                                    <dt>Status:</dt>
-                                    <dd>
-                                        {{status-display content=model.status  class="desc-item status-icon"}}
-                                    </dd>
-                                    <dt>Observations:</dt>
-                                    <dd>{{model.observations}}</dd>
-                                    <dt>Weight:</dt>
-                                    <dd>{{model.weight}}</dd>
-                                    <dt>Admission:</dt>
-                                    <dd>{{date model.admission}}</dd>
+                                    <dt>Sterilized:</dt><dd><i {{bind-attr class="model.sterilized::disabled :text-success :fa :fa-shield"}}></i></dd>
+                                    <dt>Status:</dt><dd>{{status-display content=model.status class="desc-item status-icon"}}</dd>
+                                    <dt>Observations:</dt><dd>{{model.observations}}</dd>
+                                    <dt>Weight:</dt><dd>{{model.weight}}</dd>
+                                    <dt>Admission:</dt><dd>{{date model.admission}}</dd>
                                 </dl>
                             </div>
                             <div class="col-xs-6">
@@ -603,7 +515,7 @@
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             <span class="sr-only">Error:</span> There are no organizations to be displayed.
                             <div class="pull-right">
-                                {{#link-to "organizations.new"  activeClass="active" title="Add new" class="alert-warning"}}
+                                {{#link-to "organizations.new" activeClass="active" title="Add new" class="alert-warning"}}
                                     <i class="fa fa-plus-square"></i> Register organization
                                 {{/link-to}}
                             </div>
@@ -627,7 +539,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon">Logo <i class="fa fa-picture-o"></i></span>
-                                {{#view Ember.View contentBinding="model.logo"  class="form-control image-picker"}}
+                                {{#view Ember.View contentBinding="model.logo" class="form-control image-picker"}}
                                     {{view App.FotoUp}}
                                 {{/view}}
                             </div>
@@ -711,17 +623,17 @@
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name='users/signup'>
             <section id="signup" class="row text-center">
-                <div class=" col-sm-6 col-sm-offset-3">
+                <div class="col-sm-6 col-sm-offset-3">
                     <div class="jumbotron">
                         <form class="form-horizontal" {{action "createUser" on="submit"}}>
                             <div class="form-group">
-                                {{input value=name type="text" class="form-control input-lg" id="name" placeholder="name"  required=true}}
+                                {{input value=name type="text" class="form-control input-lg" id="name" placeholder="name" required=true}}
                             </div>
                             <div class="form-group">
                                 {{input value=email type="text" class="form-control input-lg" id="email" placeholder="email" required=true}}
                             </div>
                             <div class="form-group">
-                                {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password"  required=true}}
+                                {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password" required=true}}
                             </div>
                             {{#link-to 'sessions'}}login{{/link-to}} or
                             <button type="submit" class="btn btn-primary btn-lg">Register</button>
@@ -750,7 +662,7 @@
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name='sessions'>
             <section id="login" class="row text-center">
-                <div class=" col-sm-6 col-sm-offset-3">
+                <div class="col-sm-6 col-sm-offset-3">
                     <div class="jumbotron">
                         <form class="form-horizontal" {{action "loginUser" on="submit"}}>
                             <div class="form-group">
@@ -807,8 +719,8 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <!-- ember -->
-        <script src="//builds.emberjs.com/release/ember.debug.js"></script>
-        <!--<script src="js/libs/ember.prod.js"></script>-->
+        <!--<script src="//builds.emberjs.com/release/ember.debug.js"></script>-->
+        <script src="js/libs/ember.prod.js"></script>
         <script src="js/libs/ember-template-compiler.js"></script>
         <script src="js/libs/ember-data.min.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
