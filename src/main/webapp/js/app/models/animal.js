@@ -16,6 +16,8 @@ App.Animal = DS.Model.extend({
     proportion: DS.attr(),
     primaryColor: DS.attr(),
     secondaryColor: DS.attr(),
+    organization : DS.attr(),
+//    organization: DS.belongsTo('organization'),
 
     isSmall: function () {
         return this.get('proportion') === 1;
