@@ -22,7 +22,7 @@ public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
         mapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.enable(DeserializationFeature.WRAP_EXCEPTIONS);
-        
+
         /* Serialization`*/
         mapper.enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -30,7 +30,7 @@ public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
         mapper.enable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        
+
         /* Other */
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         mapper.enable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY);

@@ -26,13 +26,13 @@ public class JacksonFeature implements Feature {
 
     @Override
     public boolean configure(final FeatureContext context) {
-            String postfix = '.' + context.getConfiguration().getRuntimeType().name().toLowerCase();
-            context.property( org.glassfish.jersey.CommonProperties.MOXY_JSON_FEATURE_DISABLE + postfix, true );
+        String postfix = '.' + context.getConfiguration().getRuntimeType().name().toLowerCase();
+        context.property(org.glassfish.jersey.CommonProperties.MOXY_JSON_FEATURE_DISABLE + postfix, true);
 
-            context.register( JsonParseExceptionMapper.class );
-            context.register( JsonMappingExceptionMapper.class );
-            context.register( JacksonJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class );
+        context.register(JsonParseExceptionMapper.class);
+        context.register(JsonMappingExceptionMapper.class);
+        context.register(JacksonJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class);
 
-            return true;
+        return true;
     }
 }
