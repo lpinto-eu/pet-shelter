@@ -16,13 +16,13 @@ public class UserDTO extends User {
 
         List<User> result = new ArrayList<>(users.size());
 
-        users.stream().forEach((user) -> {
+        for (eu.lpinto.petshelter.persistence.entities.User user : users) {
             result.add(new UserDTO(user));
-        });
+        }
 
         return result;
     }
-    
+
     public static List<User> fromListIDs(final List<eu.lpinto.petshelter.persistence.entities.User> users) {
         if (users == null) {
             return new ArrayList<>(0);
@@ -30,7 +30,7 @@ public class UserDTO extends User {
 
         List<User> result = new ArrayList<>(users.size());
 
-        for(eu.lpinto.petshelter.persistence.entities.User user : users) {
+        for (eu.lpinto.petshelter.persistence.entities.User user : users) {
             result.add(new UserDTO(user.getId()));
         }
 
