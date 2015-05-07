@@ -4,10 +4,11 @@
 */
 
 App.Organization = DS.Model.extend({
-    created:       DS.attr(),
-    updated:       DS.attr(),
+    created:       DS.attr('isodate'),
+    updated:       DS.attr('isodate'),
     name:          DS.attr('string'),
     logo:          DS.attr(),
+    capacity:      DS.attr('number'),
 //    animals:       DS.hasMany('animal'),
 
     bgimg: function () {

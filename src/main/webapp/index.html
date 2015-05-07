@@ -543,6 +543,10 @@
                                     {{view App.FotoUp}}
                                 {{/view}}
                             </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">Capacity</span>
+                                {{input type="number" valueBinding='model.capacity' class="form-control"}}
+                            </div>
                         </div>
                     </fieldset>
                     <div class="pull-right">
@@ -587,6 +591,12 @@
                                             {{/view}}
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Capacity</span>
+                                            {{input type="number" valueBinding='model.capacity' class="form-control"}}
+                                        </div>
+                                    </div>
                                 </fieldset>
                                 <div class="text-right">
                                     <hr/>
@@ -605,6 +615,8 @@
                                 <dd>{{dateFormat model.created}}</dd>
                                 <dt>Last update:</dt>
                                 <dd>{{date Format model.updated}}</dd>
+                                <dt>Capacity:</dt>
+                                <dd>{{model.capacity}}</dd>
                             </dl>
                             <div class="text-right">
                                 <hr/>

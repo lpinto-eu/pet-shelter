@@ -70,6 +70,7 @@ public class Organization implements Serializable {
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private List<Animal> animals;
 
+    private Integer capacity;
 
     /* Constructors */
     public Organization() {
@@ -124,6 +125,14 @@ public class Organization implements Serializable {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     @Override

@@ -49,6 +49,6 @@ public class OrganizationDTO extends Organization {
         super(organization.getLogo(),
               UserDTO.fromListIDs(organization.getUsers()),
               AnimalDTO.fromListIDs(organization.getAnimals()),
-              organization.getId(), organization.getName(), organization.getCreated(), organization.getUpdated());
+              organization.getId(), organization.getName(), organization.getCreated(), organization.getUpdated(), organization.getCapacity());
     }
 }
