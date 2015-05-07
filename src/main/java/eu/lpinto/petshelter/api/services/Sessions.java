@@ -38,23 +38,23 @@ public class Sessions {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@FormParam("email") String email, @FormParam("password") String password) {
         if (email == null || email.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Missing email.").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new eu.lpinto.petshelter.api.dto.Error("Missing email.")).build();
         }
 
         if (password == null || password.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Missing password.").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new eu.lpinto.petshelter.api.dto.Error("Missing password.")).build();
         }
 
         User user = userFacade.findByEmail(email);
 
         if (user == null) {
             System.out.println("Unnown access token.");
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Unnown user.").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(new eu.lpinto.petshelter.api.dto.Error("Unnown user.")).build();
 
         }
 
         if (!user.getPassword().equals(Digest.getSHA(password))) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid password.").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(new eu.lpinto.petshelter.api.dto.Error("Invalid password.")).build();
         }
 
         String accessToken = String.valueOf(System.currentTimeMillis()) + user.getId();

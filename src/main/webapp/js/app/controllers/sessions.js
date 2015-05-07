@@ -97,13 +97,9 @@ App.SessionsController = Ember.ArrayController.extend({
                                 });
 
                     }, function (error) {
-                        console.log(error.responseText);
-
-                        console.log(_this.get('controllers.alert.alert'));
-
-                        if (error.status === 401) {
+                        if (error.status === 401 || error.status === 400) {
                             var alertController = _this.get('controllers.alert');
-                            alertController.set('alert', ['warning', 'You must be logged to view this page.']);
+                            alertController.set('alert', ['warning', 'Login failed: ' + error.responseJSON.message]);
 
                         } else {
                             var alertController = _this.get('controllers.alert');
