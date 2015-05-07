@@ -39,7 +39,6 @@
 *******************************************************************************/
 body {
     font-size: 14px;
-    margin-bottom: 30px;
 }
 
 .input-group-addon {
@@ -130,6 +129,10 @@ body {
     margin: 14px;
 }
 
+#animals ul {
+    overflow-y: scroll;
+    max-height: 500px;
+}
 
 #animals .well {
     margin-bottom: 1px;
