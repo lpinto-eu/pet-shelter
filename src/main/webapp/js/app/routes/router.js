@@ -21,10 +21,10 @@ App.Router.map(function () {
     this.resource('organizations', function () {
         this.route('new');
         this.route("organization", {path: ":organization_id"}, function () {
-            this.route('users');
+            this.route('animals');
+            });
         });
     });
-});
 
 App.ApplicationRoute = Ember.Route.extend({
     actions: {

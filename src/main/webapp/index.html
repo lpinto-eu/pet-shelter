@@ -490,9 +490,9 @@
             <section id="section-organizations" class="row">
                 {{#if content}}
                     <ul class="col-xs-12 col-sm-5 col-md-4 col-lg-3 no-bullets" id="organizations-list">
-                        <!-- {{#link-to "organizations.new" tagName="li" title="Add new" class="well text-center item"}}
+                        {{#link-to "organizations.new" tagName="li" title="Add new" class="well text-center item"}}
                             <i class="fa fa-plus-square fa-2x text-success"></i>
-                        {{/link-to}} -->
+                        {{/link-to}}
                         {{#each organization in this}}
                             {{#link-to "organizations.organization" organization.id tagName="li" class="well item" title="Details / Edit"}}
                                 {{#if organization.logo}}
@@ -614,6 +614,11 @@
                         </div>
                     {{/if}}
                 </article>
+            </section>
+            <section class="row">
+                <section class="col-xs-12">
+                        {{outlet}}
+                    </section>
             </section>
         </script>
 
