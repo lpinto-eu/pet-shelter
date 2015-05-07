@@ -30,7 +30,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO insert a class description
@@ -175,7 +174,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
     public List<Organization> getOrganizations() {
         return organizations;
     }
