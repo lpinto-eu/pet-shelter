@@ -67,16 +67,17 @@ body {
 
 /* Nav
 *******************************************************************************/
-.navbar .container .navbar-brand {
-    margin-left:  0;
-}
-
 .navbar-brand {
-    padding:  0;
+    /*padding:  0;*/
 }
 
 .navbar-brand img {
     height:  50px;
+}
+
+.navbar-brand img {
+    margin-top: -19.5px;
+    display: inline-block;
 }
 
 /* Landing Page
