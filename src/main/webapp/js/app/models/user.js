@@ -11,7 +11,5 @@ App.User = DS.Model.extend({
   email:                 DS.attr('string'),
   name:                  DS.attr('string'),
   password:              DS.attr('string'),
-  apiKeys:               DS.hasMany('apiKey'),
-  organizations:         DS.hasMany('organization', { async: true }),
-  errors:                {}
+  apiKeys:               DS.hasMany('apiKey')
 });
