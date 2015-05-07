@@ -7,7 +7,7 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.facades;
+package eu.lpinto.petshelter.persistence.facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;

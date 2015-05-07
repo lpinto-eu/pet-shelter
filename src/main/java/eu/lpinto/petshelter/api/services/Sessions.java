@@ -7,11 +7,12 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.api;
+package eu.lpinto.petshelter.api.services;
 
+import eu.lpinto.petshelter.aaa.MemSession;
 import eu.lpinto.petshelter.api.util.Digest;
-import eu.lpinto.petshelter.entities.User;
-import eu.lpinto.petshelter.facades.UserFacade;
+import eu.lpinto.petshelter.persistence.entities.User;
+import eu.lpinto.petshelter.persistence.facades.UserFacade;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ws.rs.FormParam;

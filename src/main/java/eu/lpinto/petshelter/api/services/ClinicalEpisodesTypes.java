@@ -1,7 +1,7 @@
-package eu.lpinto.petshelter.api;
+package eu.lpinto.petshelter.api.services;
 
-import eu.lpinto.petshelter.entities.ClinicalEpisodeType;
-import eu.lpinto.petshelter.facades.ClinicalEpisodeTypeFacade;
+import eu.lpinto.petshelter.persistence.entities.ClinicalEpisodeType;
+import eu.lpinto.petshelter.persistence.facades.ClinicalEpisodeTypeFacade;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.EJB;

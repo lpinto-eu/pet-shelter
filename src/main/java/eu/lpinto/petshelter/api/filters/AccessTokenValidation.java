@@ -9,7 +9,7 @@
  */
 package eu.lpinto.petshelter.api.filters;
 
-import eu.lpinto.petshelter.api.MemSession;
+import eu.lpinto.petshelter.aaa.MemSession;
 import java.net.URI;
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;

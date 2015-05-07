@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.lpinto.petshelter.api;
+package eu.lpinto.petshelter.api.services;
 
-import eu.lpinto.petshelter.entities.User;
-import eu.lpinto.petshelter.facades.UserFacade;
+import eu.lpinto.petshelter.api.dto.User;
+import eu.lpinto.petshelter.api.dto.UserDTO;
+import eu.lpinto.petshelter.persistence.facades.UserFacade;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -36,20 +37,20 @@ public class Users {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> findAll() {
-        return usersFacade.findAll();
+        return UserDTO.fromList(usersFacade.findAll());
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public User retrieve(@PathParam("id") final int id) {
-        return usersFacade.retrieve(id);
+        return new UserDTO(usersFacade.retrieve(id));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(final User user) {
+    public Response create(final eu.lpinto.petshelter.persistence.entities.User user) {
         try {
             /* Create User With No Organization */
             usersFacade.create(user);
@@ -77,7 +78,7 @@ public class Users {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("id") final int id, final User user) {
+    public void update(@PathParam("id") final int id, final eu.lpinto.petshelter.persistence.entities.User user) {
         usersFacade.edit(user);
     }
 

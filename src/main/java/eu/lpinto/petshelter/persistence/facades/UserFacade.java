@@ -5,10 +5,10 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.facades;
+package eu.lpinto.petshelter.persistence.facades;
 
 import eu.lpinto.petshelter.api.util.Digest;
-import eu.lpinto.petshelter.entities.User;
+import eu.lpinto.petshelter.persistence.entities.User;
 import java.util.GregorianCalendar;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -8,9 +8,9 @@
  * Copyright (c) Pet Shelter - petshelter.info
  */
 
-package eu.lpinto.petshelter.facades;
+package eu.lpinto.petshelter.persistence.facades;
 
-import eu.lpinto.petshelter.entities.ClinicalEpisodeType;
+import eu.lpinto.petshelter.persistence.entities.ClinicalEpisodeType;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -5,7 +5,7 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.entities;
+package eu.lpinto.petshelter.persistence.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;

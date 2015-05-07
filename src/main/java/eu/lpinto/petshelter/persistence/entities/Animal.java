@@ -5,7 +5,7 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.entities;
+package eu.lpinto.petshelter.persistence.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO insert a class description
@@ -105,7 +104,7 @@ public class Animal implements Serializable {
 
     private Integer proportion;
 
-    private float weight;
+    private Float weight;
 
     @Size(max = 30)
     private String primaryColor;
@@ -295,11 +294,11 @@ public class Animal implements Serializable {
         this.proportion = proportion;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(final Float weight) {
         this.weight = weight;
     }
 
@@ -331,7 +330,6 @@ public class Animal implements Serializable {
         this.clinicalEpisodes = clinicalEpisodes;
     }
 
-    @XmlTransient
     public Organization getOrganization() {
         return organization;
     }

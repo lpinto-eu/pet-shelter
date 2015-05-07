@@ -5,9 +5,9 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.facades;
+package eu.lpinto.petshelter.persistence.facades;
 
-import eu.lpinto.petshelter.entities.Animal;
+import eu.lpinto.petshelter.persistence.entities.Animal;
 import java.util.Calendar;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

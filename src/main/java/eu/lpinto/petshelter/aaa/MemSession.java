@@ -7,7 +7,7 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.api;
+package eu.lpinto.petshelter.aaa;
 
 import java.util.HashMap;
 import java.util.Map;
