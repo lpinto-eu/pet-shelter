@@ -1,12 +1,12 @@
-package eu.lpinto.petshelter.api;
+package eu.lpinto.petshelter.api.services;
 
+import eu.lpinto.petshelter.api.dto.Organization;
+import eu.lpinto.petshelter.api.dto.OrganizationDTO;
 import eu.lpinto.petshelter.api.dts.OrganizationsDTS;
-import eu.lpinto.petshelter.api.filters.TrafficLogger;
-import eu.lpinto.petshelter.entities.Animal;
-import eu.lpinto.petshelter.entities.Organization;
-import eu.lpinto.petshelter.entities.User;
-import eu.lpinto.petshelter.facades.OrganizationFacade;
-import eu.lpinto.petshelter.facades.UserFacade;
+import eu.lpinto.petshelter.persistence.entities.Animal;
+import eu.lpinto.petshelter.persistence.entities.User;
+import eu.lpinto.petshelter.persistence.facades.OrganizationFacade;
+import eu.lpinto.petshelter.persistence.facades.UserFacade;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 @Path("organizations")
 public class Organizations {
 
-    final Logger logger = LoggerFactory.getLogger(TrafficLogger.class);
+    final Logger logger = LoggerFactory.getLogger(Organizations.class);
 
     @EJB
     private OrganizationFacade orgFacade;
@@ -50,7 +50,7 @@ public class Organizations {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Organization> findAll(@HeaderParam("userID") final Integer userID) {
         try {
-            return userFacade.retrieve(userID).getOrganizations();
+            return OrganizationDTO.fromList(userFacade.retrieve(userID).getOrganizations());
 
         } catch (RuntimeException ex) {
             logger.debug(ex.getLocalizedMessage(), ex);
@@ -74,7 +74,7 @@ public class Organizations {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Organization retrieve(@HeaderParam("userID") final Integer userID, @PathParam("id") final int organizationID) {
-        Organization result;
+        eu.lpinto.petshelter.persistence.entities.Organization result;
 
         try {
             result = orgFacade.retrieve(organizationID);
@@ -99,14 +99,14 @@ public class Organizations {
             throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         } else {
-            return result;
+            return new OrganizationDTO(result);
         }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@HeaderParam("userID") final Integer userID, final Organization organization) {
+    public Response create(@HeaderParam("userID") final Integer userID, final eu.lpinto.petshelter.persistence.entities.Organization organization) {
         try {
             /* Create Organization */
             orgFacade.create(organization);
@@ -127,8 +127,8 @@ public class Organizations {
     @POST
     @Path("load")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void load(List<Organization> organizations) {
-        for (Organization animal : organizations) {
+    public void load(List<eu.lpinto.petshelter.persistence.entities.Organization> organizations) {
+        for (eu.lpinto.petshelter.persistence.entities.Organization animal : organizations) {
             orgFacade.create(animal);
         }
     }
@@ -136,35 +136,35 @@ public class Organizations {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("id") final int organizationID, @HeaderParam("userID") final Integer userID, final Organization organization) {
+    public void update(@PathParam("id") final int organizationID, @HeaderParam("userID") final Integer userID, final eu.lpinto.petshelter.persistence.entities.Organization organization) {
         if (organization.getId() != null && organizationID != organization.getId()) {
             throw new WebApplicationException("Cannot update organization", Response.Status.BAD_REQUEST);
         }
 
         organization.setId(organizationID);
 
-        Organization result;
+        eu.lpinto.petshelter.persistence.entities.Organization savedOrganization;
 
         try {
-            result = orgFacade.retrieve(organizationID);
+            savedOrganization = orgFacade.retrieve(organizationID);
 
         } catch (Exception ex) {
             logger.debug(ex.getLocalizedMessage(), ex);
             throw new WebApplicationException("Cannot retrieve organization", ex);
         }
 
-        if (result == null) {
+        if (savedOrganization == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
 
         try {
-            result = userFacade.retrieve(userID).getOrganization(organizationID);
+            savedOrganization = userFacade.retrieve(userID).getOrganization(organizationID);
 
         } catch (RuntimeException ex) {
             logger.debug(ex.getLocalizedMessage(), ex);
             throw new WebApplicationException("Cannot retrieve organization", ex);
         }
-        if (result == null) {
+        if (savedOrganization == null) {
             throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         } else {

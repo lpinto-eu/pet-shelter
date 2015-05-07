@@ -8,7 +8,7 @@
  * Copyright (c) Pet Shelter - petshelter.info
  */
 
-package eu.lpinto.petshelter.entities;
+package eu.lpinto.petshelter.persistence.entities;
 
 import java.util.Calendar;
 import java.util.Set;

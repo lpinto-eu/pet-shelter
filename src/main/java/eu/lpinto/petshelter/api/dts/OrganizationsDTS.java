@@ -1,6 +1,6 @@
 package eu.lpinto.petshelter.api.dts;
 
-import eu.lpinto.petshelter.entities.Organization;
+import eu.lpinto.petshelter.persistence.entities.Organization;
 import java.text.SimpleDateFormat;
 import java.util.List;
 

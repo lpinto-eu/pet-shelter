@@ -5,7 +5,7 @@
  *
  * Copyright (c) Pet Shelter - www.petshelter.info
  */
-package eu.lpinto.petshelter.entities;
+package eu.lpinto.petshelter.persistence.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -180,12 +180,10 @@ public class Organization implements Serializable {
         }
     }
 
-    @XmlTransient
     public List<User> getUsers() {
         return users;
     }
 
-    @XmlTransient
     public List<Animal> getAnimals() {
         return animals;
     }

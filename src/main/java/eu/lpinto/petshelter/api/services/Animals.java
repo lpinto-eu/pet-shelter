@@ -1,11 +1,12 @@
-package eu.lpinto.petshelter.api;
+package eu.lpinto.petshelter.api.services;
 
+import eu.lpinto.petshelter.api.dto.Animal;
+import eu.lpinto.petshelter.api.dto.AnimalDTO;
 import eu.lpinto.petshelter.api.dts.AnimalsDTS;
-import eu.lpinto.petshelter.entities.Animal;
-import eu.lpinto.petshelter.entities.Organization;
-import eu.lpinto.petshelter.entities.User;
-import eu.lpinto.petshelter.facades.AnimalFacade;
-import eu.lpinto.petshelter.facades.UserFacade;
+import eu.lpinto.petshelter.persistence.entities.Organization;
+import eu.lpinto.petshelter.persistence.entities.User;
+import eu.lpinto.petshelter.persistence.facades.AnimalFacade;
+import eu.lpinto.petshelter.persistence.facades.UserFacade;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class Animals {
             if (getOrganization(userID) == null || getOrganization(userID).getAnimals() == null) {
                 return new ArrayList<>(0);
             } else {
-                return getOrganization(userID).getAnimals();
+                return AnimalDTO.fromList(getOrganization(userID).getAnimals());
             }
 
         } catch (WebApplicationException ex) {
@@ -74,7 +75,7 @@ public class Animals {
     @Produces(MediaType.APPLICATION_JSON)
     public Animal retrieve(@HeaderParam("userID") final Integer userID, @PathParam("id") final int id) {
         try {
-            return getOrganization(userID).getAnimal(id);
+            return new AnimalDTO(getOrganization(userID).getAnimal(id));
 
         } catch (WebApplicationException ex) {
             throw ex;
@@ -87,7 +88,7 @@ public class Animals {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@HeaderParam("userID") final Integer userID, Animal animal) {
+    public Response create(@HeaderParam("userID") final Integer userID, eu.lpinto.petshelter.persistence.entities.Animal animal) {
         try {
             if (getOrganization(userID) == null) {
                 return Response.status(Response.Status.CONFLICT).entity("Please create an organization first.").build();
@@ -96,7 +97,7 @@ public class Animals {
             animal.setOrganization(getOrganization(userID));
             animalsFacade.create(animal);
 
-            return Response.ok(animal).build();
+            return Response.ok(new AnimalDTO(animal)).build();
 
         } catch (WebApplicationException ex) {
             throw ex;
@@ -109,9 +110,9 @@ public class Animals {
     @POST
     @Path("load")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void load(@HeaderParam("userID") final Integer userID, List<Animal> animals) {
+    public void load(@HeaderParam("userID") final Integer userID, List<eu.lpinto.petshelter.persistence.entities.Animal> animals) {
         try {
-            for (Animal animal : animals) {
+            for (eu.lpinto.petshelter.persistence.entities.Animal animal : animals) {
                 animal.setOrganization(getOrganization(userID));
                 animalsFacade.create(animal);
             }
@@ -127,7 +128,7 @@ public class Animals {
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@HeaderParam("userID") final Integer userID, @PathParam("id") final int id, Animal animal) {
+    public Response update(@HeaderParam("userID") final Integer userID, @PathParam("id") final int id, eu.lpinto.petshelter.persistence.entities.Animal animal) {
         try {
 
             if (getOrganization(userID).getAnimal(animal.getId()) == null) {
