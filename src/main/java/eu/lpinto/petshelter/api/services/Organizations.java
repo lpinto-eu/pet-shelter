@@ -1,10 +1,10 @@
 package eu.lpinto.petshelter.api.services;
 
+import eu.lpinto.petshelter.api.dto.Animal;
+import eu.lpinto.petshelter.api.dto.AnimalDTO;
 import eu.lpinto.petshelter.api.dto.Organization;
 import eu.lpinto.petshelter.api.dto.OrganizationDTO;
 import eu.lpinto.petshelter.api.dts.OrganizationsDTS;
-import eu.lpinto.petshelter.persistence.entities.Animal;
-import eu.lpinto.petshelter.persistence.entities.User;
 import eu.lpinto.petshelter.persistence.facades.OrganizationFacade;
 import eu.lpinto.petshelter.persistence.facades.UserFacade;
 import java.nio.charset.Charset;
@@ -112,7 +112,7 @@ public class Organizations {
             orgFacade.create(organization);
 
             /* edit User */
-            User user = userFacade.retrieve(userID);
+            eu.lpinto.petshelter.persistence.entities.User user = userFacade.retrieve(userID);
             user.addOrg(organization);
             userFacade.edit(user);
 
@@ -229,7 +229,7 @@ public class Organizations {
     public List<Animal> findAllAnimals(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID) {
         try {
             /* Find Organizations */
-            return orgFacade.retrieve(orgID).getAnimals();
+            return AnimalDTO.fromList(orgFacade.retrieve(orgID).getAnimals());
 
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
@@ -244,7 +244,7 @@ public class Organizations {
     public Animal retrieveAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, @PathParam("animalID") final int animalID) {
         try {
             /* Find Organizations */
-            return userFacade.retrieve(userID).getOrganization(orgID).getAnimal(animalID);
+            return new AnimalDTO(userFacade.retrieve(userID).getOrganization(orgID).getAnimal(animalID));
 
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
@@ -256,7 +256,7 @@ public class Organizations {
     @POST
     @Path("{id}/animals")
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal createAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, Animal animal) {
+    public Animal createAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, eu.lpinto.petshelter.persistence.entities.Animal animal) {
         try {
             /* Find Organizations */
             return new Animals().create(userID, animal).readEntity(Animal.class);
