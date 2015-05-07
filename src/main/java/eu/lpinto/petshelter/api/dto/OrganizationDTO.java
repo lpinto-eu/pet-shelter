@@ -15,14 +15,14 @@ public class OrganizationDTO extends Organization {
         }
 
         List<Organization> result = new ArrayList<>(organizations.size());
-        
-        for(eu.lpinto.petshelter.persistence.entities.Organization organization : organizations) {
+
+        for (eu.lpinto.petshelter.persistence.entities.Organization organization : organizations) {
             result.add(new OrganizationDTO(organization));
         }
 
         return result;
     }
-    
+
     public static List<Organization> fromListIDs(final List<eu.lpinto.petshelter.persistence.entities.Organization> organizations) {
         if (organizations == null) {
             return new ArrayList<>(0);
@@ -30,9 +30,9 @@ public class OrganizationDTO extends Organization {
 
         List<Organization> result = new ArrayList<>(organizations.size());
 
-        organizations.stream().forEach((organization) -> {
+        for (eu.lpinto.petshelter.persistence.entities.Organization organization : organizations) {
             result.add(new OrganizationDTO(organization.getId()));
-        });
+        }
 
         return result;
     }
