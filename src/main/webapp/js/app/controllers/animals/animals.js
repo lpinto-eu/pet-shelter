@@ -11,8 +11,8 @@ App.AnimalsController = Ember.ArrayController.extend({
 
         if(males.length > 0 || females.length > 0) {
             return [
-                {key: 'Male', value: males.length},
-                {key: 'Female', value: females.length}
+                {key: '', value: males.length},
+                {key: '', value: females.length}
             ];
         } else {
             return null;
