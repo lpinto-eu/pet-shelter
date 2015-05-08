@@ -165,11 +165,11 @@
                         <h1 class="text-center">Shelter Dashboard</h1>
                     </div>
                 </div>
-                <div class="row text-center">
+                <div class="row">
                     {{#if cTimeMonth}}<article class="dash-1 well"><br/><header><h4>Admissions by month</h4></header>{{bar-graph data=cTimeMonth}}</article>{{else}}<article class="dash-1 well"><br/><header><h4>Admissions by month</h4></header><br/><i class="fa fa-3x fa-bar-chart"></i></article>{{/if}}
                 {{#if sex}}<article class="dash-2 well"><br/><header><h4>Sexes</h4></header>{{donut-chart colors="#2196F3,#E91E63" data=sex}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Sexes</h4></header><br/><i class="fa fa-3x fa-pie-chart"></i></article>{{/if}}
-                {{#if age}}<article class="dash-2 well"><br/><header><h4>Ages</h4></header>{{donut-chart data=age}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Ages</h4></header><br/><i class="fa fa-3x fa-area-chart"></i></article>{{/if}}
-                {{#if sterilized}}<article class="dash-2 well"><br/><header><h4>Sterilized</h4></header>{{donut-chart colors="#149c82,#98ABC5" data=sterilized}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Sterilized</h4></header><br/><i class="fa fa-3x fa-area-chart"></i></article>{{/if}}
+                {{#if age}}<article class="dash-2 well" ID="ages-dash"><br/><header><h4>Ages</h4></header>{{donut-chart colors="#f39c12,#18bc9c,#3498db" data=age}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Ages</h4></header><br/><i class="fa fa-3x fa-area-chart"></i></article>{{/if}}
+                {{#if sterilized}}<article class="dash-2 well"><br/><header><h4>Sterilized</h4></header>{{donut-chart colors="#18bc9c,#95a5a6" data=sterilized}}</article>{{else}}<article class="dash-2 well"><br/><header><h4>Sterilized</h4></header><br/><i class="fa fa-3x fa-area-chart"></i></article>{{/if}}
                 <article class="dash-2 well"><br/><header><h4>In shelter</h4></header><h1>{{sheterCount}}</h1>animal{{#if sheterCountPlural}}s{{/if}}</article></div>
             </section>
         </script>
