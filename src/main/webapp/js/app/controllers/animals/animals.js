@@ -19,6 +19,25 @@ App.AnimalsController = Ember.ArrayController.extend({
         }
     }.property('@each.sex'),
 
+    sterilized: function () {
+        var itIs = this.filter(function (animal) {
+            return animal.get('sterilized') === true;
+        });
+
+        var itsNot = this.filter(function (animal) {
+            return animal.get('sterilized') === false;
+        });
+
+        if(itIs.length > 0 || itsNot.length > 0) {
+            return [
+                {key: '', value: itIs.length},
+                {key: '', value: itsNot.length}
+            ];
+        } else {
+            return null;
+        }
+    }.property('@each.sterilized'),
+
     sheterCount: function () {
         return this.filter(function(animal) { return animal.get('status') === 1; }).length;
     }.property('@each.status'),
