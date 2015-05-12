@@ -1,19 +1,23 @@
-App.AnimalsNewController = Ember.Controller.extend({
+App.OrganizationsOrganizationAnimalsNewController = Ember.Controller.extend({
+    needs: ['OrganizationsOrganization'],
     actions: {
-        save: function () {
+        save: function (organizationID) {
             var self = this;
-            this.get('model').save()
-                    .then(function () {
-                        self.transitionToRoute('animals.animal', self.get("id"));
-                    }, function (reason) {
-                        self.send('error', reason);
-                    });
+            Ember.$.ajax({
+                url: "api/organizations/" + this.get("model.organization") + "/animals",
+                type: "POST",
+                data: JSON.stringify(this.get('model')),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    self.transitionToRoute('organizations.organization.animals');
+                }});
         },
         cancel: function () {
             if (this.get('content.isDirty')) {
                 if (this.get('content.isNew') && confirm('Unsaved changes will be lost.')) {
                     this.get('content').deleteRecord();
-                    this.transitionToRoute('animals');
+                    this.transitionToRoute('organizations.organization.animals');
                 }
             }
         }

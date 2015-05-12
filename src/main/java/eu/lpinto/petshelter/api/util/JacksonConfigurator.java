@@ -19,16 +19,19 @@ public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
     public JacksonConfigurator() {
         /* Deserialization */
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        mapper.enable(DeserializationFeature.WRAP_EXCEPTIONS);
+
         mapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.enable(DeserializationFeature.WRAP_EXCEPTIONS);
 
         /* Serialization`*/
         mapper.enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         mapper.enable(SerializationFeature.WRAP_EXCEPTIONS);
         mapper.enable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         /* Other */

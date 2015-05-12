@@ -2,13 +2,16 @@ package eu.lpinto.petshelter.api.services;
 
 import eu.lpinto.petshelter.api.dto.Animal;
 import eu.lpinto.petshelter.api.dto.AnimalDTO;
+import eu.lpinto.petshelter.api.dto.Error;
 import eu.lpinto.petshelter.api.dto.Organization;
 import eu.lpinto.petshelter.api.dto.OrganizationDTO;
 import eu.lpinto.petshelter.api.dts.OrganizationsDTS;
+import eu.lpinto.petshelter.persistence.facades.AnimalFacade;
 import eu.lpinto.petshelter.persistence.facades.OrganizationFacade;
 import eu.lpinto.petshelter.persistence.facades.UserFacade;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -43,20 +46,21 @@ public class Organizations {
     @EJB
     private UserFacade userFacade;
 
+    @EJB
+    private AnimalFacade animalsFacade;
+
     /*
      * CRUD
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Organization> findAll(@HeaderParam("userID") final Integer userID) {
+    public Response findAll(@HeaderParam("userID") final Integer userID) {
         try {
-            return OrganizationDTO.fromList(userFacade.retrieve(userID).getOrganizations());
+            return Response.ok(OrganizationDTO.valueOf(userFacade.retrieve(userID).getOrganizations())).build();
 
         } catch (RuntimeException ex) {
             logger.debug(ex.getLocalizedMessage(), ex);
-            throw new WebApplicationException("Cannot retrieve organizations",
-                                              ex,
-                                              Response.Status.INTERNAL_SERVER_ERROR);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Error(ex.getLocalizedMessage())).build();
         }
     }
 
@@ -106,76 +110,56 @@ public class Organizations {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@HeaderParam("userID") final Integer userID, final eu.lpinto.petshelter.persistence.entities.Organization organization) {
+    public Response create(@HeaderParam("userID") final Integer userID, final OrganizationDTO organization) {
         try {
             /* Create Organization */
-            orgFacade.create(organization);
+            eu.lpinto.petshelter.persistence.entities.Organization newOrganization = organization.entity();
+            newOrganization.setUsers(Arrays.asList(userFacade.retrieve(userID)));
+            orgFacade.create(newOrganization);
 
             /* edit User */
             eu.lpinto.petshelter.persistence.entities.User user = userFacade.retrieve(userID);
-            user.addOrg(organization);
+            user.addOrg(newOrganization);
             userFacade.edit(user);
-
-            return Response.ok(organization).build();
+            return Response.ok(new OrganizationDTO(newOrganization)).build();
 
         } catch (RuntimeException ex) {
             logger.debug(ex.getLocalizedMessage(), ex);
-            throw new WebApplicationException("Cannot create organization", ex);
-        }
-    }
-
-    @POST
-    @Path("load")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void load(List<eu.lpinto.petshelter.persistence.entities.Organization> organizations) {
-        for (eu.lpinto.petshelter.persistence.entities.Organization animal : organizations) {
-            orgFacade.create(animal);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Error(ex.getLocalizedMessage())).build();
         }
     }
 
     @PUT
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathParam("id") final int organizationID, @HeaderParam("userID") final Integer userID, final eu.lpinto.petshelter.persistence.entities.Organization organization) {
-        if (organization.getId() != null && organizationID != organization.getId()) {
+    public Response update(@PathParam("id") final int organizationID, @HeaderParam("userID") final Integer userID, final OrganizationDTO organization) {
+        if (organization.id != null && organizationID != organization.id) {
             throw new WebApplicationException("Cannot update organization", Response.Status.BAD_REQUEST);
         }
 
-        organization.setId(organizationID);
+        organization.id = organizationID;
 
         eu.lpinto.petshelter.persistence.entities.Organization savedOrganization;
 
         try {
             savedOrganization = orgFacade.retrieve(organizationID);
 
-        } catch (Exception ex) {
-            logger.debug(ex.getLocalizedMessage(), ex);
-            throw new WebApplicationException("Cannot retrieve organization", ex);
-        }
+            if (savedOrganization == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity(new Error("Unknown organization id: " + organizationID)).build();
+            }
 
-        if (savedOrganization == null) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
+            if (userFacade.retrieve(userID).getOrganization(organizationID) == null) {
+                return Response.status(Response.Status.FORBIDDEN).entity(new Error("User not in the animals' organization.")).build();
+            }
 
-        try {
-            savedOrganization = userFacade.retrieve(userID).getOrganization(organizationID);
+            eu.lpinto.petshelter.persistence.entities.Organization entity = organization.entity();
+            orgFacade.edit(entity);
+
+            return Response.status(Response.Status.NO_CONTENT).build();
 
         } catch (RuntimeException ex) {
             logger.debug(ex.getLocalizedMessage(), ex);
-            throw new WebApplicationException("Cannot retrieve organization", ex);
-        }
-        if (savedOrganization == null) {
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
-
-        } else {
-
-            try {
-                orgFacade.edit(organization);
-
-            } catch (RuntimeException ex) {
-                logger.debug(ex.getLocalizedMessage(), ex);
-                throw new WebApplicationException("Cannot update organization", ex);
-            }
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Error(ex.getLocalizedMessage())).build();
         }
     }
 
@@ -229,7 +213,7 @@ public class Organizations {
     public List<Animal> findAllAnimals(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID) {
         try {
             /* Find Organizations */
-            return AnimalDTO.fromList(orgFacade.retrieve(orgID).getAnimals());
+            return AnimalDTO.valueOf(orgFacade.retrieve(orgID).getAnimals());
 
         } catch (RuntimeException ex) {
             System.out.println(ex.getLocalizedMessage());
@@ -241,30 +225,61 @@ public class Organizations {
     @GET
     @Path("{id}/animals/{animalID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal retrieveAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, @PathParam("animalID") final int animalID) {
+    public Response retrieveAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, @PathParam("animalID") final int animalID) {
         try {
             /* Find Organizations */
-            return new AnimalDTO(userFacade.retrieve(userID).getOrganization(orgID).getAnimal(animalID));
+            return Response.ok().entity(new AnimalDTO(userFacade.retrieve(userID).getOrganization(orgID).getAnimal(animalID))).build();
 
         } catch (RuntimeException ex) {
-            System.out.println(ex.getLocalizedMessage());
-            // TODO return http code!!
-            return null;
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getLocalizedMessage()).build();
         }
     }
 
     @POST
     @Path("{id}/animals")
     @Produces(MediaType.APPLICATION_JSON)
-    public Animal createAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, eu.lpinto.petshelter.persistence.entities.Animal animal) {
+    public Response createAnimal(@HeaderParam("userID") final Integer userID, @PathParam("id") final int orgID, AnimalDTO animal) {
         try {
             /* Find Organizations */
-            return new Animals().create(userID, animal).readEntity(Animal.class);
+            eu.lpinto.petshelter.persistence.entities.Animal saveAnimal = animal.entity();
+            saveAnimal.setOrganization(orgFacade.retrieve(orgID));
+            animalsFacade.create(saveAnimal);
+
+            return Response.ok().entity(new AnimalDTO(saveAnimal)).build();
 
         } catch (RuntimeException ex) {
-            System.out.println(ex.getLocalizedMessage());
-            // TODO return http code!!
-            return null;
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getLocalizedMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("{orgID}/animals/{animalID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editAnimal(@HeaderParam("userID") final Integer userID, @PathParam("orgID") final int orgID, @PathParam("animalID") final int animalID, AnimalDTO animal) {
+        try {
+            eu.lpinto.petshelter.persistence.entities.Organization savedOrg = orgFacade.retrieve(orgID);
+
+            if (savedOrg == null) {
+                return Response.status(Response.Status.NOT_FOUND).build(); // org doesn't exist
+            }
+
+            if (!savedOrg.hasUser(userID)) {
+                return Response.status(Response.Status.FORBIDDEN).build(); // user not in org
+            }
+
+            if (!savedOrg.hasAnimal(animalID)) {
+                return Response.status(Response.Status.FORBIDDEN).build(); // animal not in org
+            }
+
+            eu.lpinto.petshelter.persistence.entities.Animal saveAnimal = animal.entity();
+            saveAnimal.setId(animalID);
+            saveAnimal.setOrganization(savedOrg);
+            animalsFacade.edit(saveAnimal);
+
+            return Response.status(Response.Status.NO_CONTENT).build();
+
+        } catch (RuntimeException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getLocalizedMessage()).build();
         }
     }
 

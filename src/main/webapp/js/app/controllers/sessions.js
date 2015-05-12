@@ -92,7 +92,7 @@ App.SessionsController = Ember.ArrayController.extend({
                                         attemptedTrans.retry();
                                         _this.set('attemptedTransition', null);
                                     } else {
-                                        _this.transitionToRoute('animals');
+                                        _this.transitionToRoute('organizations');
                                     }
                                 });
 

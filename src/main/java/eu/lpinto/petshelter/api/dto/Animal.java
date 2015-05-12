@@ -25,17 +25,17 @@ public class Animal extends Entity implements Serializable {
     public Float weight;
     public String primaryColor;
     public String secondaryColor;
-    public Organization organization;
+    public Integer organization;
 
     public Animal() {
         super();
     }
-    
+
     public Animal(final Integer id) {
         super(id);
     }
 
-    public Animal(Integer age, final String species, final String breed, final String drugs, final String sex, final Boolean sterilized, final Integer status, final String picture, final String observations, final Calendar admission, final String furPattern, final Integer proportion, final Float weight, final String primaryColor, final String secondaryColor, final Organization organization, final Integer id, final String name, final Calendar created, final Calendar updated) {
+    public Animal(Integer age, final String species, final String breed, final String drugs, final String sex, final Boolean sterilized, final Integer status, final String picture, final String observations, final Calendar admission, final String furPattern, final Integer proportion, final Float weight, final String primaryColor, final String secondaryColor, final Integer organization, final Integer id, final String name, final Calendar created, final Calendar updated) {
         super(id, name, created, updated);
         this.age = age;
         this.species = species;

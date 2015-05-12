@@ -36,7 +36,7 @@ App.OrganizationsOrganizationController = Ember.Controller.extend({
         },
 
         remove: function() {
-            if (confirm('Delete: ' + this.get('name') + '?\nThis will also delete all the animals!')) {
+            if (confirm('Delete: ' + this.get('model.name') + '?\nThis will also delete all the animals!')) {
                 var organization = this.get('model');
                 organization.deleteRecord();
                 var self = this;

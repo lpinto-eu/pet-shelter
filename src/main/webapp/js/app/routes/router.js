@@ -1,30 +1,30 @@
 App.Router.map(function () {
-    this.resource('error');
+    this.route('error');
 
-    this.resource('sessions', function () {
+    this.route('sessions', function () {
         this.route('logout');
         this.route('login');
     });
 
-    this.resource('users', function () {
+    this.route('users', function () {
         this.route('signup');
-        this.route('user', {path: '/user/:user_id'}, function () {
+        this.route('user', {path: ':user_id'}, function () {
             this.route('organizations');
         });
     });
 
-    this.resource('animals', function () {
-        this.route('new');
-        this.route("animal", {path: ":animal_id"});
-    });
-
-    this.resource('organizations', function () {
+    this.route('organizations', function () {
         this.route('new');
         this.route("organization", {path: ":organization_id"}, function () {
-            this.route('animals');
+            this.route('animals', function () {
+                this.route('new');
+                this.route("animal", {path: ":animal_id"});
             });
         });
     });
+
+    this.route('animals');
+});
 
 App.ApplicationRoute = Ember.Route.extend({
     actions: {
@@ -66,7 +66,7 @@ App.SessionsRoute = Ember.Route.extend({
         // before proceeding any further, verify if the token property is not empty
         // if it is, transition to the secret route
         if (!Ember.isEmpty(this.controllerFor('sessions').get('token'))) {
-            this.transitionTo('animals');
+            this.transitionTo('organizations');
         }
     }
 });

@@ -10,8 +10,6 @@
 }
 
 .center-cropped {
-/*    width: 100px;
-    height: 100px;*/
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,6 +20,7 @@
 
 .no-bullets {
     list-style-type: none;
+    padding-left: 0;
 }
 
 .text-blue {
@@ -38,7 +37,12 @@
  *
 *******************************************************************************/
 body {
+    margin-bottom: 30px;
     font-size: 14px;
+}
+
+a {
+    cursor: pointer;
 }
 
 .input-group-addon {
@@ -64,6 +68,10 @@ body {
  *
 *******************************************************************************/
 
+#main {
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 /* Nav
 *******************************************************************************/
@@ -132,22 +140,16 @@ body {
 
 #animals ul {
     overflow-y: scroll;
-    max-height: 500px;
-}
-
-#animals .well {
-    margin-bottom: 1px;
-    padding: 0;
 }
 
 .animal-item {
     min-height: 58px;
-    overflow: hidden;
     cursor: pointer;
+    margin-bottom: 1px;
 }
 
 .animal-item .animal-img {
-    width: 55px; height: 55px;
+    width: 58px; height: 58px;
     float: left;
 }
 
@@ -261,10 +263,10 @@ body {
 /*
  * Organizations
 *******************************************************************************/
-#organizations-list .item{
+#organizations-list .item {
     margin-bottom: 1px;
     padding: 0;
-    min-height: 58px;
+    min-height: 30px;
     cursor: pointer;
 }
 
@@ -273,21 +275,26 @@ body {
 }
 
 #organizations-list .item .logo {
-    width: 58px; height: 58px;
+    width: 30px; height: 30px;
+    margin-right: 5px;
     float: left;
 }
 
-#organizations-list .item i.logo {
-    margin: 15px 14px;
+#organizations-list .item .logo i {
+    margin: 8px;
 }
 
 #organizations-list .item .description {
-    margin: 7px;
-    float: left;
+    font-size: 12px;
+    font-family: helvetica, arial, 'lucida grande', sans-serif;
 }
 
-#organizations-list .item .description strong {
-    font-size: 16px;
+#organization .logo {
+    width: 74px; height: 74px;
+    float: left;
+}
+#organization .logo i {
+    margin: 20px;
 }
 
 /*******************************************************************************

@@ -37,7 +37,7 @@ public class Users {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> findAll() {
-        return UserDTO.fromList(usersFacade.findAll());
+        return UserDTO.valueOf(usersFacade.findAll());
     }
 
     @GET

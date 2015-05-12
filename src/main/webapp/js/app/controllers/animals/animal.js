@@ -1,4 +1,4 @@
-App.AnimalsAnimalController = Ember.Controller.extend({
+App.OrganizationsOrganizationAnimalsAnimalController = Ember.Controller.extend({
     isEditing: false,
 
     primaryColorIsNull: function () {
@@ -25,19 +25,23 @@ App.AnimalsAnimalController = Ember.Controller.extend({
             this.toggleProperty("isEditing");
         },
 
-        update: function() {
+        update: function () {
             if (this.get('content.isDirty')) {
                 var self = this;
-                this.get('model').save()
-                        .then(function() {
-                            self.transitionToRoute('animals');
-                            self.toggleProperty("isEditing");
-                        }, function (reason) {
-                            self.send('error', reason);
-                        });
+                Ember.$.ajax({
+                    url: "api/organizations/" + this.get("model.organization.id") + "/animals/" + this.get("model.id"),
+                    type: "PUT",
+                    data: JSON.stringify(this.get('model')),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        self.toggleProperty("isEditing");
+                        self.transitionToRoute('organizations.organization.animals');
+                    }
+                });
             } else {
-                this.transitionToRoute('animals');
                 this.toggleProperty("isEditing");
+                this.transitionToRoute('organizations.organization.animals');
             }
         },
 
@@ -49,7 +53,7 @@ App.AnimalsAnimalController = Ember.Controller.extend({
                 animal.save()
                         .then(function() {
                             self.toggleProperty("isEditing");
-                            self.transitionToRoute('animals');
+                            self.transitionToRoute('organizations.organization.animals');
                         }, function (reason) {
                             self.send('error', reason);
                         });

@@ -26,7 +26,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * TODO insert a class description
@@ -79,10 +78,14 @@ public class Organization implements Serializable {
         this.id = id;
     }
 
-    public Organization(Integer id, Calendar created, Calendar updated) {
+    public Organization(Integer id, Calendar created, Calendar updated, String name, String logo, List<User> users, List<Animal> animals) {
         this.id = id;
         this.created = created;
         this.updated = updated;
+        this.name = name;
+        this.logo = logo;
+        this.users = users;
+        this.animals = animals;
     }
 
     /* Getters/Setters */
@@ -190,6 +193,21 @@ public class Organization implements Serializable {
 
     public void setAnimals(List<Animal> animals) {
         this.animals = animals;
+    }
+
+    public boolean hasAnimal(int userID) {
+        List<Animal> animals = getAnimals();
+        if (animals == null || animals.isEmpty()) {
+            return false;
+        }
+
+        for (Animal animal : animals) {
+            if (animal.getId().equals(userID)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void setUsers(List<User> users) {

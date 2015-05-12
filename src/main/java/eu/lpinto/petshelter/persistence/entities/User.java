@@ -9,7 +9,6 @@ package eu.lpinto.petshelter.persistence.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -87,12 +86,14 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, Calendar created, Calendar updated, String password, int organizationId) {
+    public User(Integer id, Calendar created, Calendar updated, String email, String name, String password, List<Organization> organizations) {
         this.id = id;
         this.created = created;
         this.updated = updated;
+        this.email = email;
+        this.name = name;
         this.password = password;
-        this.organizations = Arrays.asList(new Organization(organizationId));
+        this.organizations = organizations;
     }
 
     /*

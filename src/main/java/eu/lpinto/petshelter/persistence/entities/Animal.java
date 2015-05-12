@@ -129,10 +129,28 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, Calendar created, Calendar updated, int organization) {
+    public Animal(Integer id, Calendar created, Calendar updated, String name, Integer age, String species, String breed, String drugs, String sex, Boolean sterilized, Integer status, String picture, String observations, Calendar admission, String furPattern, Integer proportion, Float weight, String primaryColor, String secondaryColor, List<ClinicalEpisode> clinicalEpisodes, Organization organization) {
         this.id = id;
         this.created = created;
         this.updated = updated;
+        this.name = name;
+        this.age = age;
+        this.species = species;
+        this.breed = breed;
+        this.drugs = drugs;
+        this.sex = sex;
+        this.sterilized = sterilized;
+        this.status = status;
+        this.picture = picture;
+        this.observations = observations;
+        this.admission = admission;
+        this.furPattern = furPattern;
+        this.proportion = proportion;
+        this.weight = weight;
+        this.primaryColor = primaryColor;
+        this.secondaryColor = secondaryColor;
+        this.clinicalEpisodes = clinicalEpisodes;
+        this.organization = organization;
     }
 
     /*

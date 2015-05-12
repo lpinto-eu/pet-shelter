@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +30,7 @@
         <script type="text/html">
             {{partial "header"}}
 
-            <div class="container">
+            <div id="main">
                 <div class="fade in" role="alert" style="display:none" id="flash">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <strong>Warning!</strong>
@@ -61,12 +62,12 @@
                     <div class="collapse navbar-collapse navbar-ex8-collapse">
                         {{#if isAuthenticated}}
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
+<!--                                <li class="dropdown">
                                     {{#link-to 'organizations' activeClass="active"}}Organizations{{/link-to}}
                                 </li>
                                 <li class="dropdown">
                                     {{#link-to 'animals' activeClass="active"}}Animals{{/link-to}}
-                                </li>
+                                </li>-->
                                 <li class="dropdown">
                                     <a href="" class="dropdown-toggle" data-toggle="dropdown">{{currentUser}} <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
@@ -82,7 +83,7 @@
 
         <!-- ================================================================================================= Index -->
         <script type="text/html" data-template-name='index'>
-            <section id="landingpage">
+            <section id="landingpage" class="container">
                 <section class="row">
                     <article class="col-xs-12 col-md-7 col-lg-8">
                         <img src="img/cat.jpg" class="img-responsive"/>
@@ -111,45 +112,54 @@
         <!-- ======================================================================================================= -->
         <!--                                                                                                 Animals -->
         <!-- ======================================================================================================= -->
-        <script type="text/html" data-template-name="animals">
+        <script type="text/html" data-template-name="organizations/organization/animals">
             <section id="animals" class="row">
                 {{#if content}}
-                    <section class="col-xs-12 col-sm-8 col-lg-9">
+                    <section class="col-xs-12 col-sm-6 col-md-7 col-lg-8 col-lg-push-4">
                         {{outlet}}
                     </section>
-
-                    <ul class="col-xs-12 col-sm-4 col-lg-3 no-bullets">
-                        {{#link-to "animals.new" tagName="li" title="Add new" class="well animal-item text-center"}}
-                                <i class="fa fa-plus-square fa-2x text-success"></i>
-                        {{/link-to}}
-
-                        {{#each animal in this}}
-                            {{#link-to "animals.animal" animal.id tagName="li" class="well animal-item"}}
-                                    {{#if animal.picture}}
-                                        <div class="center-cropped animal-img" style='{{animal.bgimg}}'></div>
-                                    {{else}}
-                                        <img src="img/dog.png" class="animal-img"/>
-                                    {{/if}}
-                                <span class="description">
-                                    <strong {{bind-attr class="drugs:text-warning"}}>{{animal.name}}</strong>
-                                    <br/>
-                                    <small>
-                                        {{status-display content=animal.status class="desc-item status-icon"}}
-                                        {{sex-display content=animal.sex class="desc-item"}}
-                                        {{#if animal.drugs}}<abbr {{bind-attr title="animal.drugs"}} class="text-warning desc-item"><i class="fa fa-medkit"></i></abbr>{{/if}}
-                                        {{#if animal.sterilized}}<i class="fa fa-shield text-success desc-item"></i>{{/if}}
-                                    </small>
-                                </span>
-                            {{/link-to}}
-                        {{/each}}
-                    </ul>
+                    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-lg-pull-8" style="border-left: #ccc solid 1px;">
+                        <header>
+                            <h3 style="display: inline-block">Animals</h3>
+                             {{#link-to "organizations.organization.animals.new" title="Add new"}}<i class="fa fa-plus-square text-success"></i>{{/link-to}}
+                        </header>
+                        <ul class="no-bullets" style="{{view.dynheight}}">
+                            {{#each animal in this}}
+                                {{#link-to "organizations.organization.animals.animal" animal.id tagName="li" class="animal-item"}}
+                                    <span class="avatar">
+                                        {{#if animal.picture}}
+                                            <span class="center-cropped animal-img" style='{{animal.bgimg}}'></span>
+                                        {{else}}
+                                            <img src="img/dog.png" class="animal-img"/>
+                                        {{/if}}
+                                    </span>
+                                    <span class="description">
+                                        <strong {{bind-attr class="drugs:text-warning"}}>{{animal.name}}</strong>
+                                        <br/>
+                                        <small>
+                                            {{status-display content=animal.status class="desc-item status-icon"}}
+                                            {{sex-display content=animal.sex class="desc-item"}}
+                                            {{#if animal.drugs}}<abbr {{bind-attr title="animal.drugs"}} class="text-warning desc-item"><i class="fa fa-medkit"></i></abbr>{{/if}}
+                                            {{#if animal.sterilized}}<i class="fa fa-shield text-success desc-item"></i>{{/if}}
+                                        </small>
+                                    </span>
+                                {{/link-to}}
+                            {{/each}}
+                        </ul>
+                        <div style="margin-bottom: -30px;">
+                            <a {{action 'pushSort' 'name'}} title="Sort by"><i class="fa fa-sort-alpha-asc"></i> Name </a>
+                            <a {{action 'pushSort' 'admission'}} title="Sort by"><i class="fa fa-sort-amount-asc"></i> Admission</a>
+                        </div>
+                    </div>
                 {{else}}
                     <section class="col-xs-12">
                         <article class="alert alert-warning" role="alert">
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             <span class="sr-only">Error:</span> There are no animals to be displayed.
                             <div class="pull-right">
-                                {{#link-to "animals.new" activeClass="active" title="Add new" class="alert-warning"}}<i class="fa fa-plus-square"></i> Register animals{{/link-to}}
+                                {{#link-to "organizations.organization.animals.new" activeClass="active" title="Add new" class="alert-warning"}}
+                                    <i class="fa fa-plus-square"></i> Register animal
+                                {{/link-to}}
                             </div>
                         </article>
                     </section>
@@ -158,11 +168,11 @@
         </script>
 
         <!-- ===================================================================================== Animals Dashboard -->
-        <script type = "text/html" data-template-name="animals/index">
+        <script type = "text/html" data-template-name="organizations/organization/animals/index">
             <section id="dashboard">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="text-center">Shelter Dashboard</h1>
+                        <h3 class="text-center">Shelter Dashboard</h3>
                     </div>
                 </div>
                 <div class="row text-center">
@@ -174,7 +184,7 @@
         </script>
 
         <!-- =========================================================================================== Animals New -->
-        <script type = "text/html" data-template-name="animals/new">
+        <script type = "text/html" data-template-name="organizations/organization/animals/new">
             <article class ="col-xs-12" id="section-animal-new">
                 <h3>Add new Animal</h3>
                 <div class="well">
@@ -312,7 +322,7 @@
 
 
         <!-- ================================================================================================ Animal -->
-        <script type="text/html" data-template-name="animals/animal">
+        <script type="text/html" data-template-name="organizations/organization/animals/animal">
             <section id="animal" {{bind-attr class="isEditing:editing"}}>
                 <article class="row">
                     <div class="col-xs-12">
@@ -443,7 +453,7 @@
                     {{else}}
                         <!-- DETAILS -->
                         <div id="details">
-                            <div class="col-xs-6">
+                            <div class="col-xs-6 col-sm-12 col-lg-6">
                                 <dl class="dl-horizontal">
                                     <dt>Age:</dt><dd>{{model.age}}</dd>
                                     <dt>Species:</dt><dd>{{model.species}}</dd>
@@ -464,9 +474,9 @@
                                     <dt>Admission:</dt><dd>{{date model.admission}}</dd>
                                 </dl>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-6 col-sm-12 col-lg-6">
                                 {{#if model.picture}}
-                                    <img {{bind-attr src="model.picture"}} class="animal-img"/>
+                                    <img {{bind-attr src="model.picture"}} class="animal-img img-responsive"/>
                                 {{else}}
                                     <img src="img/dog.png" class="animal-img"/>
                                 {{/if}}
@@ -489,24 +499,32 @@
         <script type="text/html" data-template-name="organizations">
             <section id="section-organizations" class="row">
                 {{#if content}}
-                    <ul class="col-xs-12 col-sm-5 col-md-4 col-lg-3 no-bullets" id="organizations-list">
-                        {{#link-to "organizations.new" tagName="li" title="Add new" class="well text-center item"}}
-                            <i class="fa fa-plus-square fa-2x text-success"></i>
-                        {{/link-to}}
-                        {{#each organization in this}}
-                            {{#link-to "organizations.organization" organization.id tagName="li" class="well item" title="Details / Edit"}}
-                                {{#if organization.logo}}
-                                    <div class="center-cropped logo" style='{{organization.bgimg}}'></div>
-                                {{else}}
-                                    <i class="fa fa-picture-o fa-2x logo"></i>
-                                {{/if}}
-                                <span class="description">
-                                    <strong>{{organization.name}}</strong>
-                                </span>
-                            {{/link-to}}
-                        {{/each}}
-                    </ul>
-                    <section class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+                    <section class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                        <ul class="no-bullets" id="organizations-list">
+                            <header>
+                                <h2 style="display: inline-block;">Organizations</h2>
+                                {{#link-to "organizations.new" title="Add new" class="item"}}
+                                    <i class="fa fa-plus-square fa-2x text-success"></i>
+                                {{/link-to}}
+                            </header>
+                            {{#each organization in this}}
+                                {{#link-to "organizations.organization" organization.id class="hover-edit" title="Details / Edit" class="pull-right"}}
+                                    <i class="fa fa-pencil"></i><span class="sr-only">Edit</span>
+                                {{/link-to}}
+                                {{#link-to "organizations.organization.animals" organization.id tagName="li" class="item" title="Organizations's animals"}}
+                                    <span class="avatar">
+                                        {{#if organization.logo}}
+                                            <span class="center-cropped logo" style='{{organization.bgimg}}'></span>
+                                        {{else}}
+                                            <span class="logo"><i class="fa fa-picture-o"></i></span>
+                                        {{/if}}
+                                    </span>
+                                    <span class="description"> {{organization.name}}</span>
+                                {{/link-to}}
+                            {{/each}}
+                        </ul>
+                    </section>
+                    <section class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
                         {{outlet}}
                     </section>
                 {{else}}
@@ -556,19 +574,32 @@
 
         <!-- ========================================================================================== Organization -->
         <script type="text/html" data-template-name="organizations/organization">
-            <section id="organization" {{bind-attr class="isEditing:editing"}}>
-                <article class="row">
-                    <div class="col-xs-12">
-                        <h2>{{model.name}}</h2>
+            <header class="row" id="organization">
+                <section class="col-xs-12">
+                    <div class="avatar">
+                        {{#if model.logo}}
+                            <span class="center-cropped logo" style='{{model.bgimg}}'></span>
+                        {{else}}
+                            <span class="logo"><i class="fa fa-picture-o fa-2x"></i></span>
+                        {{/if}}
                     </div>
-                </article>
-                <article class="row">
+                    <h1  style="border-bottom: #ccc solid 1px">{{model.name}}</h1>
+                </section>
+            </header>
+            {{outlet}}
+        </script>
+
+
+        <!-- ========================================================================================== Organization -->
+        <script type="text/html" data-template-name="organizations/organization/index">
+            <section id="organization" {{bind-attr class="isEditing:editing"}}>
+                <section class="row">
                     {{#if isEditing}}
                         <!-- UPDATE -->
                         <div class="col-md-12">
                             <form class="form-horizontal" role="form">
                                 <fieldset>
-                                    <div class="form-group">
+                                    <div class="form-group">f
                                         <div class="input-group">
                                             <span class="input-group-addon">Name</span>
                                             {{input valueBinding='model.name' class="form-control" required=true}}
@@ -604,7 +635,7 @@
                                 <dt>Creation:</dt>
                                 <dd>{{dateFormat model.created}}</dd>
                                 <dt>Last update:</dt>
-                                <dd>{{date Format model.updated}}</dd>
+                                <dd>{{date model.updated}}</dd>
                             </dl>
                             <div class="text-right">
                                 <hr/>
@@ -613,7 +644,7 @@
                             </div>
                         </div>
                     {{/if}}
-                </article>
+                </section>
             </section>
             <section class="row">
                 <section class="col-xs-12">
@@ -627,25 +658,27 @@
         <!--                                                                                                   Users -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name='users/signup'>
-            <section id="signup" class="row text-center">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <div class="jumbotron">
-                        <form class="form-horizontal" {{action "createUser" on="submit"}}>
-                            <div class="form-group">
-                                {{input value=name type="text" class="form-control input-lg" id="name" placeholder="name" required=true}}
-                            </div>
-                            <div class="form-group">
-                                {{input value=email type="text" class="form-control input-lg" id="email" placeholder="email" required=true}}
-                            </div>
-                            <div class="form-group">
-                                {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password" required=true}}
-                            </div>
-                            {{#link-to 'sessions'}}login{{/link-to}} or
-                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
-                        </form>
+            <div class="container">
+                <section id="signup" class="row text-center">
+                    <div class="col-xs-12 col-md-6 col-md-offset-2">
+                        <div class="jumbotron">
+                            <form {{action "createUser" on="submit"}}>
+                                <div class="form-group">
+                                    {{input value=name type="text" class="form-control input-lg" id="name" placeholder="name" required=true}}
+                                </div>
+                                <div class="form-group">
+                                    {{input value=email type="email" class="form-control input-lg" id="email" placeholder="email" required=true}}
+                                </div>
+                                <div class="form-group">
+                                    {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password" required=true}}
+                                </div>
+                                {{#link-to 'sessions'}}login{{/link-to}} or
+                                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </script>
 
         <script type="text/html" data-template-name='users/user'>
@@ -666,23 +699,25 @@
         <!--                                                                                                Sessions -->
         <!-- ======================================================================================================= -->
         <script type="text/html" data-template-name='sessions'>
-            <section id="login" class="row text-center">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <div class="jumbotron">
-                        <form class="form-horizontal" {{action "loginUser" on="submit"}}>
-                            <div class="form-group">
-                                {{input value=email type="text" class="form-control input-lg" id="email" placeholder="email"}}
-                            </div>
-                            <div class="form-group">
-                                {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password"}}
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
-                            or
-                            {{#link-to 'users.signup'}}create an account{{/link-to}}
-                        </form>
+            <div class="container">
+                <section id="login" class="row text-center">
+                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                        <div class="jumbotron">
+                            <form {{action "loginUser" on="submit"}}>
+                                <div class="form-group">
+                                    {{input value=email type="text" class="form-control input-lg" id="email" placeholder="email"}}
+                                </div>
+                                <div class="form-group">
+                                    {{input value=password type="password" class="form-control input-lg" id="password" placeholder="password"}}
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                or
+                                {{#link-to 'users.signup'}}create an account{{/link-to}}
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </script>
 
 
@@ -724,8 +759,8 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
         <!-- ember -->
-        <!--<script src="//builds.emberjs.com/release/ember.debug.js"></script>-->
-        <script src="js/libs/ember.prod.js"></script>
+        <script src="//builds.emberjs.com/release/ember.debug.js"></script>
+        <!--<script src="js/libs/ember.prod.js"></script>-->
         <script src="js/libs/ember-template-compiler.js"></script>
         <script src="js/libs/ember-data.min.js"></script>
         <script src="js/libs/localstorage_adapter.js"></script>
@@ -755,6 +790,7 @@
         <script src="js/app/controllers/sessions.js"></script>
 
         <!-- Views -->
+        <script src="js/app/views/animals.js"></script>
         <script src="js/app/views/imagepicker.js"></script>
         <script src="js/app/views/datepicker.js"></script>
         <script src="js/app/views/colorpicker.js"></script>
@@ -771,7 +807,6 @@
 
         <!-- Routes -->
         <script src="js/app/routes/router.js"></script>
-        <script src="js/app/routes/animals.js"></script>
         <script src="js/app/routes/organizations.js"></script>
 
         <!-- Components -->
