@@ -72,13 +72,13 @@ public class OrganizationDTO extends Organization {
         super(organization.getLogo(),
               UserDTO.valueOfIDs(organization.getUsers()),
               AnimalDTO.valueOfIDs(organization.getAnimals()),
-              organization.getId(), organization.getName(), organization.getCreated(), organization.getUpdated());
+              organization.getId(), organization.getName(), organization.getCreated(), organization.getUpdated(), organization.getCapacity());
     }
 
     /*
      * DTO to Domain
      */
     public eu.lpinto.petshelter.persistence.entities.Organization entity() {
-        return new eu.lpinto.petshelter.persistence.entities.Organization(id, created, updated, name, logo, UserDTO.entities(users), AnimalDTO.entities(animals));
+        return new eu.lpinto.petshelter.persistence.entities.Organization(id, created, updated, name, logo, UserDTO.entities(users), AnimalDTO.entities(animals), capacity);
     }
 }

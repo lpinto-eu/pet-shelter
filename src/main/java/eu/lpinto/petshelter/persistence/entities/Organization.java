@@ -69,6 +69,7 @@ public class Organization implements Serializable {
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private List<Animal> animals;
 
+    private Integer capacity;
 
     /* Constructors */
     public Organization() {
@@ -78,7 +79,7 @@ public class Organization implements Serializable {
         this.id = id;
     }
 
-    public Organization(Integer id, Calendar created, Calendar updated, String name, String logo, List<User> users, List<Animal> animals) {
+    public Organization(Integer id, Calendar created, Calendar updated, String name, String logo, List<User> users, List<Animal> animals, Integer capacity) {
         this.id = id;
         this.created = created;
         this.updated = updated;
@@ -86,6 +87,7 @@ public class Organization implements Serializable {
         this.logo = logo;
         this.users = users;
         this.animals = animals;
+        this.capacity = capacity;
     }
 
     /* Getters/Setters */
@@ -127,6 +129,14 @@ public class Organization implements Serializable {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     @Override
