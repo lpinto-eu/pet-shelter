@@ -77,6 +77,6 @@ public class AnimalDTO extends Animal {
      * DTO to Domain
      */
     public eu.lpinto.petshelter.persistence.entities.Animal entity() {
-        return new eu.lpinto.petshelter.persistence.entities.Animal(id, created, updated, name, age, species, breed, drugs, sex, sterilized, status, picture, observations, admission, furPattern, proportion, weight, primaryColor, secondaryColor, null, new eu.lpinto.petshelter.persistence.entities.Organization(organization));
+        return new eu.lpinto.petshelter.persistence.entities.Animal(id, created, updated, name, age, species, breed, drugs, sex, sterilized, status, picture, observations, admission, furPattern, proportion, weight, primaryColor, secondaryColor, new eu.lpinto.petshelter.persistence.entities.Organization(organization));
     }
 }

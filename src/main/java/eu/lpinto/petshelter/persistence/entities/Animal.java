@@ -8,9 +8,7 @@
 package eu.lpinto.petshelter.persistence.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +20,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -112,9 +109,6 @@ public class Animal implements Serializable {
     @Size(max = 30)
     private String secondaryColor;
 
-    @OneToMany(mappedBy = "animal")
-    private List<ClinicalEpisode> clinicalEpisodes;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORGANIZATION_ID")
     private Organization organization;
@@ -129,7 +123,7 @@ public class Animal implements Serializable {
         this.id = id;
     }
 
-    public Animal(Integer id, Calendar created, Calendar updated, String name, Integer age, String species, String breed, String drugs, String sex, Boolean sterilized, Integer status, String picture, String observations, Calendar admission, String furPattern, Integer proportion, Float weight, String primaryColor, String secondaryColor, List<ClinicalEpisode> clinicalEpisodes, Organization organization) {
+    public Animal(Integer id, Calendar created, Calendar updated, String name, Integer age, String species, String breed, String drugs, String sex, Boolean sterilized, Integer status, String picture, String observations, Calendar admission, String furPattern, Integer proportion, Float weight, String primaryColor, String secondaryColor, Organization organization) {
         this.id = id;
         this.created = created;
         this.updated = updated;
@@ -149,7 +143,6 @@ public class Animal implements Serializable {
         this.weight = weight;
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
-        this.clinicalEpisodes = clinicalEpisodes;
         this.organization = organization;
     }
 
@@ -334,18 +327,6 @@ public class Animal implements Serializable {
 
     public void setSecondaryColor(final String secondaryColor) {
         this.secondaryColor = secondaryColor;
-    }
-
-    public List<ClinicalEpisode> getClinicalEpisodes() {
-        if (this.clinicalEpisodes == null) {
-            return new ArrayList<>(0);
-        }
-
-        return clinicalEpisodes;
-    }
-
-    public void setClinicalEpisodes(final List<ClinicalEpisode> clinicalEpisodes) {
-        this.clinicalEpisodes = clinicalEpisodes;
     }
 
     public Organization getOrganization() {

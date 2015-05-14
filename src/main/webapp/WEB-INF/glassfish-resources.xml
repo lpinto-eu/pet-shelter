@@ -6,9 +6,9 @@
                           datasource-classname="com.mysql.jdbc.Driver"
                           name="petshelterPool"
                           res-type="java.sql.Driver">
-        <property name="user" value="X"/>
-        <property name="password" value="X"/>
-        <property name="URL" value="jdbc:mysql://0.0.0.0:3306/X"/>
+        <property name="user" value="petshelter"/>
+        <property name="password" value="petshelter"/>
+        <property name="URL" value="jdbc:mysql://62.28.40.222:3306/petshelter_test2"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="java:app/jdbc/petshelter" object-type="user" pool-name="petshelterPool"/>
