@@ -72,6 +72,7 @@ public class Animal implements Serializable {
     private Integer age;
 
     @Size(max = 30)
+    @Column(nullable = false)
     private String species;
 
     @Size(max = 30)
@@ -81,6 +82,7 @@ public class Animal implements Serializable {
     private String drugs;
 
     @Size(max = 1)
+    @Column(nullable = false)
     private String sex;
 
     private Boolean sterilized;
