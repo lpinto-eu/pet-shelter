@@ -41,7 +41,7 @@ App.OrganizationsOrganizationAnimalsIndexRoute =  App.AuthenticatedRoute.extend(
     }
 });
 
-App.OrganizationsOrganizationAnimalsNewRoute = App.AuthenticatedRoute.extend({
+App.OrganizationsOrganizationAnimalNewRoute = App.AuthenticatedRoute.extend({
     model: function(params) {
         return {organization: this.modelFor('organizationsOrganization').get("id")};
     }

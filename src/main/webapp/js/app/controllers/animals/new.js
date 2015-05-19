@@ -1,4 +1,4 @@
-App.OrganizationsOrganizationAnimalsNewController = Ember.Controller.extend({
+App.OrganizationsOrganizationAnimalNewController = Ember.Controller.extend({
     needs: ['OrganizationsOrganization'],
     actions: {
         save: function (organizationID) {

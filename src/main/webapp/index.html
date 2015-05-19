@@ -121,7 +121,7 @@
                     <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-lg-pull-8" style="border-left: #ccc solid 1px;">
                         <header>
                             <h3 style="display: inline-block">Animals</h3>
-                             {{#link-to "organizations.organization.animals.new" title="Add new"}}<i class="fa fa-plus-square text-success"></i>{{/link-to}}
+                             {{#link-to "organizations.organization.animalNew" title="Add new"}}<i class="fa fa-plus-square text-success"></i>{{/link-to}}
                         </header>
                         <ul class="no-bullets" style="{{view.dynheight}}">
                             {{#each animal in this}}
@@ -157,7 +157,7 @@
                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                             <span class="sr-only">Error:</span> There are no animals to be displayed.
                             <div class="pull-right">
-                                {{#link-to "organizations.organization.animals.new" activeClass="active" title="Add new" class="alert-warning"}}
+                                {{#link-to "organizations.organization.animalNew" activeClass="active" title="Add new" class="alert-warning"}}
                                     <i class="fa fa-plus-square"></i> Register animal
                                 {{/link-to}}
                             </div>
@@ -185,7 +185,7 @@
         </script>
 
         <!-- =========================================================================================== Animals New -->
-        <script type = "text/html" data-template-name="organizations/organization/animals/new">
+        <script type = "text/html" data-template-name="organizations/organization/animalNew">
             <article class ="col-xs-12" id="section-animal-new">
                 <h3>Add new Animal</h3>
                 <div class="well">
