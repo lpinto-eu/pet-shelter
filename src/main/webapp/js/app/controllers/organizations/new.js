@@ -9,7 +9,7 @@ App.OrganizationsNewController = Ember.Controller.extend({
             var self = this;
                 this.get('model').save()
                         .then(function () {
-                            self.transitionToRoute('organizations');
+                        self.transitionToRoute('organizations.organization', self.get("id"));
                         }, function (reason) {
                             self.send('error', reason);
                         });
